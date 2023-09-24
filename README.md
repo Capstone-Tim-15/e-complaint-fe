@@ -1,6 +1,6 @@
 # Key Activities React
 
-**### Admin**
+### Admin
 
 - Landing Page
 - Dashboard (Summary statistics, recent complaints, and important tasks.)
