@@ -6,7 +6,7 @@ import { Container, Row, Col } from "react-bootstrap";
 
 export default function Layout() {
   return (
-    <Container fluid>
+    <>
       <Row as="row">
         <Col lg="12">
           <Topbar />
@@ -20,6 +20,6 @@ export default function Layout() {
           </Col>
         </Row>
       </Row>
-    </Container>
+    </>
   );
 }
