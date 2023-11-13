@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
+import Header from "../components/LandingPage/Header/Header";
+import Footer from "../components/LandingPage/Footer/Footer";
 import { Link } from "react-router-dom";
 import image1 from "../assets/lp-1.png";
 import image2 from "../assets/lp-2.png";

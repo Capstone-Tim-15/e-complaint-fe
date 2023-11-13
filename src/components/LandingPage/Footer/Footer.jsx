@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
+import logo from "../../../assets/logo.png";
 import "./Footer.css";
 
 const quick__links = [

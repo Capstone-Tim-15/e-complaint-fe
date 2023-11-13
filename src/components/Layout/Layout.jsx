@@ -1,15 +1,11 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LandingPage from "../pages/LandingPage";
+import Sidebar from './Sidebar';
+import Topbar from './Topbar';
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <LandingPage />,
-  },
-]);
-
-function Router() {
-  return <RouterProvider router={router} />;
+export default function Layout(props) {
+    return (
+        <div>
+            <Topbar />
+            <Sidebar />
+        </div>
+    );
 }
-
-export default Router;
