@@ -16,6 +16,7 @@
 .footer__link-title {
   color: white;
   margin-bottom: 1rem;
+  font-weight: 700;
 }
 
 .footer__quick-links li a {
