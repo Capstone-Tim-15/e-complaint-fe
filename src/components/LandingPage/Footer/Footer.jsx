@@ -6,31 +6,39 @@ import "./Footer.css";
 
 const quick__links = [
   {
-    // path: "/home",
-    display: "Home",
+    path: "/faq",
+    display: "FAQ",
   },
   {
-    // path: "/tours",
-    display: "Tour",
+    path: "/hiw",
+    display: "How it Works",
   },
   {
-    // path: "/about",
-    display: "About",
+    path: "/features",
+    display: "Features",
+  },
+  {
+    path: "/contact",
+    display: "Contact",
   },
 ];
 
 const quick__links2 = [
   {
-    // path: "/gallery",
-    display: "Gallery",
+    path: "/facebook",
+    display: "Facebook",
   },
   {
-    // path: "/login",
-    display: "Login",
+    path: "/instagram",
+    display: "Instagram",
   },
   {
-    // path: "/register",
-    display: "Register",
+    path: "/youtube",
+    display: "Youtube",
+  },
+  {
+    path: "/twitter",
+    display: "Twitter",
   },
 ];
 
