@@ -1,10 +1,13 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Header from "../components/LandingPage/Header/Header";
 import Footer from "../components/LandingPage/Footer/Footer";
-import { Link } from "react-router-dom";
 import image1 from "../assets/lp-1.png";
 import image2 from "../assets/lp-2.png";
+import image3 from "../assets/lp-3.png";
+import GuideList from "../components/guide/GuideList";
+import Layout from "../components/Layout/Layout";
 import "../styles/landing-page.css";
 
 export default function LandingPage() {
@@ -26,7 +29,7 @@ export default function LandingPage() {
                     </Link>
                   </Button>
                   <Button className="btn secondary__btn ">
-                    <Link to="/login">
+                    <Link to="/layout">
                       <span>Login</span>
                     </Link>
                   </Button>
@@ -45,11 +48,37 @@ export default function LandingPage() {
           </Row>
         </Container>
       </section>
+
       <section className="section__2 d-flex justify-content-center align-items-center text-center">
         <Container>
           <Col lg="12">
             <span>Layanan Aspirasi dan Pengaduan Masyarakat</span>
           </Col>
+        </Container>
+      </section>
+
+      <section>
+        <Container>
+          <div className="section__3">
+            <Col lg="6">
+              <div className="image__wrapper">
+                <img className="lp__2" src={image3} alt="" />
+              </div>
+            </Col>
+            <Col lg="9">
+              <div className="title__section-3">
+                <h1>Hello, Welcome to our guide</h1>
+                <span className="subtitle">Berkunjung ke Dunia Fasilitas</span>
+                <br />
+                <span className="subtitle"> Terbaik Merasakan Keajaiban</span>
+                <br />
+                <spam className="subtitle">Kenyamanan Modern</spam>
+                <div className="d-flex justify-content-between ">
+                  <GuideList></GuideList>
+                </div>
+              </div>
+            </Col>
+          </div>
         </Container>
       </section>
       <Footer />
