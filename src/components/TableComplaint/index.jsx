@@ -137,14 +137,14 @@ export default function TableComplaint() {
                 <div className="align-self-center">
                   <img src="https://picsum.photos/65" className="rounded-circle "></img>
                 </div>
-                <p className="ms-1 fw-bold ">Ahmad Nur Syamsudin</p>
+                <p className="ms-1 fw-bold ">Budi</p>
               </div>
             </td>
-            <td id="desk">Jalan Simatupang yang membutuhkan lebih banyak penerangan, dan perbaikan jalan yang rusak</td>
+            <td id="desk">Saya ingin melaporkan masalah pencahayaan di Jalan Raja Ali Haji, Batam Centre. Beberapa lampu jalan mati, dan ini membuat daerah tersebut terasa kurang aman. Bisa dibantu untuk memperbaiki lampu-lampu ini?</td>
             <td>Lingkungan</td>
-            <td>20 Oktober 2023</td>
+            <td>20/10/2023</td>
             <td id="state">
-              <div className="bg-warning text-center px-3 p-1 me-3 rounded-5 self-center">Proses</div>
+              <div className="bg-warning text-center text-white px-3 p-1 me-3 rounded-5 self-center">Proses</div>
             </td>
             <td>
               <button onClick={toggleModal}>
@@ -161,14 +161,66 @@ export default function TableComplaint() {
                 <div className="align-self-center">
                   <img src="https://picsum.photos/65" className="rounded-circle "></img>
                 </div>
-                <p className="ms-1 fw-bold ">Anggi Fatmawati</p>
+                <p className="ms-1 fw-bold ">Tatang</p>
               </div>
             </td>
-            <td id="desk">Dalam rangka meningkatkan kualitas pendidikan di Indonesia, fasilitas merupakan sarana penting dalam pelaksanaannya, Kurangnya Bangku dan meja untuk kelas di SD Melati 2</td>
-            <td>Pendidikan</td>
-            <td>03 November 2023</td>
+            <td id="desk">Saya sering menggunakan transportasi umum di Batam, tetapi beberapa kali saya terlambat karena ketidakpastian jadwal bus. Apakah ada upaya untuk meningkatkan keandalan transportasi umum?</td>
+            <td>Transportasi</td>
+            <td>03/11/2023</td>
             <td id="state">
-              <div className="bg-warning text-center px-3 p-1 me-3 rounded-5">Proses</div>
+              <div className="bg-warning text-center text-white px-3 p-1 me-3 rounded-5">Proses</div>
+            </td>
+            <td>
+              <div id="action">
+                <button onClick={toggleModal}>
+                  <Icon icon="uil:edit" width="35" height="35" style={{ marginRight: "1.5rem" }} onClick={toggleModal} />
+                </button>
+                <button>
+                  <Icon icon="mdi:trash-can-outline" width="35" height="35" />
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div className="d-flex">
+                <div className="align-self-center">
+                  <img src="https://picsum.photos/65" className="rounded-circle "></img>
+                </div>
+                <p className="ms-1 fw-bold ">Fitriani</p>
+              </div>
+            </td>
+            <td id="desk">SMP Negeri 5 Batam perlu kurikulum dan fasilitas yang lebih baik. Anak-anak kami butuh pendidikan yang lebih canggih. Terima kasih.</td>
+            <td>Pendidikan</td>
+            <td>07/11/2023</td>
+            <td id="state">
+              <div className="bg-success text-center text-white px-3 p-1 me-3 rounded-5">Selesai</div>
+            </td>
+            <td>
+              <div id="action">
+                <button onClick={toggleModal}>
+                  <Icon icon="uil:edit" width="35" height="35" style={{ marginRight: "1.5rem" }} onClick={toggleModal} />
+                </button>
+                <button>
+                  <Icon icon="mdi:trash-can-outline" width="35" height="35" />
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div className="d-flex">
+                <div className="align-self-center">
+                  <img src="https://picsum.photos/65" className="rounded-circle "></img>
+                </div>
+                <p className="ms-1 fw-bold ">Tatang</p>
+              </div>
+            </td>
+            <td id="desk">Saya sering menggunakan transportasi umum di Batam, tetapi beberapa kali saya terlambat karena ketidakpastian jadwal bus. Apakah ada upaya untuk meningkatkan keandalan transportasi umum?</td>
+            <td>Transportasi</td>
+            <td>03/11/2023</td>
+            <td id="state">
+              <div className="bg-success text-center text-white px-3 p-1 me-3 rounded-5">Proses</div>
             </td>
             <td>
               <div id="action">
