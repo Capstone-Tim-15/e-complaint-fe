@@ -10,7 +10,7 @@ export default function Routers() {
       <Route path="/" element={<Navigate to="/dashboard"></Navigate>}></Route>
       <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
       <Route path="/complaint" element={<Complaint></Complaint>}></Route>
-      <Route path="/manageberita" element={<ManageBerita/>}></Route>
+      <Route path="/berita" element={<ManageBerita/>}></Route>
     </Routes>
 
   );
