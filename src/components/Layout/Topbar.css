@@ -43,6 +43,13 @@
   width: 40px;
   height: 40px;
 }
+.profile-image button {
+  background-color: transparent;
+  color: white;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
 .notif-name {
   color: white;
   font-size: 14px;
