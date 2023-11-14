@@ -199,3 +199,41 @@
   margin-left: -100px;
   margin-bottom: -65px;
 }
+
+.section__5 .title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.section__5 .sub__title {
+  font-size: 5.5rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+  margin-bottom: 0;
+}
+
+.section__5 .section__5-content {
+  margin: 0 50px 0 50px;
+}
+
+.section__5-content .content__title {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.section__5-content img {
+  width: 100%;
+}
+
+.section__5-content .desc__content {
+  margin-top: 10px;
+}
+
+.section__5-content .desc__content div > p {
+  font-size: 1.3rem;
+}
+
+.section__5-content .desc__content div > p > span {
+  font-weight: 700;
+}
