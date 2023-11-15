@@ -1,5 +1,8 @@
 import React from "react";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  return <div>Login</div>;
+  const navigate = useNavigate();
+  return <Button onClick={() => navigate("/dashboard")}>Dashboard</Button>;
 }
