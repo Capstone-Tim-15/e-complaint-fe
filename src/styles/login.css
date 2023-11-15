@@ -1,0 +1,102 @@
+.background {
+  background: rgb(147, 26, 19);
+  background: linear-gradient(
+    360deg,
+    rgba(147, 26, 19, 1) 0%,
+    rgba(230, 78, 69, 1) 116.44%
+  );
+  width: 100%;
+  height: 1000px;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 5rem 10rem;
+  border-radius: 5rem;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.sub__title {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.content .input__group-pass {
+  width: 140%;
+}
+
+.content .input__group-pass button {
+  background-color: #ec7b73;
+  border: none;
+}
+.content .input__group-pass button:hover {
+  background-color: #c4645e;
+  border: none;
+}
+
+.content .email__input {
+  width: 140%;
+}
+
+.content .login__button {
+  background-color: #ec7b73;
+  border: none !important;
+  width: 80%;
+  height: 30px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center !important;
+  border-radius: 10px;
+}
+
+.content .login__button:hover {
+  background-color: #c4645e;
+  border: none !important;
+  width: 80%;
+  height: 30px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center !important;
+  border-radius: 10px;
+}
+
+.content p > button > span {
+  color: #f00;
+}
+
+.content p > button > span:hover {
+  color: rgb(180, 8, 8);
+}
+
+.content p > button {
+  background: none !important;
+  border: none;
+}
+
+.background .vector {
+  z-index: 5;
+  width: 100%;
+  margin-bottom: -209px;
+}
+
+.background .ellipse {
+  position: absolute !important;
+  z-index: 1;
+  width: 14%;
+  margin-right: -500px;
+  margin-top: -450px;
+}
