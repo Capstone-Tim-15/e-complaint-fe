@@ -20,7 +20,7 @@
   border-radius: 12px;
   cursor: pointer;
 }
-.thead {
+.thead tr th {
   background-color: #ec7b73;
   color: white;
 }
