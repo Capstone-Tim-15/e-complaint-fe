@@ -8,7 +8,7 @@
 }
 .Add{
     position: absolute;
-    top: 70px; 
+    top: 170px; 
     right: 45px; 
     padding: 10px;
     background-color: #E02216;
@@ -17,7 +17,7 @@
     border-radius: 12px;
     cursor: pointer;
 }
-.thead{
+.thead tr th{
     background-color: #EC7B73;
     color: white;
 }
