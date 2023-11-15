@@ -1,42 +1,51 @@
-.text1{
-    color: #E02216;
-    height: 49px;
-    top: 125px;
-    left: 317px;
-    margin-top: 20px;
-    padding: 10px;
+.title {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
-.Add{
-    position: absolute;
-    top: 70px; 
-    right: 45px; 
-    padding: 10px;
-    background-color: #E02216;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
+
+.text1 {
+  color: #e02216;
+  height: 49px;
+  top: 125px;
+  left: 317px;
+  margin-top: 20px;
+  padding: 10px;
 }
-.thead{
-    background-color: #EC7B73;
-    color: white;
+.Add {
+  padding: 10px;
+  background-color: #e02216;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.thead {
+  background-color: #ec7b73;
+  color: white;
 }
 
 #btn {
-    outline: none;
-    border: none;
-    background-color: #fff;
+  outline: none;
+  border: none;
+  background-color: #fff;
 }
 
-#status{
-    border-radius: 20px;
+#status {
+  border-radius: 20px;
 }
 
-#text2{
-    height: 30px;
-    width: 80px;
-    border-radius: 15px;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+.status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#text2 {
+  height: 30px;
+  width: 80px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
