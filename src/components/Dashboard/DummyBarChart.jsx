@@ -1,62 +1,50 @@
-export const UserData = [
-    {
-        id: 1,
-        month: "Januari",
-        Complaint: 52,
-    },
-    {
-        id: 2,
-        month: "Februari",
-        Complaint: 35,
-    },
-    {
-        id: 3,
-        month: "Maret",
-        Complaint: 90,
-    },
-    {
-        id: 4,
-        month: "April",
-        Complaint: 25,
-    },
-    {
-        id: 5,
-        month: "Mei",
-        Complaint: 165,
-    },
-    {
-        id: 6,
-        month: "Juni",
-        Complaint: 65,
-    },
-    {
-        id: 7,
-        month: "Juli",
-        Complaint: 80,
-    },
-    {
-        id: 8,
-        month: "Agustus",
-        Complaint: 183,
-    },
-    {
-        id: 9,
-        month: "September",
-        Complaint: 126,
-    },
-    {
-        id: 10,
-        month: "Oktober",
-        Complaint: 46,
-    },
-    {
-        id: 11,
-        month: "November",
-        Complaint: 25,
-    },
-    {
-        id: 12,
-        month: "Desember",
-        Complaint: 25,
-    },
+export const dataset = [
+  {
+    keluhan: 59,
+    month: "Jan",
+  },
+  {
+    keluhan: 50,
+    month: "Feb",
+  },
+  {
+    keluhan: 47,
+    month: "Mar",
+  },
+  {
+    keluhan: 54,
+    month: "Apr",
+  },
+  {
+    keluhan: 57,
+    month: "May",
+  },
+  {
+    keluhan: 60,
+    month: "June",
+  },
+  {
+    keluhan: 59,
+    month: "July",
+  },
+  {
+    keluhan: 65,
+    month: "Aug",
+  },
+  {
+    keluhan: 51,
+    month: "Sept",
+  },
+  {
+    keluhan: 60,
+    month: "Oct",
+  },
+  {
+    keluhan: 67,
+    month: "Nov",
+  },
+  {
+    keluhan: 61,
+    month: "Dec",
+  },
 ];

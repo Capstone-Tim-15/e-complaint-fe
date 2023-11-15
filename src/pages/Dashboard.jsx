@@ -1,36 +1,14 @@
-import React, { useState } from "react";
-import BarChart from "../components/Dashboard/BarChart";
-import { UserData } from "../components/Dashboard/DummyBarChart";
-import { Col, Row } from "react-bootstrap";
+import React from "react";
+import { BarChart, PieChart } from "@mui/x-charts";
+import {Card, Col, Row } from "react-bootstrap";
+import { dataset } from "../components/Dashboard/DummyBarChart";
+
+import Progress from "../components/Dashboard/Progress";
+
 import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
 
 function Dashboard() {
-  const [userData, setUserData] = useState({
-    labels: UserData.map((data) => data.month),
-    datasets: [
-      {
-        label: "Complaint",
-        data: UserData.map((data) => data.Complaint),
-        backgroundColor: ["#E02216"],
-        borderColor: "white",
-        borderWidth: 1,
-        barPercentage: 0.8,
-        categoryPercentage: 0.7,
-        borderRadius: 8,
-      },
-    ],
-  });
-  const chartOptions = {
-    scales: {
-      y: {
-        grid: {
-          display: false,
-        },
-      },
-    },
-  };
-
   return (
     <>
       <Row as="row">
@@ -42,16 +20,52 @@ function Dashboard() {
             <Sidebar />
           </Col>
           <Col lg="10">
-            <div className="row">
-              <div className="col-lg-7">
-                <div>
-                  <BarChart chartData={userData} options={chartOptions} />
-                </div>
-              </div>
-              <div className="col-lg-3">
-                <h1>world</h1>
-              </div>
-            </div>
+            <Row>
+              <Col xs={12} md={6} style={{ padding: "16px" }}>
+                <Card className="w-fit p-2 rounded-lg">
+                  <Card.Body className="d-flex justify-content-between align-items-center">
+                    <h4 className="font-weight-medium fs-4">Keluhan Masuk</h4>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      width={24}
+                      height={24}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                      />
+                    </svg>
+                  </Card.Body>
+                  <BarChart
+                    dataset={dataset}
+                    xAxis={[{ scaleType: "band", dataKey: "month" }]}
+                    series={[{ dataKey: "keluhan", color: "red" }]}
+                    width={500}
+                    height={250}
+                    style={{ borderRadius: "10px", margin: "10px" }}
+                  />
+                </Card>
+              </Col>
+              <Col xs={12} md={6} style={{ padding: "16px" }}></Col>
+            </Row>
+            <Row className="gx-1">
+              <Col xs={12} md={6} style={{ padding: "16px" }}>
+                <Card className="w-100 p-2 rounded-lg">
+                  <Card.Body>
+                    <h4 className="text-xl font-weight-bold my-2">
+                      Aktivitas Terkini
+                    </h4>
+                    <Progress />
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col xs={12} md={6} style={{ padding: "16px" }}></Col>
+            </Row>
           </Col>
         </Row>
       </Row>
