@@ -1,12 +1,13 @@
 import React from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./Sidebar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Button } from "react-bootstrap";
 import { HiOutlineLogout } from "react-icons/hi";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <div className="sidebar all-sidebar d-flex flex-column justify-content-center align-items-center text-white vh-100">
       <div className="text-center">
@@ -62,7 +63,11 @@ const Sidebar = () => {
 
       <div className="text-center mt-auto">
         <hr className="text-secondary" />
-        <Button variant="primary" className="d-flex align-items-center">
+        <Button
+          onClick={() => navigate("/")}
+          variant="primary"
+          className="d-flex align-items-center"
+        >
           <HiOutlineLogout className="me-2 fs-5" />
           LOG OUT
         </Button>
