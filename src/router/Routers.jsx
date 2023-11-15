@@ -12,6 +12,7 @@ export default function Routers() {
       <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
       <Route path="/complaint" element={<Complaint></Complaint>}></Route>
       <Route path="/berita" element={<ManageBerita/>}></Route>
+      <Route path="/chat" element={<ChatList></ChatList>}></Route>
     </Routes>
   );
 }
