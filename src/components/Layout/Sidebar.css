@@ -1,3 +1,26 @@
 .all-sidebar {
-    background-color: #E64E45 !important;
+    background-color: #e64e45;
+    min-height: 87vh;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.button-side {
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    transition: all 0.5s;
+}
+
+.button-side:hover {
+    border: none;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.active-link {
+    background-color: #28a745; /* Green color for the active link */
 }
