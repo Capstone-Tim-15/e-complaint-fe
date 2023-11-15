@@ -18,8 +18,7 @@ const Styledtable = styled.div`
     padding: 0.5rem;
   }
   table {
-    max-width: 98%;
-    margin: 1rem;
+    margin-top: 1rem;
     border-collapse: collapse;
     width: 100%;
   }
