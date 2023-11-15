@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import BarChart from "../components/Dashboard/BarChart";
 import { UserData } from "../components/Dashboard/DummyBarChart";
+import { Col, Row } from "react-bootstrap";
+import Sidebar from "../components/Layout/Sidebar";
+import Topbar from "../components/Layout/Topbar";
 
 function Dashboard() {
   const [userData, setUserData] = useState({
@@ -30,16 +33,28 @@ function Dashboard() {
 
   return (
     <>
-      <div className="row">
-        <div className="col-lg-7">
-          <div>
-            <BarChart chartData={userData} options={chartOptions} />
-          </div>
-        </div>
-        <div className="col-lg-3">
-          <h1>world</h1>
-        </div>
-      </div>
+      <Row as="row">
+        <Col lg="12">
+          <Topbar />
+        </Col>
+        <Row as="row">
+          <Col lg="2">
+            <Sidebar />
+          </Col>
+          <Col lg="10">
+            <div className="row">
+              <div className="col-lg-7">
+                <div>
+                  <BarChart chartData={userData} options={chartOptions} />
+                </div>
+              </div>
+              <div className="col-lg-3">
+                <h1>world</h1>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Row>
     </>
   );
 }
