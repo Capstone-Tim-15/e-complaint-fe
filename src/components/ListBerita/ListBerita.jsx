@@ -1,6 +1,6 @@
 import React from "react";
 import { Icon } from "@iconify/react";
-import '../../styles/ListBerita.css'
+import '../ListBerita.css'
 
 const ListBerita = () => {
 
