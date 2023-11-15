@@ -7,7 +7,7 @@ import image1 from "../assets/lp-1.png";
 import image2 from "../assets/lp-2.png";
 import image3 from "../assets/lp-3.png";
 import image4 from "../assets/lp-4.png";
-import image5 from "../assets/lp-5.png";
+import Blog from "../components/BlogPost/blog";
 import GuideList from "../components/guide/GuideList";
 import Layout from "../components/Layout/Layout";
 import "../styles/landing-page.css";
@@ -126,6 +126,10 @@ export default function LandingPage() {
             </Col>
           </div>
         </Container>
+      </section>
+
+      <section>
+        <Blog></Blog>
       </section>
       <Footer />
     </>
