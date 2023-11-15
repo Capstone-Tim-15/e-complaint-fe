@@ -13,6 +13,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />}></Route>
+        <Route path="/home" element={<LandingPage />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/complaint" element={<Index />}></Route>
