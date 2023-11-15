@@ -1,8 +1,9 @@
 import React from "react";
 import { Icon } from "@iconify/react";
-import '../../styles/ListBerita.css'
+import './ListBerita.css';
 
 const ListBerita = () => {
+
 
     return(
       <div>
@@ -11,7 +12,7 @@ const ListBerita = () => {
           <button className="Add">Tambah Berita</button>
         </div>
       <div className="mt-2 p-5">
-      <table className="table text-center">
+      <table className="table table-borderless text-center">
       <thead className="thead">
         <tr>
           <th scope="col">Author</th>
@@ -22,12 +23,12 @@ const ListBerita = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
+          <tr>
           <th scope="row">Fery Admin</th>
-          <td >Investasi Prospektid, Ini Alasannya</td>
+          <td >Investasi Prospektif, Ini Alasannya</td>
           <td >31 Oktober 2023</td>
-          <td>
-          <div className="bg-warning justify-content-center text-white" id="text2">Proses</div>
+          <td className="status">
+          <p className="bg-warning text-white" id="text2" >Proses</p>
           </td>
           <td className="button me-1">
           <button className="me-2" id="btn">
@@ -42,9 +43,6 @@ const ListBerita = () => {
     </table>
       </div>
       </div>
-
-
-
     )
 }
 

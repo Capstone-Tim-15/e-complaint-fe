@@ -1,7 +1,3 @@
-*{
-    font-family: var(--nunito);
-}
-  
 .text1{
     color: #E02216;
     height: 49px;
@@ -38,7 +34,9 @@
 
 #text2{
     height: 30px;
-    width: 100px;
+    width: 80px;
     border-radius: 15px;
     justify-content: center;
+    align-items: center;
+    text-align: center;
 }
