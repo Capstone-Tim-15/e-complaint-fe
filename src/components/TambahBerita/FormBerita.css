@@ -1,0 +1,15 @@
+.berita{
+  background-color: rgb(255, 195, 190);
+  padding: 25px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.text{
+  margin-top: 50px;
+}
+.button{
+  width: 100px;
+  height: 40px;
+}
+
+
