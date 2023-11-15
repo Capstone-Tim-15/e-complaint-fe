@@ -1,12 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import './ListBerita.css'
+import { Icon } from "@iconify/react";
+import '../../styles/ListBerita.css'
 
 const ListBerita = () => {
 
     return(
       <div>
-        <h1 className="text1"> Daftar Berita </h1>
+        <h1 className="text1 ms-4 mb-3"> Daftar Berita </h1>
         <div>
           <button className="Add">Tambah Berita</button>
         </div>
@@ -26,12 +26,16 @@ const ListBerita = () => {
           <th scope="row">Fery Admin</th>
           <td >Investasi Prospektid, Ini Alasannya</td>
           <td >31 Oktober 2023</td>
-          <td >
-            <button className="btn btn-success"> Process </button>
-          </td>
           <td>
-            <button className="btn btn-primary me-2"> edit </button>
-            <button className="btn btn-warning"> delete </button>
+          <div className="bg-warning justify-content-center text-white" id="text2">Proses</div>
+          </td>
+          <td className="button me-1">
+          <button className="me-2" id="btn">
+                  <Icon icon="uil:edit" width="35" height="35"/>
+                </button>
+          <button id="btn">
+                  <Icon icon="mdi:trash-can-outline" width="35" height="35" />
+            </button>
           </td>
         </tr>
       </tbody>

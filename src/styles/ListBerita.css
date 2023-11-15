@@ -1,3 +1,7 @@
+* {
+    font-family: var(--nunito);
+  }
+  
 .text1{
     color: #E02216;
     height: 49px;
@@ -20,4 +24,21 @@
 .thead{
     background-color: #EC7B73;
     color: white;
+}
+
+#btn {
+    outline: none;
+    border: none;
+    background-color: #fff;
+}
+
+#status{
+    border-radius: 20px;
+}
+
+#text2{
+    height: 30px;
+    width: 100px;
+    border-radius: 15px;
+    justify-content: center;
 }
