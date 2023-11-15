@@ -1,11 +1,9 @@
 import React from "react";
+import FormBerita from "../components/TambahBerita/FormBerita";
 
 const ManageBerita = () => {
-
     return(
-        <div>
-            Haiii
-        </div>
+        <FormBerita></FormBerita>
     )
 }
 
