@@ -21,7 +21,7 @@ function Dashboard() {
           </Col>
           <Col lg="10">
             <Row>
-              <Col xs={12} md={6} style={{ padding: "16px" }}>
+              <Col xs={12} md={7} style={{ padding: "16px" }}>
                 <Card className="w-fit p-2 rounded-lg">
                   <Card.Body className="d-flex justify-content-between align-items-center">
                     <h4 className="font-weight-medium fs-4">Keluhan Masuk</h4>
@@ -48,23 +48,26 @@ function Dashboard() {
                     width={500}
                     height={250}
                     style={{ borderRadius: "10px", margin: "10px" }}
+                    margin={{ top: 20, right: 0, bottom: 30, left: 30 }}
                   />
                 </Card>
               </Col>
-              <Col xs={12} md={6} style={{ padding: "16px" }}></Col>
+              <Col xs={12} md={5} style={{ padding: "16px" }}>
+
+              </Col>
             </Row>
             <Row className="gx-1">
-              <Col xs={12} md={6} style={{ padding: "16px" }}>
+              <Col xs={12} md={5} style={{ padding: "16px" }}>
                 <Card className="w-100 p-2 rounded-lg">
                   <Card.Body>
-                    <h4 className="text-xl font-weight-bold my-2">
+                    <h4 className="text-xl font-weight-bold my-2 mb-5">
                       Aktivitas Terkini
                     </h4>
                     <Progress />
                   </Card.Body>
                 </Card>
               </Col>
-              <Col xs={12} md={6} style={{ padding: "16px" }}></Col>
+              <Col xs={12} md={7} style={{ padding: "16px" }}></Col>
             </Row>
           </Col>
         </Row>
