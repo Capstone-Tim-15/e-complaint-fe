@@ -44,12 +44,30 @@
 //     </>
 //   );
 // }
+import { useEffect, useState } from "react";
 import TableComplaint from "../components/TableComplaint";
+import Edit from "../components/Modal";
 
 export default function ComplaintPage() {
+  const [modal, setModal] = useState(false);
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+  if (document.body) {
+    document.body.classList.toggle("active-modal");
+  }
+
+  useEffect(() => {
+    if (modal) {
+      document.body.classList.add("active-modal");
+    } else {
+      document.body.classList.remove("active-modal");
+    }
+  }, [modal]);
   return (
     <>
-      <TableComplaint />
+      <TableComplaint onEditModal={toggleModal} />
+      {modal && <Edit onEditModal={toggleModal} />}
     </>
   );
 }
