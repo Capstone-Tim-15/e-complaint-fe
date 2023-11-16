@@ -1,5 +1,6 @@
 import React from "react";
 import { Icon } from "@iconify/react";
+import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import "./Topbar.css";
 
@@ -12,9 +13,15 @@ function Topbar() {
         <div className="profile-section">
           <div className="profile-info">
             <span className="profile-image ms-3">
-              <button>
-                <Icon icon="ion:notifications-outline" width="35" height="35" />
-              </button>
+              <Link to="/notification">
+                <button>
+                  <Icon
+                    icon="ion:notifications-outline"
+                    width="35"
+                    height="35"
+                  />
+                </button>
+              </Link>
             </span>
             <span className="notif-name">Notification</span>
           </div>
