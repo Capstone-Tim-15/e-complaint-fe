@@ -8,9 +8,9 @@ export default function ListComplaint(props) {
         <td>
           <div className="d-flex">
             <div className="align-self-center">
-              <img src={komplain.profil} className="rounded-circle "></img>
+              <img src={komplain.profil} className="rounded-circle" width={`80px`}></img>
             </div>
-            <p className="ms-1 fw-bold">{komplain.name}</p>
+            <p className="ms-1 fw-bold align-self-center">{komplain.name}</p>
           </div>
         </td>
         <td id="desk">{komplain.description}</td>
