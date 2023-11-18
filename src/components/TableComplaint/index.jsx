@@ -2,6 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
 
+import ModalDetail from "../ModalComplaint/detailComplaint";
+
 const Styledtable = styled.div`
   font-family: "Nunito Sans";
   padding: 1rem;
@@ -70,6 +72,21 @@ export default function TableComplaint() {
   const toggleModal = () => {
     setModal(!modal);
   };
+
+  // modal detail
+  const [showModal, setShowModal] = useState(false);
+  const [selectData, setSelectData] = useState(null);
+
+  const openModal = (data) => {
+    setSelectData(data);
+    setShowModal(true);
+  }
+
+  const closeModal = () => {
+    setSelectData(null);
+    setShowModal(false);
+  }
+
   return (
     <Styledtable>
       <div className="card">
@@ -234,6 +251,8 @@ export default function TableComplaint() {
           </tr>
         </tbody>
       </table>
+
+      {/* <ModalDetail show={showModal} handleClose={closeModal} data={selectData}></ModalDetail> */}
     </Styledtable>
   );
 }
