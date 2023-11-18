@@ -1,6 +1,10 @@
-import { useState } from "react";
 import styled from "styled-components";
-import { Icon } from "@iconify/react";
+import Sidebar from "../Layout/Sidebar";
+import Topbar from "../Layout/Topbar";
+import { Row, Col } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import ListComplaint from "./ListComplaint";
 
 import ModalDetail from "../ModalComplaint/detailComplaint";
 
@@ -64,195 +68,101 @@ const Styledtable = styled.div`
     display: flex;
   }
 `;
-export default function TableComplaint() {
+// eslint-disable-next-line react/prop-types
+export default function TableComplaint({ onEditModal }) {
   // Array untk tanggal
   const tanggalOptions = Array.from({ length: 31 }, (_, index) => index + 1);
-
-  const [modal, setModal] = useState(false);
-  const toggleModal = () => {
-    setModal(!modal);
-  };
-
-  // modal detail
-  const [showModal, setShowModal] = useState(false);
-  const [selectData, setSelectData] = useState(null);
-
-  const openModal = (data) => {
-    setSelectData(data);
-    setShowModal(true);
-  }
-
-  const closeModal = () => {
-    setSelectData(null);
-    setShowModal(false);
-  }
-
+  const [complaint, setComplaint] = useState([]);
+  useEffect(() => {
+    const getComplaint = async () => {
+      try {
+        const response = await axios.get("https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint");
+        setComplaint(response.data);
+      } catch (error) {
+        console.error("error", error);
+      }
+    };
+    getComplaint();
+  }, []);
   return (
-    <Styledtable>
-      <div className="card">
-        <div className="card-body">
-          <h2 id="judul">Complaint</h2>
-        </div>
-      </div>
-      <div className="card">
-        <div className="card-drop">
-          <div className="card-body">
-            <h3 id="judul">Total Laporan</h3>
-          </div>
-          <div className="drop">
-            <div className="dropdown">
-              <select>
-                <option value="" disabled selected>
-                  Kategori
-                </option>
-                <option>Lingkungan</option>
-                <option>Pendidikan</option>
-              </select>
-            </div>
-            <div className="dropdown">
-              <select id="tanggal" name="tanggal">
-                <option value="" disabled selected>
-                  Tanggal
-                </option>
-                {tanggalOptions.map((tanggal) => (
-                  <option key={tanggal} value={tanggal}>
-                    {tanggal}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="dropdown">
-              <select>
-                <option value="" disabled selected>
-                  Status
-                </option>
-                <option>Proses</option>
-                <option>Selesai</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Nama</th>
-            <th scope="col" id="desk">
-              Deskripsi
-            </th>
-            <th scope="col">Kategori</th>
-            <th scope="col">Tanggal</th>
-            <th scope="col">Status</th>
-            <th scope="col">Tindakan</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div className="d-flex">
-                <div className="align-self-center">
-                  <img src="https://picsum.photos/65" className="rounded-circle "></img>
+    <>
+      <Row as="row">
+        <Col lg="12">
+          <Topbar />
+        </Col>
+        <Row as="row">
+          <Col lg="2">
+            <Sidebar />
+          </Col>
+          <Col lg="10">
+            <Styledtable>
+              <div className="card">
+                <div className="card-body">
+                  <h2 id="judul">Complaint</h2>
                 </div>
-                <p className="ms-1 fw-bold ">Budi</p>
               </div>
-            </td>
-            <td id="desk">Saya ingin melaporkan masalah pencahayaan di Jalan Raja Ali Haji, Batam Centre. Beberapa lampu jalan mati, dan ini membuat daerah tersebut terasa kurang aman. Bisa dibantu untuk memperbaiki lampu-lampu ini?</td>
-            <td>Lingkungan</td>
-            <td>20/10/2023</td>
-            <td id="state">
-              <div className="bg-warning text-center text-white px-3 p-1 me-3 rounded-5 self-center">Proses</div>
-            </td>
-            <td>
-              <button onClick={toggleModal}>
-                <Icon icon="uil:edit" width="35" height="35" style={{ marginRight: "1.5rem" }} />
-              </button>
-              <button>
-                <Icon icon="mdi:trash-can-outline" width="35" height="35" />
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div className="d-flex">
-                <div className="align-self-center">
-                  <img src="https://picsum.photos/65" className="rounded-circle "></img>
+              <div className="card">
+                <div className="card-drop">
+                  <div className="card-body">
+                    <h3 id="judul">Total Laporan</h3>
+                  </div>
+                  <div className="drop">
+                    <div className="dropdown">
+                      <select>
+                        <option value="" disabled selected>
+                          Kategori
+                        </option>
+                        <option>Lingkungan</option>
+                        <option>Pendidikan</option>
+                      </select>
+                    </div>
+                    <div className="dropdown">
+                      <select id="tanggal" name="tanggal">
+                        <option value="" disabled selected>
+                          Tanggal
+                        </option>
+                        {tanggalOptions.map((tanggal) => (
+                          <option key={tanggal} value={tanggal}>
+                            {tanggal}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="dropdown">
+                      <select>
+                        <option value="" disabled selected>
+                          Status
+                        </option>
+                        <option>Proses</option>
+                        <option>Selesai</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
-                <p className="ms-1 fw-bold ">Tatang</p>
               </div>
-            </td>
-            <td id="desk">Saya sering menggunakan transportasi umum di Batam, tetapi beberapa kali saya terlambat karena ketidakpastian jadwal bus. Apakah ada upaya untuk meningkatkan keandalan transportasi umum?</td>
-            <td>Transportasi</td>
-            <td>03/11/2023</td>
-            <td id="state">
-              <div className="bg-warning text-center text-white px-3 p-1 me-3 rounded-5">Proses</div>
-            </td>
-            <td>
-              <div id="action">
-                <button onClick={toggleModal}>
-                  <Icon icon="uil:edit" width="35" height="35" style={{ marginRight: "1.5rem" }} onClick={toggleModal} />
-                </button>
-                <button>
-                  <Icon icon="mdi:trash-can-outline" width="35" height="35" />
-                </button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div className="d-flex">
-                <div className="align-self-center">
-                  <img src="https://picsum.photos/65" className="rounded-circle "></img>
-                </div>
-                <p className="ms-1 fw-bold ">Fitriani</p>
-              </div>
-            </td>
-            <td id="desk">SMP Negeri 5 Batam perlu kurikulum dan fasilitas yang lebih baik. Anak-anak kami butuh pendidikan yang lebih canggih. Terima kasih.</td>
-            <td>Pendidikan</td>
-            <td>07/11/2023</td>
-            <td id="state">
-              <div className="bg-success text-center text-white px-3 p-1 me-3 rounded-5">Selesai</div>
-            </td>
-            <td>
-              <div id="action">
-                <button onClick={toggleModal}>
-                  <Icon icon="uil:edit" width="35" height="35" style={{ marginRight: "1.5rem" }} onClick={toggleModal} />
-                </button>
-                <button>
-                  <Icon icon="mdi:trash-can-outline" width="35" height="35" />
-                </button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div className="d-flex">
-                <div className="align-self-center">
-                  <img src="https://picsum.photos/65" className="rounded-circle "></img>
-                </div>
-                <p className="ms-1 fw-bold ">Tatang</p>
-              </div>
-            </td>
-            <td id="desk">Saya sering menggunakan transportasi umum di Batam, tetapi beberapa kali saya terlambat karena ketidakpastian jadwal bus. Apakah ada upaya untuk meningkatkan keandalan transportasi umum?</td>
-            <td>Transportasi</td>
-            <td>03/11/2023</td>
-            <td id="state">
-              <div className="bg-success text-center text-white px-3 p-1 me-3 rounded-5">Proses</div>
-            </td>
-            <td>
-              <div id="action">
-                <button onClick={toggleModal}>
-                  <Icon icon="uil:edit" width="35" height="35" style={{ marginRight: "1.5rem" }} onClick={toggleModal} />
-                </button>
-                <button>
-                  <Icon icon="mdi:trash-can-outline" width="35" height="35" />
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      {/* <ModalDetail show={showModal} handleClose={closeModal} data={selectData}></ModalDetail> */}
-    </Styledtable>
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Nama</th>
+                    <th scope="col" id="desk">
+                      Deskripsi
+                    </th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Tanggal</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Tindakan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {complaint.map(function (komplain) {
+                    return <ListComplaint key={komplain.id} komplain={komplain} onEditModal={onEditModal} />;
+                  })}
+                </tbody>
+              </table>
+            </Styledtable>
+          </Col>
+        </Row>
+      </Row>
+    </>
   );
 }

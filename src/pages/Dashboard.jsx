@@ -1,45 +1,74 @@
-import React, { useState } from "react";
-import BarChart from "../components/Dashboard/BarChart";
-import { UserData } from "../components/Dashboard/DummyBarChart";
+import React from "react";
+import { PieChart} from "@mui/x-charts";
+
+import {Card, Col, Row} from "react-bootstrap";
+
+import { data } from "../components/Dashboard/DummyPieChart";
+import Progress from "../components/Dashboard/Progress";
+import Table from "../components/Dashboard/Table";
+
+
+import Sidebar from "../components/Layout/Sidebar";
+import Topbar from "../components/Layout/Topbar";
+import "../styles/Dashboard.css"
 
 function Dashboard() {
-  const [userData, setUserData] = useState({
-    labels: UserData.map((data) => data.month),
-    datasets: [
-      {
-        label: "Complaint",
-        data: UserData.map((data) => data.Complaint),
-        backgroundColor: ["#E02216"],
-        borderColor: "white",
-        borderWidth: 1,
-        barPercentage: 0.8,
-        categoryPercentage: 0.7,
-        borderRadius: 8,
-      },
-    ],
-  });
-  const chartOptions = {
-    scales: {
-      y: {
-        grid: {
-          display: false,
-        },
-      },
-    },
-  };
-
   return (
     <>
-      <div className="row">
-        <div className="col-lg-7">
-          <div>
-            <BarChart chartData={userData} options={chartOptions} />
-          </div>
-        </div>
-        <div className="col-lg-3">
-          <h1>world</h1>
-        </div>
-      </div>
+      <Row as="row">
+        <Col lg="12">
+          <Topbar />
+        </Col>
+        <Row as="row">
+          <Col lg="2">
+            <Sidebar />
+          </Col>
+          <Col lg="10">
+            <Row>
+              <Col xs={12} md={4} style={{ padding: "16px" }}>
+                <Card className="w-100 p-2 card-db"></Card>
+              </Col>
+              <Col xs={12} md={4} style={{ padding: "16px" }}>
+                <Card className="w-100 p-2 card-db"></Card>
+              </Col>
+              <Col xs={12} md={4} style={{ padding: "16px" }}>
+                <Card className="w-100 p-2 card-db"></Card>
+              </Col>
+            </Row>
+            <Row className="gx-1">
+              <Col xs={12} md={5} style={{ padding: "16px" }}>
+                <Card className="w-100 p-2 card-db">
+                  <Card.Body>
+                    <h4 className="text-xl fw-bold my-2 mb-5">
+                      Aktivitas Terkini
+                    </h4>
+                    <Progress />
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col xs={12} md={7} style={{ padding: "16px" }}>
+                <Col className="mb-3">
+                  <Card className="p-3 card-db">
+                    <PieChart
+                      height={200}
+                      series={[data]}
+                      colors={["red", "orange", "blue"]}
+                    />
+                  </Card>
+                </Col>
+                <Col>
+                  <Card className="w-100 p-2 card-db">
+                    <Card.Body>
+                      <h4 className="text-xl fw-bold mb-4">Tugas Penting</h4>
+                      <Table />
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Row>
     </>
   );
 }

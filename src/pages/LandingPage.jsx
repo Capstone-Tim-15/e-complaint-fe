@@ -9,7 +9,6 @@ import image3 from "../assets/lp-3.png";
 import Blog from "../components/BlogPost/blog";
 import GuideList from "../components/guide/GuideList";
 import Capabilites from "../components/Capabilities/Capabilites";
-import Layout from "../components/Layout/Layout";
 import "../styles/landing-page.css";
 
 export default function LandingPage() {
@@ -31,7 +30,7 @@ export default function LandingPage() {
                     </Link>
                   </Button>
                   <Button className="btn secondary__btn ">
-                    <Link to="/layout">
+                    <Link to="/login">
                       <span>Login</span>
                     </Link>
                   </Button>
@@ -74,7 +73,7 @@ export default function LandingPage() {
                 <br />
                 <span className="subtitle"> Terbaik Merasakan Keajaiban</span>
                 <br />
-                <spam className="subtitle">Kenyamanan Modern</spam>
+                <span className="subtitle">Kenyamanan Modern</span>
                 <div className="d-flex justify-content-between ">
                   <GuideList></GuideList>
                 </div>
