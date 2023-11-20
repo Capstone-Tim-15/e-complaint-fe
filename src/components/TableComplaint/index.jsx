@@ -68,6 +68,7 @@ const Styledtable = styled.div`
   /* #action {
     display: flex;
   } */
+  
   @media only screen and (max-width: 600px) {
     table {
       border: 1px solid #ccc;
@@ -137,6 +138,15 @@ export default function TableComplaint({ onEditModal }) {
     };
     getComplaint();
   }, []);
+
+  const updateComplaint = async () => {
+    try {
+      const response = await axios.get("https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint");
+      setComplaint(response.data);
+    } catch (error) {
+      console.error("error", error);
+    }
+  };
   return (
     <>
       <Row as="row">
@@ -208,7 +218,7 @@ export default function TableComplaint({ onEditModal }) {
                 </thead>
                 <tbody>
                   {complaint.map(function (komplain) {
-                    return <ListComplaint key={komplain.id} komplain={komplain} onEditModal={() => onEditModal(komplain)} />;
+                    return <ListComplaint key={komplain.id} komplain={komplain} onEditModal={() => onEditModal(komplain, updateComplaint)} />;
                   })}
                 </tbody>
               </table>

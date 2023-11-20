@@ -11,6 +11,7 @@ const StyledModal = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: "Nunito Sans";
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Menggunakan warna hitam, tetapi dapat disesuaikan */
 
   p {
     font-weight: 600;
@@ -83,7 +84,7 @@ const StyledModal = styled.div`
   }
 `;
 // eslint-disable-next-line react/prop-types
-export default function Edit({ onEditModal, editData, id }) {
+export default function Edit({ onEditModal, editData, id, updateComplaint }) {
   // const { id } = useParams();
   const [complaint, setComplaint] = useState({
     category: "",
@@ -128,7 +129,8 @@ export default function Edit({ onEditModal, editData, id }) {
         description,
       });
       onEditModal();
-
+      // Merbarui data complaint di parent component
+      updateComplaint();
       setComplaint({
         category: "",
         state: "",
