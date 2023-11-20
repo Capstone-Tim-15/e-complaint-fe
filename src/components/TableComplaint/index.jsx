@@ -125,11 +125,11 @@ export default function TableComplaint({ onEditModal }) {
   // Array untk tanggal
   const tanggalOptions = Array.from({ length: 31 }, (_, index) => index + 1);
   const [complaint, setComplaint] = useState([]);
+
   useEffect(() => {
     const getComplaint = async () => {
       try {
         const response = await axios.get("https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint");
-
         setComplaint(response.data);
       } catch (error) {
         console.error("error", error);
@@ -208,7 +208,7 @@ export default function TableComplaint({ onEditModal }) {
                 </thead>
                 <tbody>
                   {complaint.map(function (komplain) {
-                    return <ListComplaint key={komplain.id} komplain={komplain} onEditModal={() => onEditModal(komplain.id)} />;
+                    return <ListComplaint key={komplain.id} komplain={komplain} onEditModal={() => onEditModal(komplain)} />;
                   })}
                 </tbody>
               </table>

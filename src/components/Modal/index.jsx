@@ -2,7 +2,7 @@
 import { Icon } from "@iconify/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledModal = styled.div`
@@ -27,6 +27,9 @@ const StyledModal = styled.div`
   label,
   select {
     width: 100%;
+  }
+  .checklist-notif {
+    display: flex;
   }
 
   textarea {
@@ -80,8 +83,8 @@ const StyledModal = styled.div`
   }
 `;
 // eslint-disable-next-line react/prop-types
-export default function Edit({ onEditModal, editData }) {
-  const { id } = useParams();
+export default function Edit({ onEditModal, editData, id }) {
+  // const { id } = useParams();
   const [complaint, setComplaint] = useState({
     category: "",
     state: "",
@@ -92,6 +95,13 @@ export default function Edit({ onEditModal, editData }) {
     state: false,
     description: false,
   });
+  useEffect(() => {
+    if (editData) {
+      const { category, state, description } = editData;
+      setComplaint({ category, state, description });
+    }
+  }, [editData]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setComplaint({ ...complaint, [name]: value });
@@ -112,14 +122,13 @@ export default function Edit({ onEditModal, editData }) {
       return;
     }
     try {
-      if (id) {
-        await axios.put(`https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint/${id}`, {
-          category: category,
-          state: state,
-          description: description,
-        });
-        onEditModal();
-      }
+      await axios.put(`https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint/${id}`, {
+        category,
+        state,
+        description,
+      });
+      onEditModal();
+
       setComplaint({
         category: "",
         state: "",
@@ -149,14 +158,7 @@ export default function Edit({ onEditModal, editData }) {
       fetchComplaintData();
     }
   }, [id]);
-  useEffect(() => {
-    if (editData) {
-      // Gunakan editData untuk menginisialisasi nilai awal dalam state
-      const { category, state, description } = editData;
-      setComplaint({ category, state, description });
-    }
-  }, [editData]);
-  
+
   return (
     <StyledModal>
       <div className="overlay" id="overlay"></div>

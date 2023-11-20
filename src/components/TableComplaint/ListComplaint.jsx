@@ -21,7 +21,7 @@ export default function ListComplaint(props) {
           <div className={`text-center p-1 px-2 me-3 text-white rounded-5 self-center ${komplain.state === "Proses" ? "bg-warning" : "bg-success"}`}>{komplain.state}</div>
         </td>
         <td>
-          <button onClick={onEditModal}>
+          <button onClick={() => onEditModal(komplain.id)}>
             <Icon icon="uil:edit" width="35" height="35" style={{ marginRight: "1.5rem" }} />
           </button>
           <button>

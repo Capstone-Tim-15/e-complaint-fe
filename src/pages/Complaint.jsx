@@ -5,14 +5,16 @@ import Edit from "../components/Modal";
 export default function ComplaintPage() {
   const [modal, setModal] = useState(false);
   const [editData, setEditData] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
 
   const toggleModal = () => {
     setModal(!modal);
   };
 
   const handleEditModal = (data) => {
-    setEditData(data);
     toggleModal();
+    setEditData(data);
+    setSelectedId(data.id);
   };
 
   useEffect(() => {
@@ -25,7 +27,7 @@ export default function ComplaintPage() {
   return (
     <>
       <TableComplaint onEditModal={handleEditModal} />
-      {modal && <Edit onEditModal={toggleModal} editData={editData} />}
+      {modal && <Edit onEditModal={toggleModal} editData={editData} id={selectedId} />}
     </>
   );
 }
