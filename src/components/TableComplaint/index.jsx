@@ -8,9 +8,16 @@ import ListComplaint from "./ListComplaint";
 
 const Styledtable = styled.div`
   font-family: "Nunito Sans";
-  padding: 1rem;
-  .card {
-    margin-bottom: 1rem;
+  padding-top: 1.5rem;
+  .custom-card {
+    border: none;
+    border-bottom: 1px solid gray;
+    margin: 0 0 1rem 0;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+  }
+  .card-body {
+    padding: 1rem;
   }
   h2,
   h3 {
@@ -68,7 +75,7 @@ const Styledtable = styled.div`
   /* #action {
     display: flex;
   } */
-  
+
   @media only screen and (max-width: 600px) {
     table {
       border: 1px solid #ccc;
@@ -126,6 +133,7 @@ export default function TableComplaint({ onEditModal }) {
   // Array untk tanggal
   const tanggalOptions = Array.from({ length: 31 }, (_, index) => index + 1);
   const [complaint, setComplaint] = useState([]);
+  const totalComplaint = complaint.length;
 
   useEffect(() => {
     const getComplaint = async () => {
@@ -147,6 +155,7 @@ export default function TableComplaint({ onEditModal }) {
       console.error("error", error);
     }
   };
+
   return (
     <>
       <Row as="row">
@@ -159,15 +168,10 @@ export default function TableComplaint({ onEditModal }) {
           </Col>
           <Col lg="10">
             <Styledtable>
-              <div className="card">
-                <div className="card-body">
-                  <h2 id="judul">Complaint</h2>
-                </div>
-              </div>
-              <div className="card">
+              <div className="custom-card">
                 <div className="card-drop">
                   <div className="card-body">
-                    <h3 id="judul">Total Laporan</h3>
+                    <h3 id="judul">{totalComplaint} Total Laporan</h3>
                   </div>
                   <div className="drop">
                     <div className="dropdown">

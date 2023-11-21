@@ -11,7 +11,7 @@ const StyledModal = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: "Nunito Sans";
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Menggunakan warna hitam, tetapi dapat disesuaikan */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   p {
     font-weight: 600;
@@ -81,6 +81,12 @@ const StyledModal = styled.div`
     font-weight: 600;
     padding: 0.1rem 1.3rem;
     border-radius: 10px;
+  }
+  @media only screen and (max-width: 600px) {
+    margin: 1rem;
+  }
+  @media screen and (min-width: 768px) {
+    margin: 0;
   }
 `;
 // eslint-disable-next-line react/prop-types
