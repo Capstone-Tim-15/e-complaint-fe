@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledExport = styled.div`
-  margin: 1rem;
+  margin-top: 1rem;
   .export {
     display: flex;
     flex-direction: column;
@@ -13,7 +13,7 @@ const StyledExport = styled.div`
   }
   .tabel {
     flex-basis: 50%;
-    margin: 0 0.5rem;
+    margin: 0 0 0 0.5rem;
   }
   th,
   td {

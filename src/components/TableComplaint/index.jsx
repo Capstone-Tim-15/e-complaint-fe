@@ -8,13 +8,15 @@ import ListComplaint from "./ListComplaint";
 
 const Styledtable = styled.div`
   font-family: "Nunito Sans";
-  padding-top: 1.5rem;
+  margin-top: 1.5rem;
   .custom-card {
     border: none;
     border-bottom: 1px solid gray;
     margin: 0 0 1rem 0;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
     width: 100%;
+    margin: 0;
+    padding: 0;
   }
   .card-body {
     padding: 1rem;
