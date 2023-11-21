@@ -41,7 +41,7 @@ const StyledModal = styled.div`
   .contain {
     margin: 0.5rem 2rem 1rem;
   }
-  
+
   input {
     border: 1px solid gray;
     margin-right: 0.5rem;
@@ -71,7 +71,7 @@ const StyledModal = styled.div`
   }
 `;
 // eslint-disable-next-line react/prop-types
-export default function Edit({onEditModal}) {
+export default function Edit({ onEditModal }) {
   return (
     <StyledModal>
       <div className="overlay" id="overlay"></div>
@@ -100,7 +100,12 @@ export default function Edit({onEditModal}) {
             <textarea></textarea>
           </div>
           <div className="checklist-notif">
-            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+            <input
+              className="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+            />
             <label className="form-check-label" htmlFor="flexCheckDefault">
               Notifikasi Pengguna
             </label>
