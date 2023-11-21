@@ -1,12 +1,16 @@
 import React from "react";
-import { BarChart, PieChart } from "@mui/x-charts";
-import {Card, Col, Row } from "react-bootstrap";
-import { dataset } from "../components/Dashboard/DummyBarChart";
+import { PieChart, SparkLineChart } from "@mui/x-charts";
+import { FaArrowUp } from "react-icons/fa6";
+import {Card, Col, Row} from "react-bootstrap";
 
+import { data } from "../components/Dashboard/DummyPieChart";
 import Progress from "../components/Dashboard/Progress";
+import Table from "../components/Dashboard/Table";
+
 
 import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
+import "../styles/Dashboard.css"
 
 function Dashboard() {
   return (
@@ -21,53 +25,109 @@ function Dashboard() {
           </Col>
           <Col lg="10">
             <Row>
-              <Col xs={12} md={7} style={{ padding: "16px" }}>
-                <Card className="w-fit p-2 rounded-lg">
+              <Col xs={12} md={4} style={{ padding: "16px" }}>
+                <Card className="w-100 card-db">
                   <Card.Body className="d-flex justify-content-between align-items-center">
-                    <h4 className="font-weight-medium fs-4">Keluhan Masuk</h4>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      width={24}
-                      height={24}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
-                      />
-                    </svg>
+                    <div className="d-flex flex-column">
+                      <h6 className="text-danger font-weight-bold mb-0">
+                        Total Users
+                      </h6>
+                      <h4 className="text-danger fw-bold mb-0">12.345</h4>
+                    </div>
+                    <div className="d-flex align-items-center">
+                      <span className="text-muted small">
+                        <span className="fs-7 fw-normal">
+                          (<FaArrowUp /> 72%)
+                        </span>{" "}
+                        Since Yesterday
+                      </span>
+                    </div>
                   </Card.Body>
-                  <BarChart
-                    dataset={dataset}
-                    xAxis={[{ scaleType: "band", dataKey: "month" }]}
-                    series={[{ dataKey: "keluhan", color: "red" }]}
-                    width={500}
-                    height={250}
-                    style={{ borderRadius: "10px", margin: "10px" }}
-                    margin={{ top: 20, right: 0, bottom: 30, left: 30 }}
-                  />
+                  <Card.Body>
+                    <SparkLineChart
+                      data={[1, 4, 2, 5, 7, 2, 4, 6]}
+                      height={60}
+                    />
+                  </Card.Body>
                 </Card>
               </Col>
-              <Col xs={12} md={5} style={{ padding: "16px" }}>
-
+              <Col xs={12} md={4} style={{ padding: "16px" }}>
+                <Card className="w-100 card-db">
+                  <Card.Body className="d-flex justify-content-between align-items-center">
+                    <div className="d-flex flex-column">
+                      <h6 className="text-danger font-weight-bold mb-0">
+                        All Complaints
+                      </h6>
+                      <h4 className="text-danger fw-bold mb-0">34.672</h4>
+                    </div>
+                    <div className="d-flex align-items-center">
+                      <span className="text-muted small">
+                        <span className="fs-7 fw-normal">
+                          (<FaArrowUp /> 12%)
+                        </span>{" "}
+                        Since Yesterday
+                      </span>
+                    </div>
+                  </Card.Body>
+                  <Card.Body>
+                    <SparkLineChart data={[4, 5, 1, 8, 9]} height={60} />
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col xs={12} md={4} style={{ padding: "16px" }}>
+                <Card className="w-100 card-db">
+                  <Card.Body className="d-flex justify-content-between align-items-center">
+                    <div className="d-flex flex-column">
+                      <h6 className="text-danger font-weight-bold mb-0">
+                        Resolved Complaints
+                      </h6>
+                      <h4 className="text-danger fw-bold mb-0">95.257</h4>
+                    </div>
+                    <div className="d-flex align-items-center">
+                      <span className="text-muted small">
+                        <span className="fs-7 fw-normal">
+                          (<FaArrowUp /> 90%)
+                        </span>{" "}
+                        Since Yesterday
+                      </span>
+                    </div>
+                  </Card.Body>
+                  <Card.Body>
+                    <SparkLineChart data={[65, 23, 843, 245, 1]} height={60} />
+                  </Card.Body>
+                </Card>
               </Col>
             </Row>
             <Row className="gx-1">
               <Col xs={12} md={5} style={{ padding: "16px" }}>
-                <Card className="w-100 p-2 rounded-lg">
+                <Card className="w-100 p-3 card-db">
                   <Card.Body>
-                    <h4 className="text-xl font-weight-bold my-2 mb-5">
+                    <h4 className="text-xl fw-bold my-2 mb-5">
                       Aktivitas Terkini
                     </h4>
                     <Progress />
                   </Card.Body>
                 </Card>
               </Col>
-              <Col xs={12} md={7} style={{ padding: "16px" }}></Col>
+              <Col xs={12} md={7} style={{ padding: "16px" }}>
+                <Col className="mb-3">
+                  <Card className="p-3 card-db">
+                    <PieChart
+                      height={200}
+                      series={[data]}
+                      colors={["red", "orange", "blue"]}
+                    />
+                  </Card>
+                </Col>
+                <Col>
+                  <Card className="w-100 p-3 card-db">
+                    <Card.Body>
+                      <h4 className="text-xl fw-bold mb-4">Tugas Penting</h4>
+                      <Table />
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Col>
             </Row>
           </Col>
         </Row>

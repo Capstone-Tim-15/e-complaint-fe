@@ -1,4 +1,8 @@
+/* eslint-disable react/prop-types */
 import { Icon } from "@iconify/react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledModal = styled.div`
@@ -20,6 +24,14 @@ const StyledModal = styled.div`
     color: #e02216;
     font-weight: 600;
   }
+  label,
+  select {
+    width: 100%;
+  }
+  .checklist-notif {
+    display: flex;
+  }
+
   textarea {
     height: 100px;
     background-color: rgba(243, 167, 162, 0.1);
@@ -41,7 +53,7 @@ const StyledModal = styled.div`
   .contain {
     margin: 0.5rem 2rem 1rem;
   }
-  
+
   input {
     border: 1px solid gray;
     margin-right: 0.5rem;
@@ -71,7 +83,82 @@ const StyledModal = styled.div`
   }
 `;
 // eslint-disable-next-line react/prop-types
-export default function Edit({onEditModal}) {
+export default function Edit({ onEditModal, editData, id }) {
+  // const { id } = useParams();
+  const [complaint, setComplaint] = useState({
+    category: "",
+    state: "",
+    description: "",
+  });
+  const [formError, setFormError] = useState({
+    category: false,
+    state: false,
+    description: false,
+  });
+  useEffect(() => {
+    if (editData) {
+      const { category, state, description } = editData;
+      setComplaint({ category, state, description });
+    }
+  }, [editData]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setComplaint({ ...complaint, [name]: value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { category, state, description } = complaint;
+
+    const errors = {
+      category: !category,
+      state: !state,
+      description: !description,
+    };
+
+    if (Object.values(errors).some((error) => error)) {
+      setFormError(errors);
+      return;
+    }
+    try {
+      await axios.put(`https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint/${id}`, {
+        category,
+        state,
+        description,
+      });
+      onEditModal();
+
+      setComplaint({
+        category: "",
+        state: "",
+        description: "",
+      });
+
+      setFormError({
+        category: false,
+        state: false,
+        description: false,
+      });
+    } catch (error) {
+      console.log("Gagal Mengedit Data", error);
+    }
+  };
+  useEffect(() => {
+    if (id) {
+      const fetchComplaintData = async () => {
+        try {
+          const response = await axios.get(`https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint/${id}`);
+          const { category, state, description } = response.data;
+          setComplaint({ category, state, description });
+        } catch (error) {
+          console.error("Gagal memuat data complain untuk diedit", error);
+        }
+      };
+      fetchComplaintData();
+    }
+  }, [id]);
+
   return (
     <StyledModal>
       <div className="overlay" id="overlay"></div>
@@ -80,35 +167,57 @@ export default function Edit({onEditModal}) {
           <Icon icon="material-symbols:close" width="25" height="25" />
         </div>
         <div className="contain">
-          <div className="category">
-            <p>Kategori</p>
-            <select>
-              <option>Lingkungan</option>
-              <option>Pendidikan</option>
-              <option>Transportasi</option>
-            </select>
-          </div>
-          <div className="state">
-            <p>Status</p>
-            <select>
-              <option>Proses</option>
-              <option>Selesai</option>
-            </select>
-          </div>
-          <div className="comment">
-            <p>Komentar Status</p>
-            <textarea></textarea>
-          </div>
-          <div className="checklist-notif">
-            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-            <label className="form-check-label" htmlFor="flexCheckDefault">
-              Notifikasi Pengguna
-            </label>
-          </div>
-          <div className="actions">
-            <button className="cancel">Batal</button>
-            <button className="save">Ubah</button>
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="category">
+              <label>
+                <span>Kategori</span>
+                <br />
+                <select name="category" id="inputCategory" value={complaint.category} onChange={handleChange}>
+                  <option value="" disabled>
+                    Kategori
+                  </option>
+                  <option value="Lingkungan">Lingkungan</option>
+                  <option value="Pendidikan">Pendidikan</option>
+                  <option value="Transportasi">Transportasi</option>
+                </select>
+                {formError.category && <div className="error">{formError.category}</div>}
+              </label>
+            </div>
+            <div className="state">
+              <label>
+                <span>Status</span>
+                <select name="state" id="inputState" value={complaint.state} onChange={handleChange}>
+                  <option value="" disabled>
+                    Status
+                  </option>
+                  <option value="Proses">Proses</option>
+                  <option value="Selesai">Selesai</option>
+                </select>
+                {formError.state && <div className="error">{formError.state}</div>}
+              </label>
+            </div>
+            <div className="description">
+              <label>
+                <span>Komentar Status</span>
+                <textarea name="description" id="inputdescription" value={complaint.description} onChange={handleChange}></textarea>
+                {formError.description && <div className="error">{formError.description}</div>}
+              </label>
+            </div>
+            <div className="checklist-notif">
+              <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+              <label className="form-check-label" htmlFor="flexCheckDefault">
+                Notifikasi Pengguna
+              </label>
+            </div>
+            <div className="actions">
+              <button className="cancel" onClick={onEditModal}>
+                Batal
+              </button>
+              <button type="submit" className="save">
+                Ubah
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </StyledModal>
