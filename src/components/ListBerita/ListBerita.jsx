@@ -18,27 +18,40 @@ const ListBerita = () => {
     setNews(response.data);
   };
 
+  const fetchNews = async () => {
+    try {
+      const response = await axios.get(`https://6554737263cafc694fe67aef.mockapi.io/berita`);
+      setNews(response.data);
+    } catch (error) {
+      console.error('Error fetching news: ', error);
+    }
+  };
+
+
   const addNews = async () => {
     try {
       await axios.post(
         `https://6554737263cafc694fe67aef.mockapi.io/berita`,
         newNews
       );
-      fetchBooks();
+      fetchNews();
       setNewBook({ judul: "", author: "", tanggal: "", status: "" });
     } catch (error) {
       console.error("Error adding news: ", error);
     }
   };
 
-  const deleteNews = async (id) => {
-    try {
-      await axios.delete(`https://6554737263cafc694fe67aef.mockapi.io`);
-      getNews();
-    } catch (error) {
-      console.log(error);
+  const deleteNews = async (newsId) => {
+    if (window.confirm('Are you sure you want to delete this news?')) {
+      try {
+        await axios.delete(`https://6554737263cafc694fe67aef.mockapi.io/berita/${newsId}`);
+        fetchNews();
+      } catch (error) {
+        console.error('Error deleting this news request ', error);
+      }
     }
   };
+
 
   return (
     <div>
@@ -46,7 +59,7 @@ const ListBerita = () => {
         <Col lg="6">
           <h1 className="text1 ms-4 mb-3"> Daftar Berita </h1>
         </Col>
-        <Col lg="6" className="d-flex flex-row-reverse">
+        <Col lg="6" className="d-flex flex-row-reverse" id="btn-tambah">
           <button className="Add">Tambah Berita</button>
         </Col>
       </Row>

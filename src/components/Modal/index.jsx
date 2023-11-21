@@ -1,4 +1,8 @@
+/* eslint-disable react/prop-types */
 import { Icon } from "@iconify/react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledModal = styled.div`
@@ -7,6 +11,7 @@ const StyledModal = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: "Nunito Sans";
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   p {
     font-weight: 600;
@@ -20,6 +25,14 @@ const StyledModal = styled.div`
     color: #e02216;
     font-weight: 600;
   }
+  label,
+  select {
+    width: 100%;
+  }
+  .checklist-notif {
+    display: flex;
+  }
+
   textarea {
     height: 100px;
     background-color: rgba(243, 167, 162, 0.1);
@@ -68,6 +81,12 @@ const StyledModal = styled.div`
     font-weight: 600;
     padding: 0.1rem 1.3rem;
     border-radius: 10px;
+  }
+  @media only screen and (max-width: 600px) {
+    margin: 1rem;
+  }
+  @media screen and (min-width: 768px) {
+    margin: 0;
   }
 `;
 // eslint-disable-next-line react/prop-types

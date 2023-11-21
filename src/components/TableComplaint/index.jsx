@@ -8,9 +8,18 @@ import ListComplaint from "./ListComplaint";
 
 const Styledtable = styled.div`
   font-family: "Nunito Sans";
-  padding: 1rem;
-  .card {
-    margin-bottom: 1rem;
+  margin-top: 1.5rem;
+  .custom-card {
+    border: none;
+    border-bottom: 1px solid gray;
+    margin: 0 0 1rem 0;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .card-body {
+    padding: 1rem;
   }
   h2,
   h3 {
@@ -26,9 +35,9 @@ const Styledtable = styled.div`
     border-collapse: collapse;
     width: 100%;
   }
-  #desk {
+  /* #desk {
     max-width: 250px;
-  }
+  } */
   th,
   td {
     padding: 1.5rem 1rem 1.5rem 1rem;
@@ -50,20 +59,75 @@ const Styledtable = styled.div`
   }
   .drop {
     display: flex;
+    flex-direction: column;
     align-self: center;
   }
   .dropdown select {
     margin: 1.5rem;
     width: 150px;
     border-radius: 20px;
-    padding: 0.2rem 1rem 0.2rem 1rem;
-    border: 1.5px solid red;
     color: red;
     font-weight: 600;
     cursor: pointer;
+    border: 1.5px solid red;
+    margin: 0.4rem;
+    padding: 0 0.5rem;
+    width: 85%;
   }
-  #action {
+  /* #action {
     display: flex;
+  } */
+
+  @media only screen and (max-width: 600px) {
+    table {
+      border: 1px solid #ccc;
+    }
+
+    th,
+    td {
+      padding: 8px 1rem;
+      display: block;
+      width: 100%;
+    }
+
+    th {
+      text-align: center;
+    }
+
+    td {
+      text-align: left;
+    }
+  }
+  @media screen and (min-width: 768px) {
+    .drop {
+      display: flex;
+      flex-direction: row;
+    }
+    .dropdown select {
+      margin: 1rem;
+      width: 150px;
+      border-radius: 20px;
+      padding: 0.2rem 1rem 0.2rem 1rem;
+      border: 1.5px solid red;
+      color: red;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  }
+  @media screen and (min-width: 992px) {
+    .dropdown select {
+      margin: 1.5rem;
+      width: 150px;
+      border-radius: 20px;
+      padding: 0.2rem 1rem 0.2rem 1rem;
+      border: 1.5px solid red;
+      color: red;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    #desk {
+      max-width: 300px;
+    }
   }
 `;
 // eslint-disable-next-line react/prop-types
@@ -71,11 +135,12 @@ export default function TableComplaint({ onEditModal }) {
   // Array untk tanggal
   const tanggalOptions = Array.from({ length: 31 }, (_, index) => index + 1);
   const [complaint, setComplaint] = useState([]);
+  const totalComplaint = complaint.length;
+
   useEffect(() => {
     const getComplaint = async () => {
       try {
         const response = await axios.get("https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint");
-
         setComplaint(response.data);
       } catch (error) {
         console.error("error", error);
@@ -83,6 +148,16 @@ export default function TableComplaint({ onEditModal }) {
     };
     getComplaint();
   }, []);
+
+  const updateComplaint = async () => {
+    try {
+      const response = await axios.get("https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint");
+      setComplaint(response.data);
+    } catch (error) {
+      console.error("error", error);
+    }
+  };
+
   return (
     <>
       <Row as="row">
@@ -95,15 +170,10 @@ export default function TableComplaint({ onEditModal }) {
           </Col>
           <Col lg="10">
             <Styledtable>
-              <div className="card">
-                <div className="card-body">
-                  <h2 id="judul">Complaint</h2>
-                </div>
-              </div>
-              <div className="card">
+              <div className="custom-card">
                 <div className="card-drop">
                   <div className="card-body">
-                    <h3 id="judul">Total Laporan</h3>
+                    <h3 id="judul">{totalComplaint} Total Laporan</h3>
                   </div>
                   <div className="drop">
                     <div className="dropdown">
@@ -154,7 +224,7 @@ export default function TableComplaint({ onEditModal }) {
                 </thead>
                 <tbody>
                   {complaint.map(function (komplain) {
-                    return <ListComplaint key={komplain.id} komplain={komplain} onEditModal={onEditModal} />;
+                    return <ListComplaint key={komplain.id} komplain={komplain} onEditModal={() => onEditModal(komplain, updateComplaint)} />;
                   })}
                 </tbody>
               </table>
