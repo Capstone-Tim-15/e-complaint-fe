@@ -59,7 +59,7 @@ const ListBerita = () => {
         <Col lg="6">
           <h1 className="text1 ms-4 mb-3"> Daftar Berita </h1>
         </Col>
-        <Col lg="6" className="d-flex flex-row-reverse">
+        <Col lg="6" className="d-flex flex-row-reverse" id="btn-tambah">
           <button className="Add">Tambah Berita</button>
         </Col>
       </Row>
