@@ -21,7 +21,7 @@ export default function RecoveryPassword() {
       <div className="background">
         <img className="ellipse" src={Ellipse} alt="" />
         <div className="content">
-          <div className="title">Gov - Complaint</div>
+          <div className="title__login">Gov - Complaint</div>
           <div className="sub__title mb-4">Recovery Password</div>
           <Form.Control
             className="email__input mb-4"
@@ -33,7 +33,6 @@ export default function RecoveryPassword() {
             Selanjutnya
           </Button>
         </div>
-        <img className="vector2" src={Vector} alt="" />
       </div>
       <Footer />
 

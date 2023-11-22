@@ -18,7 +18,7 @@ export default function NewPassword() {
       <div className="background">
         <img className="ellipse" src={Ellipse} alt="" />
         <div className="content">
-          <div className="title">Gov - Complaint</div>
+          <div className="title__login">Gov - Complaint</div>
           <div className="sub__title mb-4">New Password</div>
           <Form.Control
             className="email__input mb-4"
@@ -46,7 +46,6 @@ export default function NewPassword() {
             Selanjutnya
           </Button>
         </div>
-        <img className="vector3" src={Vector} alt="" />
       </div>
       <Footer />
     </>

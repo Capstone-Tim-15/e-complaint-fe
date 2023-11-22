@@ -16,7 +16,7 @@ export default function Success() {
       <div className="background">
         <img className="ellipse" src={Ellipse} alt="" />
         <div className="content">
-          <div className="title">Gov - Complaint</div>
+          <div className="title__login">Gov - Complaint</div>
           <div className="sub__title mb-2">
             Kata sandi baru telah diperbaharui!
           </div>
@@ -28,7 +28,6 @@ export default function Success() {
             Login
           </Button>
         </div>
-        <img className="vector4" src={Vector} alt="" />
       </div>
       <Footer />
     </>
