@@ -2,6 +2,7 @@ import React from "react";
 import Topbar from "../components/Layout/Topbar";
 import Sidebar from "../components/Layout/Sidebar";
 import { Col, Row } from "react-bootstrap";
+import ExportComponent from "../components/Export";
 
 export default function Export() {
   return (
@@ -14,7 +15,7 @@ export default function Export() {
           <Sidebar />
         </Col>
         <Col lg="10">
-          <div>ini Export</div>
+          <ExportComponent />
         </Col>
       </Row>
     </Row>

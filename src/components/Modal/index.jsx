@@ -11,6 +11,7 @@ const StyledModal = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: "Nunito Sans";
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   p {
     font-weight: 600;
@@ -81,9 +82,15 @@ const StyledModal = styled.div`
     padding: 0.1rem 1.3rem;
     border-radius: 10px;
   }
+  @media only screen and (max-width: 600px) {
+    margin: 1rem;
+  }
+  @media screen and (min-width: 768px) {
+    margin: 0;
+  }
 `;
 // eslint-disable-next-line react/prop-types
-export default function Edit({ onEditModal, editData, id }) {
+export default function Edit({ onEditModal, editData, id, updateComplaint }) {
   // const { id } = useParams();
   const [complaint, setComplaint] = useState({
     category: "",
@@ -101,40 +108,40 @@ export default function Edit({ onEditModal, editData, id }) {
       setComplaint({ category, state, description });
     }
   }, [editData]);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setComplaint({ ...complaint, [name]: value });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const { category, state, description } = complaint;
-
     const errors = {
       category: !category,
       state: !state,
       description: !description,
     };
-
     if (Object.values(errors).some((error) => error)) {
       setFormError(errors);
       return;
     }
     try {
-      await axios.put(`https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint/${id}`, {
-        category,
-        state,
-        description,
-      });
+      await axios.put(
+        `https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint/${id}`,
+        {
+          category,
+          state,
+          description,
+        }
+      );
       onEditModal();
 
+      // Merbarui data complaint di parent component
+      updateComplaint();
       setComplaint({
         category: "",
         state: "",
         description: "",
       });
-
       setFormError({
         category: false,
         state: false,
@@ -148,7 +155,9 @@ export default function Edit({ onEditModal, editData, id }) {
     if (id) {
       const fetchComplaintData = async () => {
         try {
-          const response = await axios.get(`https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint/${id}`);
+          const response = await axios.get(
+            `https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint/${id}`
+          );
           const { category, state, description } = response.data;
           setComplaint({ category, state, description });
         } catch (error) {
@@ -172,7 +181,12 @@ export default function Edit({ onEditModal, editData, id }) {
               <label>
                 <span>Kategori</span>
                 <br />
-                <select name="category" id="inputCategory" value={complaint.category} onChange={handleChange}>
+                <select
+                  name="category"
+                  id="inputCategory"
+                  value={complaint.category}
+                  onChange={handleChange}
+                >
                   <option value="" disabled>
                     Kategori
                   </option>
@@ -180,31 +194,52 @@ export default function Edit({ onEditModal, editData, id }) {
                   <option value="Pendidikan">Pendidikan</option>
                   <option value="Transportasi">Transportasi</option>
                 </select>
-                {formError.category && <div className="error">{formError.category}</div>}
+                {formError.category && (
+                  <div className="error">{formError.category}</div>
+                )}
               </label>
             </div>
             <div className="state">
               <label>
                 <span>Status</span>
-                <select name="state" id="inputState" value={complaint.state} onChange={handleChange}>
+                <select
+                  name="state"
+                  id="inputState"
+                  value={complaint.state}
+                  onChange={handleChange}
+                >
                   <option value="" disabled>
                     Status
                   </option>
                   <option value="Proses">Proses</option>
                   <option value="Selesai">Selesai</option>
                 </select>
-                {formError.state && <div className="error">{formError.state}</div>}
+                {formError.state && (
+                  <div className="error">{formError.state}</div>
+                )}
               </label>
             </div>
             <div className="description">
               <label>
                 <span>Komentar Status</span>
-                <textarea name="description" id="inputdescription" value={complaint.description} onChange={handleChange}></textarea>
-                {formError.description && <div className="error">{formError.description}</div>}
+                <textarea
+                  name="description"
+                  id="inputdescription"
+                  value={complaint.description}
+                  onChange={handleChange}
+                ></textarea>
+                {formError.description && (
+                  <div className="error">{formError.description}</div>
+                )}
               </label>
             </div>
             <div className="checklist-notif">
-              <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+              />
               <label className="form-check-label" htmlFor="flexCheckDefault">
                 Notifikasi Pengguna
               </label>
