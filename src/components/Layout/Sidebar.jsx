@@ -12,50 +12,60 @@ const Sidebar = () => {
     <div className="sidebar all-sidebar d-none d-sm-flex flex-column justify-content-start align-items-center text-white">
       <div className="text-center">
         <ul className="nav flex-column p-0 m-0">
-          <li className="nav-item p-4 mt-4">
-            <Link
-              to="/dashboard"
-              className="nav-link text-white text-decoration-none d-flex align-items-center"
-            >
-              <i className="bi bi-grid me-2 fs-5"></i>
-              <span className="fs-5">Dashboard</span>
-            </Link>
+          <li className="nav-item mt-5">
+            <div className={`${location.pathname === "/dashboard" ? 'active-link' : ''}`}>
+              <Link
+                to="/dashboard"
+                className="nav-link text-white text-decoration-none d-flex align-items-center"
+              >
+                <i className="bi bi-grid me-2 fs-5"></i>
+                <span className="fs-5">Dashboard</span>
+              </Link>
+            </div>
           </li>
-          <li className="nav-item p-4">
-            <Link
-              to="/complaint"
-              className="nav-link text-white text-decoration-none d-flex align-items-center"
-            >
-              <i className="bi bi-people me-2 fs-5"></i>
-              <span className="fs-5">Complaint</span>
-            </Link>
+          <li className="nav-item mt-5">
+            <div className={`${location.pathname === "/complaint" ? 'active-link' : ''}`}>
+              <Link
+                to="/complaint"
+                className="nav-link text-white text-decoration-none d-flex align-items-center"
+              >
+                <i className="bi bi-people me-2 fs-5"></i>
+                <span className="fs-5">Complaint</span>
+              </Link>
+            </div>
           </li>
-          <li className="nav-item p-4">
-            <Link
-              to="/berita"
-              className="nav-link text-white text-decoration-none d-flex align-items-center"
-            >
-              <i className="bi bi-newspaper me-2 fs-5"></i>
-              <span className="fs-5">Berita</span>
-            </Link>
+          <li className="nav-item mt-5">
+            <div className={`${location.pathname === "/berita" ? 'active-link' : ''}`}>
+              <Link
+                to="/berita"
+                className="nav-link text-white text-decoration-none d-flex align-items-center"
+              >
+                <i className="bi bi-newspaper me-2 fs-5"></i>
+                <span className="fs-5">Berita</span>
+              </Link>
+            </div>
           </li>
-          <li className="nav-item p-4">
-            <Link
-              to="/chat"
-              className="nav-link text-white text-decoration-none d-flex align-items-center"
-            >
-              <i className="bi bi-chat-dots me-2 fs-5"></i>
-              <span className="fs-5">Chat</span>
-            </Link>
+          <li className="nav-item mt-5">
+            <div className={`${location.pathname === "/chat" ? 'active-link' : ''}`}>
+              <Link
+                to="/chat"
+                className="nav-link text-white text-decoration-none d-flex align-items-center"
+              >
+                <i className="bi bi-chat-dots me-2 fs-5"></i>
+                <span className="fs-5">Chat</span>
+              </Link>
+            </div>
           </li>
-          <li className="nav-item p-4">
-            <Link
-              to="/export"
-              className="nav-link text-white text-decoration-none d-flex align-items-center"
-            >
-              <i className="bi bi-file-earmark-arrow-up me-2 fs-5"></i>
-              <span className="fs-5">Export</span>
-            </Link>
+          <li className="nav-item mt-5">
+            <div className={`${location.pathname === "/export" ? 'active-link' : ''}`}>
+              <Link
+                to="/export"
+                className="nav-link text-white text-decoration-none d-flex align-items-center"
+              >
+                <i className="bi bi-file-earmark-arrow-up me-2 fs-5"></i>
+                <span className="fs-5">Export</span>
+              </Link>
+            </div>
           </li>
         </ul>
       </div>
