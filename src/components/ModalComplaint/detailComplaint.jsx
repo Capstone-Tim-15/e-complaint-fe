@@ -1,21 +1,10 @@
-import { Modal } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 
-const ModalDetail = ({ show, handleClose, data }) => {
+const ModalDetail = () => {
     return (
         <div>
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Detail Keluhan</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {/* Tampilkan detail keluhan di sini menggunakan properti 'data' */}
-                    <p>{data && data.description}</p>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Tutup
-                    </Button>
-                </Modal.Footer>
+            <Modal>
+                <h2>hello</h2>
             </Modal>
         </div>
     );

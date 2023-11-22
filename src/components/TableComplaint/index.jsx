@@ -123,7 +123,7 @@ const Styledtable = styled.div`
   }
 `;
 // eslint-disable-next-line react/prop-types
-export default function TableComplaint({ onEditModal }) {
+export default function TableComplaint({ onEditModal, deleteModal }) {
   // Array untk tanggal
   const tanggalOptions = Array.from({ length: 31 }, (_, index) => index + 1);
   const [complaint, setComplaint] = useState([]);
@@ -210,7 +210,7 @@ export default function TableComplaint({ onEditModal }) {
                 </thead>
                 <tbody>
                   {complaint.map(function (komplain) {
-                    return <ListComplaint key={komplain.id} komplain={komplain} onEditModal={() => onEditModal(komplain)} />;
+                    return <ListComplaint key={komplain.id} komplain={komplain} onEditModal={() => onEditModal(komplain)} deleteModal={() => deleteModal(komplain)}/>;
                   })}
                 </tbody>
               </table>

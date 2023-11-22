@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Icon } from "@iconify/react";
 export default function ListComplaint(props) {
-  const { komplain, onEditModal } = props;
+  const { komplain, onEditModal, deleteModal } = props;
 
   return (
     <>
@@ -24,7 +24,7 @@ export default function ListComplaint(props) {
           <button onClick={() => onEditModal(komplain.id)}>
             <Icon icon="uil:edit" width="35" height="35" style={{ marginRight: "1.5rem" }} />
           </button>
-          <button>
+          <button onClick={() => deleteModal(komplain.id)}>
             <Icon icon="mdi:trash-can-outline" width="35" height="35" />
           </button>
         </td>
