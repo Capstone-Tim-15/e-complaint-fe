@@ -1,0 +1,56 @@
+.title {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.text1 {
+  color: #e02216;
+  height: 49px;
+  top: 125px;
+  left: 317px;
+  margin-top: 20px;
+  padding: 10px;
+}
+.Add {
+  padding: 10px;
+  background-color: #e02216;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.thead tr th {
+  background-color: #ec7b73;
+  color: white;
+}
+
+#btn {
+  outline: none;
+  border: none;
+  background-color: #fff;
+}
+
+#status {
+  border-radius: 20px;
+}
+
+.status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#text2 {
+  height: 30px;
+  width: 80px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#btn-tambah{
+  margin-top: 100px;
+  margin-bottom: 0px;
+}
