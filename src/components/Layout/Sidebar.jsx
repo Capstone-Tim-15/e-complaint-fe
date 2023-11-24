@@ -13,7 +13,11 @@ const Sidebar = () => {
       <div className="text-center">
         <ul className="nav flex-column p-0 m-0">
           <li className="nav-item mt-5">
-            <div className={`${location.pathname === "/dashboard" ? 'active-link' : ''}`}>
+            <div
+              className={`${
+                location.pathname === "/dashboard" ? "active-link" : ""
+              }`}
+            >
               <Link
                 to="/dashboard"
                 className="nav-link text-white text-decoration-none d-flex align-items-center"
@@ -24,7 +28,11 @@ const Sidebar = () => {
             </div>
           </li>
           <li className="nav-item mt-5">
-            <div className={`${location.pathname === "/complaint" ? 'active-link' : ''}`}>
+            <div
+              className={`${
+                location.pathname === "/complaint" ? "active-link" : ""
+              }`}
+            >
               <Link
                 to="/complaint"
                 className="nav-link text-white text-decoration-none d-flex align-items-center"
@@ -35,7 +43,11 @@ const Sidebar = () => {
             </div>
           </li>
           <li className="nav-item mt-5">
-            <div className={`${location.pathname === "/berita" ? 'active-link' : ''}`}>
+            <div
+              className={`${
+                location.pathname === "/berita" ? "active-link" : ""
+              }`}
+            >
               <Link
                 to="/berita"
                 className="nav-link text-white text-decoration-none d-flex align-items-center"
@@ -46,7 +58,11 @@ const Sidebar = () => {
             </div>
           </li>
           <li className="nav-item mt-5">
-            <div className={`${location.pathname === "/chat" ? 'active-link' : ''}`}>
+            <div
+              className={`${
+                location.pathname === "/chat" ? "active-link" : ""
+              }`}
+            >
               <Link
                 to="/chat"
                 className="nav-link text-white text-decoration-none d-flex align-items-center"
@@ -57,13 +73,17 @@ const Sidebar = () => {
             </div>
           </li>
           <li className="nav-item mt-5">
-            <div className={`${location.pathname === "/export" ? 'active-link' : ''}`}>
+            <div
+              className={`${
+                location.pathname === "/import" ? "active-link" : ""
+              }`}
+            >
               <Link
-                to="/export"
+                to="/import"
                 className="nav-link text-white text-decoration-none d-flex align-items-center"
               >
                 <i className="bi bi-file-earmark-arrow-up me-2 fs-5"></i>
-                <span className="fs-5">Export</span>
+                <span className="fs-5">Import</span>
               </Link>
             </div>
           </li>
