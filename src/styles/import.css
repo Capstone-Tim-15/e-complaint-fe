@@ -1,0 +1,44 @@
+.export__form-body {
+  height: 70vh;
+}
+
+.export__header {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  margin-bottom: 50px;
+}
+
+.header__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.icon__import {
+  font-size: 1.2rem;
+}
+
+.header__subtitle {
+  font-size: 0.9rem;
+}
+
+.export__form-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.export__form-subtitle {
+  font-size: 0.9rem;
+}
+
+.export__form .export__dropdown {
+  width: 100%;
+}
+
+.export__input-field {
+  border: 4px black solid;
+  border-radius: 10px;
+}
