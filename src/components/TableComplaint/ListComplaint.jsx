@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Icon } from "@iconify/react";
 export default function ListComplaint(props) {
-  const { komplain, onEditModal,updateComplaint, deleteModal } = props;
+  const { komplain, onEditModal, updateComplaint, deleteModal } = props;
 
   return (
     <>
@@ -14,11 +14,20 @@ export default function ListComplaint(props) {
             <p className="ms-1 fw-bold align-self-center">{komplain.name}</p>
           </div>
         </td>
-        <td id="desk">{komplain.description}</td>
+        <td id="desk">
+          <div className="d-flex">
+            <div className="me-2">
+              <img src="https://picsum.photos/150/150" className="mt-2"></img>
+            </div>
+            <div>{komplain.description}</div>
+          </div>
+        </td>
         <td>{komplain.category}</td>
         <td>{komplain.date}</td>
         <td id="state">
-          <div className={`text-center p-1 px-2 me-3 text-white rounded-5 self-center ${komplain.state === "Proses" ? "bg-warning" : "bg-success"}`}>{komplain.state}</div>
+          <div className={`text-center p-1 px-2 me-3 text-white rounded-5 self-center`} style={{ backgroundColor: komplain.state === "Proses" ? "#FFC700" : "#0EAE00" }}>
+            {komplain.state}
+          </div>
         </td>
         <td>
           <button onClick={() => onEditModal(komplain.id, updateComplaint)}>
