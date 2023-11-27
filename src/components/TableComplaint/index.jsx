@@ -84,17 +84,26 @@ const Styledtable = styled.div`
     justify-content: center;
     justify-content: space-evenly;
     margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
     display: flex;
-    align-items: flex-end;
     font-weight: 700;
     color: #e64e45;
+    padding: 1rem;
+    /* bottom: 0;
+    position: fixed;
+    background-color: white;
+    z-index: 1000;
+    width: 100%; */
   }
   .pageList,
-  span {
+  .pageNumber {
     display: flex;
     list-style-type: none;
     justify-content: space-around;
+    padding: 0 0.5rem 0 0.5rem;
+  }
+  .pageNumber:hover {
+    background-color: #ccc;
+    transition: background-color 0.3s ease;
   }
   .button {
     align-self: center;
@@ -108,6 +117,11 @@ const Styledtable = styled.div`
     text-align: center;
     border-bottom-left-radius: 20px;
     border-top-left-radius: 20px;
+    transition: transform 0.1s ease;
+  }
+  .button-arrow-left:hover {
+    transform: scale(1.2);
+    filter: brightness(80%);
   }
 
   .button-arrow-right {
@@ -116,6 +130,11 @@ const Styledtable = styled.div`
     text-align: center;
     border-bottom-right-radius: 20px;
     border-top-right-radius: 20px;
+    transition: transform 0.1s ease;
+  }
+  .button-arrow-right:hover {
+    transform: scale(1.2);
+    filter: brightness(80%);
   }
   @media only screen and (max-width: 600px) {
     table {
@@ -290,13 +309,13 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
                 </div>
                 <li className="pageList">
                   {pageOptions.map((pageNumber) => (
-                    <span key={pageNumber} onClick={() => handlePageChange(pageNumber)} style={{ marginRight: "1rem", cursor: "pointer" }}>
+                    <span key={pageNumber} className="pageNumber" onClick={() => handlePageChange(pageNumber)} style={{ marginRight: "1rem", cursor: "pointer" }}>
                       {pageNumber}
                     </span>
                   ))}
                 </li>
                 <div className="button">
-                  <button className="button-arrow-left" onClick={() => handlePageChange(currentPage - 1)}>
+                  <button className="button-arrow-left" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
                     <Icon icon="formkit:arrowleft" width="24" style={{ margin: "6px" }} />
                   </button>
                   <button className="button-arrow-right" onClick={() => handlePageChange(currentPage + 1)}>
