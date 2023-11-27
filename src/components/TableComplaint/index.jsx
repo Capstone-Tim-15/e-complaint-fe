@@ -105,6 +105,9 @@ const Styledtable = styled.div`
     background-color: #ccc;
     transition: background-color 0.3s ease;
   }
+  .pageNumber.active {
+    background-color: gray;
+  }
   .button {
     align-self: center;
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.3);
