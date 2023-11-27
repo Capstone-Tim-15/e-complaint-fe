@@ -5,6 +5,7 @@ import { Row, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ListComplaint from "./ListComplaint";
+import { Icon } from "@iconify/react";
 
 const Styledtable = styled.div`
   font-family: "Nunito Sans";
@@ -78,6 +79,44 @@ const Styledtable = styled.div`
     display: flex;
   } */
 
+  #pagination {
+    text-align: right;
+    justify-content: center;
+    justify-content: space-evenly;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: flex-end;
+    font-weight: 700;
+    color: #e64e45;
+  }
+  .pageList,
+  span {
+    display: flex;
+    list-style-type: none;
+    justify-content: space-around;
+  }
+  .button {
+    align-self: center;
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+  }
+
+  .button-arrow-left {
+    background-color: #e64e45;
+    color: #fff;
+    text-align: center;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+  }
+
+  .button-arrow-right {
+    background-color: #e64e45;
+    color: #fff;
+    text-align: center;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+  }
   @media only screen and (max-width: 600px) {
     table {
       border: 1px solid #ccc;
@@ -131,10 +170,16 @@ const Styledtable = styled.div`
   }
 `;
 // eslint-disable-next-line react/prop-types
-export default function TableComplaint({ onEditModal, deleteModal }) {
+export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage }) {
   // Array untk tanggal
   const tanggalOptions = Array.from({ length: 31 }, (_, index) => index + 1);
+  // Array Page Pagination
+  const pageOptions = Array.from({ length: 7 }, (_, index) => index + 1);
   const [complaint, setComplaint] = useState([]);
+
+  // state untuk pagination page
+  const [currentPage, setCurrentPage] = useState(1);
+
   const totalComplaint = complaint.length;
 
   useEffect(() => {
@@ -158,6 +203,17 @@ export default function TableComplaint({ onEditModal, deleteModal }) {
     }
   };
 
+  // handlePage ketika berubah
+  // ------------- START CODE ----------------
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = complaint.slice(indexOfFirstItem, indexOfLastItem);
+
+  // --------------- LAST CODE handlePage --------------
   return (
     <>
       <Row as="row">
@@ -223,11 +279,31 @@ export default function TableComplaint({ onEditModal, deleteModal }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {complaint.map(function (komplain) {
-                    return <ListComplaint key={komplain.id} komplain={komplain} onEditModal={() => onEditModal(komplain, updateComplaint)} deleteModal={() => deleteModal(komplain)}/>;
+                  {currentItems.map(function (komplain) {
+                    return <ListComplaint key={komplain.id} komplain={komplain} onEditModal={() => onEditModal(komplain, updateComplaint)} deleteModal={() => deleteModal(komplain)} />;
                   })}
                 </tbody>
               </table>
+              <div id="pagination">
+                <div className="thisPage">
+                  {currentPage} | {Math.ceil(complaint.length / itemsPerPage)}
+                </div>
+                <li className="pageList">
+                  {pageOptions.map((pageNumber) => (
+                    <span key={pageNumber} onClick={() => handlePageChange(pageNumber)} style={{ marginRight: "1rem", cursor: "pointer" }}>
+                      {pageNumber}
+                    </span>
+                  ))}
+                </li>
+                <div className="button">
+                  <button className="button-arrow-left" onClick={() => handlePageChange(currentPage - 1)}>
+                    <Icon icon="formkit:arrowleft" width="24" style={{ margin: "6px" }} />
+                  </button>
+                  <button className="button-arrow-right" onClick={() => handlePageChange(currentPage + 1)}>
+                    <Icon icon="formkit:arrowright" width="24" style={{ margin: "6px" }} />
+                  </button>
+                </div>
+              </div>
             </Styledtable>
           </Col>
         </Row>
