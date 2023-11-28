@@ -36,7 +36,7 @@
 }
 
 .content .input__group-pass {
-  width: 140%;
+  width: 100%;
 }
 
 .content .input__group-pass button {
@@ -49,7 +49,7 @@
 }
 
 .content .email__input {
-  width: 140%;
+  width: 100%;
 }
 
 .content .login__button {
@@ -93,4 +93,9 @@
   width: 14%;
   margin-right: -500px;
   margin-top: -450px;
+}
+
+.login__page {
+  padding: 0;
+  margin: 0;
 }
