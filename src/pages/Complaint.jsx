@@ -44,10 +44,10 @@ export default function ComplaintPage() {
       document.body.classList.remove("active-modal");
     }
   }, [modalDelete]);
-  
+
   return (
     <>
-      <TableComplaint onEditModal={handleEditModal} deleteModal={toggleModalDelete} />
+      <TableComplaint onEditModal={handleEditModal} deleteModal={toggleModalDelete} itemsPerPage={2} />
       {modal && <Edit onEditModal={toggleModal} editData={editData} id={selectedId} updateComplaint={updateComplaint} />}
       {modalDelete && <Delete deleteModal={toggleModalDelete} />}
     </>

@@ -6,8 +6,9 @@ import Login from "./pages/Login";
 import RecoveryPassword from "./components/Login/RecoveryPassword";
 import NewPassword from "./components/Login/NewPassword";
 import Success from "./components/Login/Success";
-import Export from "./pages/Export";
+import Import from "./pages/Import";
 import Notification from "./pages/notification";
+import FormBerita from "./components/TambahBerita/FormBerita";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import ComplaintPage from "./pages/Complaint";
@@ -25,8 +26,9 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/complaint" element={<ComplaintPage />}></Route>
         <Route path="/berita" element={<ManageBerita />}></Route>
+        <Route path="/tambahberita" element={<FormBerita />}></Route>
         <Route path="/chat" element={<ChatList />}></Route>
-        <Route path="/export" element={<Export />}></Route>
+        <Route path="/import" element={<Import />}></Route>
         <Route path="/notification" element={<Notification />}></Route>
       </Routes>
     </Router>

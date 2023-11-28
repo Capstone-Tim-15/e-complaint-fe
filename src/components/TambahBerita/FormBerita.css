@@ -22,3 +22,13 @@
 .button__form-berita {
   width: 40%;
 }
+
+.tambah__berita {
+  font-weight: 700;
+}
+
+.daftar__berita {
+  border: none;
+  background: none;
+  color: var(--secondary-color);
+}

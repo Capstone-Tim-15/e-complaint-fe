@@ -2,9 +2,9 @@ import React from "react";
 import Topbar from "../components/Layout/Topbar";
 import Sidebar from "../components/Layout/Sidebar";
 import { Col, Row } from "react-bootstrap";
-import ExportComponent from "../components/Export";
+import ExportComponent from "../components/Import/index";
 
-export default function Export() {
+export default function Import() {
   return (
     <Row as="row">
       <Col lg="12">

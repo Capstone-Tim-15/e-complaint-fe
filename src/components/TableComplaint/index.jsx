@@ -5,6 +5,7 @@ import { Row, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ListComplaint from "./ListComplaint";
+import { Icon } from "@iconify/react";
 
 const Styledtable = styled.div`
   font-family: "Nunito Sans";
@@ -78,6 +79,66 @@ const Styledtable = styled.div`
     display: flex;
   } */
 
+  #pagination {
+    text-align: right;
+    justify-content: center;
+    justify-content: space-evenly;
+    margin-top: 1.5rem;
+    display: flex;
+    font-weight: 700;
+    color: #e64e45;
+    padding: 1rem;
+    /* bottom: 0;
+    position: fixed;
+    background-color: white;
+    z-index: 1000;
+    width: 100%; */
+  }
+  .pageList,
+  .pageNumber {
+    display: flex;
+    list-style-type: none;
+    justify-content: space-around;
+    padding: 0 0.5rem 0 0.5rem;
+  }
+  .pageNumber:hover {
+    background-color: #ccc;
+    transition: background-color 0.3s ease;
+  }
+  .pageNumber.active {
+    background-color: gray;
+  }
+  .button {
+    align-self: center;
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+  }
+
+  .button-arrow-left {
+    background-color: #e64e45;
+    color: #fff;
+    text-align: center;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    transition: transform 0.1s ease;
+  }
+  .button-arrow-left:hover {
+    transform: scale(1.2);
+    filter: brightness(80%);
+  }
+
+  .button-arrow-right {
+    background-color: #e64e45;
+    color: #fff;
+    text-align: center;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    transition: transform 0.1s ease;
+  }
+  .button-arrow-right:hover {
+    transform: scale(1.2);
+    filter: brightness(80%);
+  }
   @media only screen and (max-width: 600px) {
     table {
       border: 1px solid #ccc;
@@ -131,16 +192,28 @@ const Styledtable = styled.div`
   }
 `;
 // eslint-disable-next-line react/prop-types
-export default function TableComplaint({ onEditModal, deleteModal }) {
+export default function TableComplaint({
+  onEditModal,
+  deleteModal,
+  itemsPerPage,
+}) {
   // Array untk tanggal
   const tanggalOptions = Array.from({ length: 31 }, (_, index) => index + 1);
+  // Array Page Pagination
+  const pageOptions = Array.from({ length: 7 }, (_, index) => index + 1);
   const [complaint, setComplaint] = useState([]);
+
+  // state untuk pagination page
+  const [currentPage, setCurrentPage] = useState(1);
+
   const totalComplaint = complaint.length;
 
   useEffect(() => {
     const getComplaint = async () => {
       try {
-        const response = await axios.get("https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint");
+        const response = await axios.get(
+          "https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint"
+        );
         setComplaint(response.data);
       } catch (error) {
         console.error("error", error);
@@ -151,13 +224,26 @@ export default function TableComplaint({ onEditModal, deleteModal }) {
 
   const updateComplaint = async () => {
     try {
-      const response = await axios.get("https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint");
+      const response = await axios.get(
+        "https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint"
+      );
       setComplaint(response.data);
     } catch (error) {
       console.error("error", error);
     }
   };
 
+  // handlePage ketika berubah
+  // ------------- START CODE ----------------
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = complaint.slice(indexOfFirstItem, indexOfLastItem);
+
+  // --------------- LAST CODE handlePage --------------
   return (
     <>
       <Row as="row">
@@ -223,11 +309,60 @@ export default function TableComplaint({ onEditModal, deleteModal }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {complaint.map(function (komplain) {
-                    return <ListComplaint key={komplain.id} komplain={komplain} onEditModal={() => onEditModal(komplain, updateComplaint)} deleteModal={() => deleteModal(komplain)}/>;
+                  {currentItems.map(function (komplain) {
+                    return (
+                      <ListComplaint
+                        key={komplain.id}
+                        komplain={komplain}
+                        onEditModal={() =>
+                          onEditModal(komplain, updateComplaint)
+                        }
+                        deleteModal={() => deleteModal(komplain)}
+                      />
+                    );
                   })}
                 </tbody>
               </table>
+              <div id="pagination">
+                <div className="thisPage">
+                  {currentPage} | {Math.ceil(complaint.length / itemsPerPage)}
+                </div>
+                <li className="pageList">
+                  {pageOptions.map((pageNumber) => (
+                    <span
+                      key={pageNumber}
+                      className="pageNumber"
+                      onClick={() => handlePageChange(pageNumber)}
+                      style={{ marginRight: "1rem", cursor: "pointer" }}
+                    >
+                      {pageNumber}
+                    </span>
+                  ))}
+                </li>
+                <div className="button">
+                  <button
+                    className="button-arrow-left"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
+                    <Icon
+                      icon="formkit:arrowleft"
+                      width="24"
+                      style={{ margin: "6px" }}
+                    />
+                  </button>
+                  <button
+                    className="button-arrow-right"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                  >
+                    <Icon
+                      icon="formkit:arrowright"
+                      width="24"
+                      style={{ margin: "6px" }}
+                    />
+                  </button>
+                </div>
+              </div>
             </Styledtable>
           </Col>
         </Row>

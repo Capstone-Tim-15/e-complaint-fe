@@ -42,7 +42,7 @@ const ChatList = () => {
           <Col lg="10">
             <div>
               <h1>chat list enduser</h1>
-              {chatList.map((chat) => (
+              {chatList?.map((chat) => (
                 <Card
                   key={chat.id}
                   style={{ width: "18rem", marginBottom: "10px" }}

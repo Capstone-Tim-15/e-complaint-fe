@@ -18,7 +18,6 @@ const ManageBerita = () => {
           </Col>
           <Col lg="10">
             <ListBerita></ListBerita>
-            <FormBerita></FormBerita>
           </Col>
         </Row>
       </Row>

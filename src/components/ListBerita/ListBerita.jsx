@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Icon } from "@iconify/react";
 import { Row, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import "./ListBerita.css";
 
 const ListBerita = () => {
+  const navigate = useNavigate();
   const [news, setNews] = useState([]);
 
   useEffect(() => {
@@ -20,13 +22,14 @@ const ListBerita = () => {
 
   const fetchNews = async () => {
     try {
-      const response = await axios.get(`https://6554737263cafc694fe67aef.mockapi.io/berita`);
+      const response = await axios.get(
+        `https://6554737263cafc694fe67aef.mockapi.io/berita`
+      );
       setNews(response.data);
     } catch (error) {
-      console.error('Error fetching news: ', error);
+      console.error("Error fetching news: ", error);
     }
   };
-
 
   const addNews = async () => {
     try {
@@ -42,16 +45,17 @@ const ListBerita = () => {
   };
 
   const deleteNews = async (newsId) => {
-    if (window.confirm('Are you sure you want to delete this news?')) {
+    if (window.confirm("Are you sure you want to delete this news?")) {
       try {
-        await axios.delete(`https://6554737263cafc694fe67aef.mockapi.io/berita/${newsId}`);
+        await axios.delete(
+          `https://6554737263cafc694fe67aef.mockapi.io/berita/${newsId}`
+        );
         fetchNews();
       } catch (error) {
-        console.error('Error deleting this news request ', error);
+        console.error("Error deleting this news request ", error);
       }
     }
   };
-
 
   return (
     <div>
@@ -60,7 +64,9 @@ const ListBerita = () => {
           <h1 className="text1 ms-4 mb-3"> Daftar Berita </h1>
         </Col>
         <Col lg="6" className="d-flex flex-row-reverse" id="btn-tambah">
-          <button className="Add">Tambah Berita</button>
+          <button className="Add" onClick={() => navigate("/tambahberita")}>
+            Tambah Berita
+          </button>
         </Col>
       </Row>
       <div className="mt-2 p-5">
