@@ -12,7 +12,9 @@ function Notification() {
   useEffect(() => {
     const fetchNotificationData = async () => {
       try {
-        const response = await axios.get("https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint");
+        const response = await axios.get(
+          "https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint"
+        );
         setNotificationData(response.data);
       } catch (error) {
         console.error("Error fetching notification data:", error);
@@ -66,8 +68,11 @@ function Notification() {
                     <p className="d-flex justify-content-between">
                       <span className="fs-6 text-sm-start">{data.date}</span>
                       <span className="fs-6 text-sm-start text-primary">
-                        <button className="btn btn-light" onClick={() => handleShowModal(data)}>
-                        Detail
+                        <button
+                          className="btn btn-light"
+                          onClick={() => handleShowModal(data)}
+                        >
+                          Detail
                         </button>
                       </span>
                     </p>
