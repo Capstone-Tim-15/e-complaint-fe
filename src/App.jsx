@@ -7,7 +7,7 @@ import RecoveryPassword from "./components/Login/RecoveryPassword";
 import NewPassword from "./components/Login/NewPassword";
 import Success from "./components/Login/Success";
 import Import from "./pages/Import";
-import Notification from "./pages/notification";
+import Notification from "./pages/Notification";
 import FormBerita from "./components/TambahBerita/FormBerita";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
