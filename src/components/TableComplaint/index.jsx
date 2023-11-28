@@ -170,7 +170,11 @@ const Styledtable = styled.div`
   }
 `;
 // eslint-disable-next-line react/prop-types
-export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage }) {
+export default function TableComplaint({
+  onEditModal,
+  deleteModal,
+  itemsPerPage,
+}) {
   // Array untk tanggal
   const tanggalOptions = Array.from({ length: 31 }, (_, index) => index + 1);
   // Array Page Pagination
@@ -185,7 +189,9 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
   useEffect(() => {
     const getComplaint = async () => {
       try {
-        const response = await axios.get("https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint");
+        const response = await axios.get(
+          "https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint"
+        );
         setComplaint(response.data);
       } catch (error) {
         console.error("error", error);
@@ -196,7 +202,9 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
 
   const updateComplaint = async () => {
     try {
-      const response = await axios.get("https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint");
+      const response = await axios.get(
+        "https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint"
+      );
       setComplaint(response.data);
     } catch (error) {
       console.error("error", error);
@@ -280,7 +288,16 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
                 </thead>
                 <tbody>
                   {currentItems.map(function (komplain) {
-                    return <ListComplaint key={komplain.id} komplain={komplain} onEditModal={() => onEditModal(komplain, updateComplaint)} deleteModal={() => deleteModal(komplain)} />;
+                    return (
+                      <ListComplaint
+                        key={komplain.id}
+                        komplain={komplain}
+                        onEditModal={() =>
+                          onEditModal(komplain, updateComplaint)
+                        }
+                        deleteModal={() => deleteModal(komplain)}
+                      />
+                    );
                   })}
                 </tbody>
               </table>
@@ -290,17 +307,35 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
                 </div>
                 <li className="pageList">
                   {pageOptions.map((pageNumber) => (
-                    <span key={pageNumber} onClick={() => handlePageChange(pageNumber)} style={{ marginRight: "1rem", cursor: "pointer" }}>
+                    <span
+                      key={pageNumber}
+                      onClick={() => handlePageChange(pageNumber)}
+                      style={{ marginRight: "1rem", cursor: "pointer" }}
+                    >
                       {pageNumber}
                     </span>
                   ))}
                 </li>
                 <div className="button">
-                  <button className="button-arrow-left" onClick={() => handlePageChange(currentPage - 1)}>
-                    <Icon icon="formkit:arrowleft" width="24" style={{ margin: "6px" }} />
+                  <button
+                    className="button-arrow-left"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                  >
+                    <Icon
+                      icon="formkit:arrowleft"
+                      width="24"
+                      style={{ margin: "6px" }}
+                    />
                   </button>
-                  <button className="button-arrow-right" onClick={() => handlePageChange(currentPage + 1)}>
-                    <Icon icon="formkit:arrowright" width="24" style={{ margin: "6px" }} />
+                  <button
+                    className="button-arrow-right"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                  >
+                    <Icon
+                      icon="formkit:arrowright"
+                      width="24"
+                      style={{ margin: "6px" }}
+                    />
                   </button>
                 </div>
               </div>
