@@ -7,7 +7,6 @@ import { Button } from "react-bootstrap";
 import { HiOutlineLogout } from "react-icons/hi";
 
 const Sidebar = () => {
-  const navigate = useNavigate();
   return (
     <div className="sidebar all-sidebar d-none d-sm-flex flex-column justify-content-start align-items-center text-white">
       <div className="text-center">
@@ -92,7 +91,9 @@ const Sidebar = () => {
 
       <div className="text-center button-side mt-5">
         <Button
-          onClick={() => navigate("/")}
+          onClick={() => {
+            localStorage.removeItem("token");
+          }}
           variant="primary"
           className="d-flex align-items-center"
         >
