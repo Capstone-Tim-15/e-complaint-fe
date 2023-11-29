@@ -96,10 +96,10 @@ const ListBerita = () => {
                 </td>
                 <td className="button me-1">
                   <button className="me-2" id="btn">
-                    <Icon icon="uil:edit" width="35" height="35" />
+                    <Icon icon="uil:edit" width="25" height="25" />
                   </button>
                   <button onClick={() => deleteNews(news.id)} id="btn">
-                    <Icon icon="mdi:trash-can-outline" width="35" height="35" />
+                    <Icon icon="mdi:trash-can-outline" width="25" height="25" />
                   </button>
                 </td>
               </tr>
