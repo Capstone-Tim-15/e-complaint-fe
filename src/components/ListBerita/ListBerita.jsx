@@ -59,7 +59,7 @@ const ListBerita = () => {
 
   return (
     <div>
-      <Row className="d-flex justify-content-center align-items-center">
+      <Row className="">
         <Col lg="6">
           <h1 className="text1 ms-4 mb-3"> Daftar Berita </h1>
         </Col>
@@ -69,9 +69,12 @@ const ListBerita = () => {
           </button>
         </Col>
       </Row>
-      <div className="mt-2 p-5">
-        <table className="table table-borderless text-center">
-          <thead className="thead">
+      <div className="mt-2">
+        <table
+          id="table__berita"
+          className="table table-borderless text-center"
+        >
+          <thead id="table__berita" className="thead">
             <tr>
               <th scope="col">Author</th>
               <th scope="col">Judul</th>
@@ -80,9 +83,9 @@ const ListBerita = () => {
               <th scope="col"> </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="table__berita">
             {news.map((news, index) => (
-              <tr key={news.id}>
+              <tr key={news.id} id="table__berita">
                 <td>{news.author}</td>
                 <td>{news.judul}</td>
                 <td>{news.tanggal}</td>
