@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./Sidebar.css";
 import { Link, useNavigate } from "react-router-dom";
-
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { HiOutlineLogout } from "react-icons/hi";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+
+  const handleLogout = () => {
+    navigate("/");
+    setShowModal(false);
+  };
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
   return (
     <div className="sidebar all-sidebar d-none d-sm-flex flex-column justify-content-start align-items-center text-white">
       <div className="text-center">
@@ -91,9 +100,7 @@ const Sidebar = () => {
 
       <div className="text-center button-side mt-5">
         <Button
-          onClick={() => {
-            localStorage.removeItem("token");
-          }}
+          onClick={openModal}
           variant="primary"
           className="d-flex align-items-center"
         >
@@ -101,6 +108,18 @@ const Sidebar = () => {
           LOG OUT
         </Button>
       </div>
+
+      <Modal show={showModal} onHide={closeModal}>
+        <Modal.Body>Are you sure you want to log out?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeModal}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleLogout}>
+            Logout
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
