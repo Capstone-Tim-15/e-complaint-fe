@@ -32,31 +32,30 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post(
-        "http://34.128.69.15:8000/admin/login",
-        {
-          username: username,
-          password: password,
+    await axios
+      .post("http://34.128.69.15:8000/admin/login", {
+        username: username,
+        password: password,
+      })
+      .then((result) => {
+        console.log(result);
+        localStorage.setItem("token", result.data.results.token);
+        navigate("/dashboard");
+      })
+
+      .catch((err) => {
+        console.log(err);
+        if (!err) {
+          setErrMsg("No Server Response");
+        } else if (err.status === 400) {
+          setErrMsg("Missing Username or Password");
+        } else if (err.status === 401) {
+          setErrMsg("Unauthorized");
+        } else {
+          setErrMsg("Login Failed");
         }
-      );
-      // localStorage.setItem(response.data.results.token);
-      setUsername("");
-      setPassword("");
-      setSuccess(true);
-    } catch (err) {
-      console.log(err);
-      if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 400) {
-        setErrMsg("Missing Username or Password");
-      } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
-      } else {
-        setErrMsg("Login Failed");
-      }
-      errRef.current.focus();
-    }
+        errRef.current.focus();
+      });
   };
 
   return (
