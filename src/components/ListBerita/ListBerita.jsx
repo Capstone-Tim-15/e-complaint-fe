@@ -70,7 +70,7 @@ const ListBerita = () => {
         </Col>
       </Row>
       <div className="mt-2 p-5">
-        <table className="table table-borderless text-center">
+        <table className="table table-bordered text-center">
           <thead className="thead">
             <tr>
               <th scope="col">Author</th>
