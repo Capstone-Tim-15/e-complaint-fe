@@ -69,9 +69,9 @@ const ListBerita = () => {
           </button>
         </Col>
       </Row>
-      <div className="mt-2 p-5">
-        <table className="table table-bordered text-center">
-          <thead className="thead">
+      <div className="mt-2">
+        <table className="table table-bordered">
+          <thead className="thead text-center">
             <tr>
               <th scope="col">Author</th>
               <th scope="col">Judul</th>
@@ -93,10 +93,10 @@ const ListBerita = () => {
                 </td>
                 <td className="button me-1">
                   <button className="me-2" id="btn">
-                    <Icon icon="uil:edit" width="35" height="35" />
+                    <Icon icon="uil:edit" width="25" height="25" />
                   </button>
                   <button onClick={() => deleteNews(news.id)} id="btn">
-                    <Icon icon="mdi:trash-can-outline" width="35" height="35" />
+                    <Icon icon="mdi:trash-can-outline" width="25" height="25" />
                   </button>
                 </td>
               </tr>
