@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { PieChart, SparkLineChart } from "@mui/x-charts";
 import { FaArrowUp } from "react-icons/fa6";
-import {Card, Col, Row} from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 
 import { data } from "../components/Dashboard/DummyPieChart";
 import Progress from "../components/Dashboard/Progress";
 import Table from "../components/Dashboard/Table";
 
-
 import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
-import "../styles/Dashboard.css"
+import "../styles/Dashboard.css";
 
 function Dashboard() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  }, []);
+
   return (
     <>
       <Row as="row">

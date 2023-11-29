@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FormBerita from "../components/TambahBerita/FormBerita";
 import ListBerita from "../components/ListBerita/ListBerita";
 import { Row, Col } from "react-bootstrap";
 import Topbar from "../components/Layout/Topbar";
 import Sidebar from "../components/Layout/Sidebar";
+import { useNavigate } from "react-router-dom";
 
 const ManageBerita = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  }, []);
   return (
     <>
       <Row as="row">

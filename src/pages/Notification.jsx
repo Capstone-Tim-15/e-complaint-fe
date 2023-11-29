@@ -3,13 +3,20 @@ import { Col, Row, Modal, Button } from "react-bootstrap";
 import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Notification() {
   const [notificationData, setNotificationData] = useState([]);
   const [selectedComplaint, setSelectedComplaint] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+
     const fetchNotificationData = async () => {
       try {
         const response = await axios.get(

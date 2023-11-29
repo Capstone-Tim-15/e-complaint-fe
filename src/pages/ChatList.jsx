@@ -2,10 +2,19 @@ import React, { useState, useEffect } from "react";
 import { Card, Button, Col, Row } from "react-bootstrap";
 import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
+import { useNavigate } from "react-router-dom";
 
 const ChatList = () => {
   const [chatList, setChatList] = useState([]);
   const [showChatbot, setShowChatbot] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  }, []);
 
   useEffect(() => {
     fetch("https://655422dd63cafc694fe62bc5.mockapi.io/listchat/chatlist")
