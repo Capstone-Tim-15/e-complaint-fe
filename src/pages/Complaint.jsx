@@ -59,7 +59,7 @@ export default function ComplaintPage() {
       <TableComplaint
         onEditModal={handleEditModal}
         deleteModal={toggleModalDelete}
-        itemsPerPage={2}
+        itemsPerPage={5}
       />
       {modal && (
         <Edit
