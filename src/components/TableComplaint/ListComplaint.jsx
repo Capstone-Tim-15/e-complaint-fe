@@ -16,10 +16,10 @@ export default function ListComplaint(props) {
         </td>
         <td id="desk">
           <div className="d-flex">
-            <div className="me-2">
-              <img src="https://picsum.photos/150/150" className="mt-2"></img>
+            <div className="me-2 d-flex align-items-center">
+              <img src={komplain.imageDesc} width={`100px`} className="mt-2 "></img>
             </div>
-            <div>{komplain.description}</div>
+            <div className="d-flex align-items-center">{komplain.description}</div>
           </div>
         </td>
         <td>{komplain.category}</td>
