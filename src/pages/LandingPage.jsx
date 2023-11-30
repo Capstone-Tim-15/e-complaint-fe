@@ -25,11 +25,6 @@ export default function LandingPage() {
                 <p className="subtitle">“Menuju Bandar Dunia Madani”</p>
                 <div className="hero__button">
                   <Button className="btn secondary__btn ">
-                    <Link to="/register">
-                      <span>Daftar</span>
-                    </Link>
-                  </Button>
-                  <Button className="btn secondary__btn ">
                     <Link to="/login">
                       <span>Login</span>
                     </Link>
