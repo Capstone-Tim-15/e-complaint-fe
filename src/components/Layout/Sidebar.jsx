@@ -10,7 +10,8 @@ const Sidebar = () => {
   const [showModal, setShowModal] = useState(false);
 
   const handleLogout = () => {
-    navigate("/");
+    localStorage.removeItem("token");
+    navigate("/login");
     setShowModal(false);
   };
 
