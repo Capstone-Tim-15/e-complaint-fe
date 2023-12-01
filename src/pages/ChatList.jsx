@@ -3,10 +3,12 @@ import { Card, Button, Col, Row } from "react-bootstrap";
 import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import '../styles/ChatList.css';
 
 const ChatList = () => {
   const [chatList, setChatList] = useState([]);
-  const [showChatbot, setShowChatbot] = useState(false);
+  const [showChatUser, setShowChatUser] = useState(false);
 
   const navigate = useNavigate();
 
@@ -17,26 +19,25 @@ const ChatList = () => {
   }, []);
 
   useEffect(() => {
-    fetch("https://655422dd63cafc694fe62bc5.mockapi.io/listchat/chatlist")
-      .then((response) => response.json())
-      .then((data) => setChatList(data.slice(0, 7)))
-      .catch((error) => console.error("Error fetching data:", error));
+    axios.get('https://655422dd63cafc694fe62bc5.mockapi.io/listchat/listchat')
+      .then(response => setChatList(response.data.slice(0, 7)))
+      .catch(error => console.error('Error fetching data:', error));
   }, []);
 
-  const toggleChatbot = () => {
-    setShowChatbot(!showChatbot);
+  const toggleChatUser = () => {
+    setShowChatUser(!showChatUser);
   };
 
   const styleButton = {
-    position: "fixed",
+    position: 'fixed',
     bottom: 10,
     right: 10,
-    borderRadius: "50%",
-    width: "80px",
-    height: "80px",
-    fontSize: "14px",
-    backgroundColor: "gray",
-  };
+    borderRadius: '50%',
+    width: '50px',
+    height: '50px',
+    fontSize: '20px',
+    background: 'url(help.png)',
+  };  
 
   return (
     <>
@@ -50,19 +51,28 @@ const ChatList = () => {
           </Col>
           <Col lg="10">
             <div>
-              <h1>chat list enduser</h1>
-              {chatList?.map((chat) => (
-                <Card
-                  key={chat.id}
-                  style={{ width: "18rem", marginBottom: "10px" }}
-                >
-                  <Card.Body>
-                    <Card.Title>{chat.sender}</Card.Title>
-                  </Card.Body>
-                </Card>
-              ))}
-              <Button style={{ ...styleButton }} onClick={toggleChatbot}>
-                tanya
+              <h1 className="chat">Chat</h1>
+
+              <div className="chat-list-container">
+                {chatList?.map((chat) => (
+                  <Card
+                    key={chat.id}
+                  >
+                    <Card.Body>
+                      <div>
+                        <img
+                          src="{profile}"
+                          alt="Profile"
+                          style={{ width: '55px', height: '55px', borderRadius: '100px' }}
+                        />
+                      </div>  
+                      <Card.Title>{chat.sender}</Card.Title>
+                    </Card.Body>
+                  </Card>
+                ))}
+              </div>
+              <Button style={styleButton}>
+                ?
               </Button>
             </div>
           </Col>

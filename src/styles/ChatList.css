@@ -1,0 +1,35 @@
+.chat {
+    color: #e02216;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    margin-left: 10px;
+  }
+
+.chat-list-container {
+    display: flex;
+    width: 997px;
+    height: 735px;
+    padding: 0px 26px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+  }
+  
+  .card-body {
+    display: flex;
+    width: 940px;
+    height: 80px;
+    padding: 8px 24px 8px 18px;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+    border-radius: 50px;
+    border: 1px solid #000;
+    background: #fff6f6;
+  }
