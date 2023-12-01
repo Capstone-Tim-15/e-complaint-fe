@@ -21,7 +21,7 @@
     flex-shrink: 0;
   }
   
-  .card-body {
+.list-chat {
     display: flex;
     width: 940px;
     height: 80px;

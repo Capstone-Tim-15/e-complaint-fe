@@ -57,7 +57,7 @@ const ChatList = () => {
               <div className="chat-list-container">
                 {chatList?.map((chat) => (
                   <Card key={chat.id}>
-                    <Card.Body>
+                    <Card.Body className="list-chat">
                       <div>
                         <img src={chat.profile} alt="Profile" style={{ width: "55px", height: "55px", borderRadius: "100px" }} />
                       </div>
