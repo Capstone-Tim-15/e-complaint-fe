@@ -3,6 +3,7 @@ import TableComplaint from "../components/TableComplaint";
 import Edit from "../components/Modal";
 import Delete from "../components/Modal/delete";
 import { useNavigate } from "react-router-dom";
+import FaqButton from "../components/FaqButton";
 
 export default function ComplaintPage() {
   const [modal, setModal] = useState(false);
@@ -56,20 +57,10 @@ export default function ComplaintPage() {
 
   return (
     <>
-      <TableComplaint
-        onEditModal={handleEditModal}
-        deleteModal={toggleModalDelete}
-        itemsPerPage={5}
-      />
-      {modal && (
-        <Edit
-          onEditModal={toggleModal}
-          editData={editData}
-          id={selectedId}
-          updateComplaint={updateComplaint}
-        />
-      )}
+      <TableComplaint onEditModal={handleEditModal} deleteModal={toggleModalDelete} itemsPerPage={5} />
+      {modal && <Edit onEditModal={toggleModal} editData={editData} id={selectedId} updateComplaint={updateComplaint} />}
       {modalDelete && <Delete deleteModal={toggleModalDelete} />}
+      <FaqButton />
     </>
   );
 }
