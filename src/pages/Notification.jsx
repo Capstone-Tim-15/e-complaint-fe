@@ -4,6 +4,7 @@ import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import FaqButton from "../components/FaqButton";
 
 function Notification() {
   const [notificationData, setNotificationData] = useState([]);
@@ -89,7 +90,6 @@ function Notification() {
           </Col>
         </Row>
       </Row>
-
       {/* Modal box */}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
@@ -120,6 +120,7 @@ function Notification() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <FaqButton/>
     </>
   );
 }
