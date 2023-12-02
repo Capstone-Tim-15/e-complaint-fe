@@ -39,7 +39,9 @@ export default function Login() {
       })
       .then((result) => {
         console.log(result);
-        localStorage.setItem("token", result.data.results.token);
+        const tokenBarear = result.data.results.token;
+        localStorage.setItem("token", tokenBarear);
+        console.log(tokenBarear);
         navigate("/dashboard");
       })
 
