@@ -215,11 +215,11 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
   useEffect(() => {
     const getComplaint = async () => {
       try {
-        const response = await axios.get("34.128.69.15:8000/admin/complaint", {
+        const response = await axios.get("https://api.govcomplain.my.id/admin/complaint", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log(response.data);
-        setComplaint(response.data);
+        console.log(response.data.results);
+        setComplaint(response.data.results);
       } catch (error) {
         console.error("error", error);
       }
