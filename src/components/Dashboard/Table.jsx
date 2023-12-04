@@ -28,6 +28,12 @@ function Table() {
             scope="col"
             className="px-2 py-1 text-center text-xs font-semibold text-secondary uppercase tracking-wider"
           >
+            Tanggal
+          </th>
+          <th
+            scope="col"
+            className="px-2 py-1 text-center text-xs font-semibold text-secondary uppercase tracking-wider"
+          >
             Status
           </th>
         </tr>
@@ -39,6 +45,7 @@ function Table() {
               <td className="px-2 py-1 text-sm">{item.id}</td>
               <td className="px-2 py-1 text-sm">{item.name}</td>
               <td className="px-2 py-1 text-sm">{item.complaint}</td>
+              <td className="px-2 py-1 text-sm">{item.date}</td>
               <td className="px-2 py-1 text-sm">
                 <span
                   className={`d-inline-block px-3 py-3 rounded-circle ${item.status}`}

@@ -6,7 +6,7 @@ import Footer from "../components/LandingPage/Footer/Footer";
 import image1 from "../assets/lp-1.png";
 import image2 from "../assets/lp-2.png";
 import image3 from "../assets/lp-3.png";
-import Blog from "../components/BlogPost/blog";
+import Blog from "../components/BlogPost/Blog";
 import GuideList from "../components/guide/GuideList";
 import Capabilites from "../components/Capabilities/Capabilites";
 import "../styles/landing-page.css";
@@ -24,11 +24,6 @@ export default function LandingPage() {
                 <h1>Gov-Complaint</h1>
                 <p className="subtitle">“Menuju Bandar Dunia Madani”</p>
                 <div className="hero__button">
-                  <Button className="btn secondary__btn ">
-                    <Link to="/register">
-                      <span>Daftar</span>
-                    </Link>
-                  </Button>
                   <Button className="btn secondary__btn ">
                     <Link to="/login">
                       <span>Login</span>

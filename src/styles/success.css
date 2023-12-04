@@ -87,15 +87,16 @@
   border: none;
 }
 
+.background .vector4 {
+  z-index: 5;
+  width: 100%;
+  margin-bottom: -239px;
+}
+
 .background .ellipse {
   position: absolute !important;
   z-index: 1;
   width: 14%;
   margin-right: -500px;
   margin-top: -450px;
-}
-
-.login__page {
-  padding: 0;
-  margin: 0;
 }
