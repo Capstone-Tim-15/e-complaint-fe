@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ListComplaint from "./ListComplaint";
 import { Icon } from "@iconify/react";
+import { useAuth } from "../../contexts/authContext";
+import { useNavigate } from "react-router-dom";
 
 const Styledtable = styled.div`
   font-family: "Nunito Sans";
@@ -203,12 +205,20 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
   // state untuk pagination page
   const [currentPage, setCurrentPage] = useState(1);
 
+  // menggunakan token
+  const { token } = useAuth();
+
+  const navigate = useNavigate();
+
   const totalComplaint = complaint.length;
 
   useEffect(() => {
     const getComplaint = async () => {
       try {
-        const response = await axios.get("https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint");
+        const response = await axios.get("34.128.69.15:8000/admin/complaint", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log(response.data);
         setComplaint(response.data);
       } catch (error) {
         console.error("error", error);
@@ -223,6 +233,16 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
       setComplaint(response.data);
     } catch (error) {
       console.error("error", error);
+
+      // Handle kode spesifik HTTP
+      if (error.response.status === 404) {
+        console.error("Resource not found.");
+      } else if (error.response.status === 401) {
+        console.error("Unauthorized. Redirect to login.");
+        navigate("/login");
+      } else {
+        console.error("Unexpected error occurred.");
+      }
     }
   };
 
