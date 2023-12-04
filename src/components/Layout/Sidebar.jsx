@@ -74,7 +74,7 @@ const Sidebar = () => {
       </div>
 
       <div className="text-center button-side mt-5">
-        <Button onClick={openModal} variant="primary" className="d-flex align-items-center">
+        <Button onClick={openModal} variant="primary" className="d-flex align-items-center" style={{ backgroundColor: "#6A83C6", borderColor: "#797777", padding: "12px" }}>
           <HiOutlineLogout className="me-2 fs-5" />
           LOG OUT
         </Button>
