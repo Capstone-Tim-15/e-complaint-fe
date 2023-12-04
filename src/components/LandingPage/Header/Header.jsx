@@ -37,6 +37,7 @@ export default function Header() {
         headerRef.current.classList.remove("sticky__header");
       }
     });
+    
   };
 
   useEffect(() => {
