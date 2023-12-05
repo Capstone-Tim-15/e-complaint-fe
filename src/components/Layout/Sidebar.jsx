@@ -49,7 +49,7 @@ const Sidebar = () => {
           <li className="nav-item mt-5">
             <div className={`${location.pathname === "/kategori" ? "active-link" : ""}`}>
               <Link to="/kategori" className="nav-link text-white text-decoration-none d-flex align-items-center">
-                <Icon icon="tabler:list-search" width="29" height="29" style={{ marginRight: "4px" }} />
+                <Icon icon="tabler:list-search" width="26" height="26" style={{ marginRight: "3px", marginLeft: "0" }} />
                 <span className="fs-5">Kategori</span>
               </Link>
             </div>
