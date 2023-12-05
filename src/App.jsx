@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import ComplaintPage from "./pages/Complaint";
 import Kategori from "./pages/Kategori";
+import FaqPage from "./pages/FaqPage";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/chat" element={<ChatList />}></Route>
         <Route path="/import" element={<Import />}></Route>
         <Route path="/notification" element={<Notification />}></Route>
+        <Route path="/faq" element={<FaqPage />}></Route>
       </Routes>
     </Router>
   );
