@@ -37,6 +37,7 @@ export default function Header() {
         headerRef.current.classList.remove("sticky__header");
       }
     });
+    
   };
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export default function Header() {
     <header className="header" ref={headerRef}>
       <Container>
         <Row>
-          <div className="nav__wrapper d-flex align-items-center justify-content-between">
+          <div className="nav__wrapper d-flex align-items-center gap-5">
             <div className="logo">
               <Link to="/home">
                 <img src={logo} alt=""></img>
@@ -70,19 +71,6 @@ export default function Header() {
                   </li>
                 ))}
               </ul>
-            </div>
-
-            <div className="nav__right d-flex align-items-center gap-4">
-              <div className="nav__btns d-flex align-items-center gap-4">
-                <Button className="btn secondary__btn ">
-                  <Link to="/login">
-                    <span>Login</span>
-                  </Link>
-                </Button>
-              </div>
-              <span className="mobile__menu">
-                <i className="ri-menu-line"></i>
-              </span>
             </div>
           </div>
         </Row>

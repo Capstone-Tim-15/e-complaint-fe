@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Col, Row, Modal, Button } from "react-bootstrap";
 import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
+import FaqButton from "../components/FaqButton";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/authContext";
 import axios from "axios";
 
 function Notification() {
@@ -9,20 +12,27 @@ function Notification() {
   const [selectedComplaint, setSelectedComplaint] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  const navigate = useNavigate();
+  const { token } = useAuth();
+
   useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+
     const fetchNotificationData = async () => {
       try {
-        const response = await axios.get(
-          "https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint"
-        );
-        setNotificationData(response.data);
+        const response = await axios.get("https://api.govcomplain.my.id/admin/complaint", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setNotificationData(response.data.results);
       } catch (error) {
         console.error("Error fetching notification data:", error);
       }
     };
 
     fetchNotificationData();
-  }, []);
+  }, [token, navigate]);
 
   const handleShowModal = (complaint) => {
     setSelectedComplaint(complaint);
@@ -45,10 +55,12 @@ function Notification() {
           </Col>
           <Col lg="10">
             <div className="mt-4 ms-4 p-4">
-              <h3 className="mb-4 fw-bold">
-                Notification{" "}
-                <span className="text-danger">{notificationData.length}</span>
-              </h3>
+              {notificationData !== null && (
+                <h3 className="mb-4 fw-bold">
+                  Notification{" "}
+                  <span className="text-danger">{notificationData.length}</span>
+                </h3>
+              )}
               {notificationData &&
                 notificationData.map((data, i) => (
                   <div
@@ -58,10 +70,7 @@ function Notification() {
                   >
                     <p>
                       <strong>{data.name}</strong> memposting keluhan terbaru
-                      <span className="text-danger">
-                        {" "}
-                        {data.description}
-                      </span>{" "}
+                      <span className="text-danger"> {data.content}</span>{" "}
                       <span>on category </span>
                       <strong>{data.category}</strong>
                     </p>
@@ -82,7 +91,6 @@ function Notification() {
           </Col>
         </Row>
       </Row>
-
       {/* Modal box */}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
@@ -96,13 +104,23 @@ function Notification() {
                 complaint:
               </p>
               <p>
-                <strong>Description:</strong> {selectedComplaint.description}
+                <strong>Title:</strong> {selectedComplaint.title}
               </p>
               <p>
                 <strong>Category:</strong> {selectedComplaint.category}
               </p>
               <p>
                 <strong>Date:</strong> {selectedComplaint.date}
+              </p>
+              <p>
+                <strong>Status:</strong> {selectedComplaint.status}
+              </p>
+              <p>
+                <strong>Content:</strong> {selectedComplaint.content}
+              </p>
+              <p>
+                <strong>Image:</strong>{" "}
+                <img src={selectedComplaint.imageUrl} alt="Complaint Image" />
               </p>
             </>
           )}
@@ -113,6 +131,7 @@ function Notification() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <FaqButton />
     </>
   );
 }

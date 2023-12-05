@@ -14,17 +14,13 @@ const ListBerita = () => {
   }, []);
 
   const getNews = async () => {
-    const response = await axios.get(
-      "https://6554737263cafc694fe67aef.mockapi.io/berita"
-    );
+    const response = await axios.get("https://6554737263cafc694fe67aef.mockapi.io/berita");
     setNews(response.data);
   };
 
   const fetchNews = async () => {
     try {
-      const response = await axios.get(
-        `https://6554737263cafc694fe67aef.mockapi.io/berita`
-      );
+      const response = await axios.get(`https://6554737263cafc694fe67aef.mockapi.io/berita`);
       setNews(response.data);
     } catch (error) {
       console.error("Error fetching news: ", error);
@@ -33,10 +29,7 @@ const ListBerita = () => {
 
   const addNews = async () => {
     try {
-      await axios.post(
-        `https://6554737263cafc694fe67aef.mockapi.io/berita`,
-        newNews
-      );
+      await axios.post(`https://6554737263cafc694fe67aef.mockapi.io/berita`, newNews);
       fetchNews();
       setNewBook({ judul: "", author: "", tanggal: "", status: "" });
     } catch (error) {
@@ -47,9 +40,7 @@ const ListBerita = () => {
   const deleteNews = async (newsId) => {
     if (window.confirm("Are you sure you want to delete this news?")) {
       try {
-        await axios.delete(
-          `https://6554737263cafc694fe67aef.mockapi.io/berita/${newsId}`
-        );
+        await axios.delete(`https://6554737263cafc694fe67aef.mockapi.io/berita/${newsId}`);
         fetchNews();
       } catch (error) {
         console.error("Error deleting this news request ", error);
@@ -59,7 +50,7 @@ const ListBerita = () => {
 
   return (
     <div>
-      <Row className="d-flex justify-content-center align-items-center">
+      <Row className="">
         <Col lg="6">
           <h1 className="text1 ms-4 mb-3"> Daftar Berita </h1>
         </Col>
@@ -69,9 +60,9 @@ const ListBerita = () => {
           </button>
         </Col>
       </Row>
-      <div className="mt-2 p-5">
-        <table className="table table-borderless text-center">
-          <thead className="thead">
+      <div className="mt-2">
+        <table id="table__berita" className="table table-borderless text-left">
+          <thead id="table__berita" className="thead">
             <tr>
               <th scope="col">Author</th>
               <th scope="col">Judul</th>
@@ -80,9 +71,9 @@ const ListBerita = () => {
               <th scope="col"> </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="table__berita">
             {news.map((news, index) => (
-              <tr key={news.id}>
+              <tr key={news.id} id="table__berita">
                 <td>{news.author}</td>
                 <td>{news.judul}</td>
                 <td>{news.tanggal}</td>
@@ -92,12 +83,14 @@ const ListBerita = () => {
                   </p>
                 </td>
                 <td className="button me-1">
-                  <button className="me-2" id="btn">
-                    <Icon icon="uil:edit" width="35" height="35" />
-                  </button>
-                  <button onClick={() => deleteNews(news.id)} id="btn">
-                    <Icon icon="mdi:trash-can-outline" width="35" height="35" />
-                  </button>
+                  <div className="d-flex">
+                    <button className="me-2" id="btn">
+                      <Icon icon="uil:edit" width="25" height="25" />
+                    </button>
+                    <button onClick={() => deleteNews(news.id)} id="btn">
+                      <Icon icon="mdi:trash-can-outline" width="25" height="25" />
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

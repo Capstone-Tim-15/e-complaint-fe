@@ -2,12 +2,22 @@ import { useEffect, useState } from "react";
 import TableComplaint from "../components/TableComplaint";
 import Edit from "../components/Modal";
 import Delete from "../components/Modal/delete";
+import { useNavigate } from "react-router-dom";
+import FaqButton from "../components/FaqButton";
 
 export default function ComplaintPage() {
   const [modal, setModal] = useState(false);
   const [editData, setEditData] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [updateComplaint, setUpdateComplaint] = useState(() => () => {});
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  }, []);
 
   const toggleModal = () => {
     setModal(!modal);
@@ -47,9 +57,10 @@ export default function ComplaintPage() {
 
   return (
     <>
-      <TableComplaint onEditModal={handleEditModal} deleteModal={toggleModalDelete} itemsPerPage={2} />
+      <TableComplaint onEditModal={handleEditModal} deleteModal={toggleModalDelete} itemsPerPage={5} />
       {modal && <Edit onEditModal={toggleModal} editData={editData} id={selectedId} updateComplaint={updateComplaint} />}
       {modalDelete && <Delete deleteModal={toggleModalDelete} />}
+      <FaqButton />
     </>
   );
 }

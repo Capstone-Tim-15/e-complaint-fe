@@ -8,10 +8,12 @@ import Vector from "../assets/vector.png";
 import Ellipse from "../assets/ellipse.png";
 import "../styles/login.css";
 import axios from "axios";
+import { useAuth } from "../contexts/authContext";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const { setToken } = useAuth();
 
   const userRef = useRef();
   const errRef = useRef();
@@ -29,34 +31,42 @@ export default function Login() {
     setErrMsg("");
   }, [username, password]);
 
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/dashboard");
+    }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post(
-        "http://34.128.69.15:8000/admin/login",
-        {
-          username: username,
-          password: password,
+    await axios
+      .post("https://api.govcomplain.my.id/admin/login", {
+        username: username,
+        password: password,
+      })
+      .then((result) => {
+        console.log(result);
+        const tokenBarear = result.data.results.token;
+        // localStorage.setItem("token", tokenBarear);
+        setToken(tokenBarear);
+        console.log(tokenBarear);
+        navigate("/dashboard");
+      })
+
+      .catch((err) => {
+        console.log(err);
+        if (!err) {
+          setErrMsg("No Server Response");
+        } else if (err.status === 400) {
+          setErrMsg("Missing Username or Password");
+        } else if (err.status === 401) {
+          setErrMsg("Unauthorized");
+        } else {
+          setErrMsg("Username or Password Incorrect");
         }
-      );
-      // localStorage.setItem(response.data.results.token);
-      setUsername("");
-      setPassword("");
-      setSuccess(true);
-    } catch (err) {
-      console.log(err);
-      if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 400) {
-        setErrMsg("Missing Username or Password");
-      } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
-      } else {
-        setErrMsg("Login Failed");
-      }
-      errRef.current.focus();
-    }
+        errRef.current.focus();
+      });
   };
 
   return (

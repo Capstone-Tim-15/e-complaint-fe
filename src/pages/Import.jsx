@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Topbar from "../components/Layout/Topbar";
 import Sidebar from "../components/Layout/Sidebar";
 import { Col, Row } from "react-bootstrap";
-import ExportComponent from "../components/Import/index";
+import { useNavigate } from "react-router-dom";
+import ImportComponent from "../components/Import";
 
 export default function Import() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  }, []);
   return (
     <Row as="row">
       <Col lg="12">
@@ -15,7 +23,7 @@ export default function Import() {
           <Sidebar />
         </Col>
         <Col lg="10">
-          <ExportComponent />
+          <ImportComponent/>
         </Col>
       </Row>
     </Row>

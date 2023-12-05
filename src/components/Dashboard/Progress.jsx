@@ -33,7 +33,7 @@ function Progress() {
             />
           </svg>
         </div>
-        <div style={{ height: "63px" }} className="border border-success" />
+        <div style={{ height: "63px" }} className="border border-secondary" />
         <div
           style={{ width: "32px", height: "32px" }}
           className="d-flex align-items-center justify-content-center rounded bg-success p-2"
@@ -53,7 +53,7 @@ function Progress() {
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
-        <div style={{ height: "63px" }} className="border border-success" />
+        <div style={{ height: "63px" }} className="border border-secondary" />
         <div
           style={{ width: "32px", height: "32px" }}
           className="d-flex align-items-center justify-content-center rounded bg-white border p-2"
@@ -72,7 +72,7 @@ function Progress() {
             />
           </svg>
         </div>
-        <div style={{ height: "63px" }} className="border border-success" />
+        <div style={{ height: "63px" }} className="border border-secondary" />
         <div
           style={{ width: "32px", height: "32px" }}
           className="d-flex align-items-center justify-content-center rounded bg-danger  p-2"
@@ -94,7 +94,7 @@ function Progress() {
             <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
           </svg>
         </div>
-        <div style={{ height: "63px" }} className="border border-success" />
+        <div style={{ height: "63px" }} className="border border-secondary" />
         <div
           style={{ width: "32px", height: "32px" }}
           className="d-flex align-items-center justify-content-center rounded bg-success p-2"
@@ -114,7 +114,7 @@ function Progress() {
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
-        <div style={{ height: "63px" }} className="border border-success" />
+        <div style={{ height: "63px" }} className="border border-secondary" />
         <div
           style={{ width: "32px", height: "32px" }}
           className="d-flex align-items-center justify-content-center rounded bg-success p-2"

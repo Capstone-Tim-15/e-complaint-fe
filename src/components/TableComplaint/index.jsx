@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled from "styled-components";
 import Sidebar from "../Layout/Sidebar";
 import Topbar from "../Layout/Topbar";
@@ -6,6 +7,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ListComplaint from "./ListComplaint";
 import { Icon } from "@iconify/react";
+import { useAuth } from "../../contexts/authContext";
+import { useNavigate } from "react-router-dom";
 
 const Styledtable = styled.div`
   font-family: "Nunito Sans";
@@ -192,11 +195,7 @@ const Styledtable = styled.div`
   }
 `;
 // eslint-disable-next-line react/prop-types
-export default function TableComplaint({
-  onEditModal,
-  deleteModal,
-  itemsPerPage,
-}) {
+export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage }) {
   // Array untk tanggal
   const tanggalOptions = Array.from({ length: 31 }, (_, index) => index + 1);
   // Array Page Pagination
@@ -206,15 +205,21 @@ export default function TableComplaint({
   // state untuk pagination page
   const [currentPage, setCurrentPage] = useState(1);
 
+  // menggunakan token
+  const { token } = useAuth();
+
+  const navigate = useNavigate();
+
   const totalComplaint = complaint.length;
 
   useEffect(() => {
     const getComplaint = async () => {
       try {
-        const response = await axios.get(
-          "https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint"
-        );
-        setComplaint(response.data);
+        const response = await axios.get("https://api.govcomplain.my.id/admin/complaint", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log(response.data.results);
+        setComplaint(response.data.results);
       } catch (error) {
         console.error("error", error);
       }
@@ -224,12 +229,20 @@ export default function TableComplaint({
 
   const updateComplaint = async () => {
     try {
-      const response = await axios.get(
-        "https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint"
-      );
+      const response = await axios.get("https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint");
       setComplaint(response.data);
     } catch (error) {
       console.error("error", error);
+
+      // Handle kode spesifik HTTP
+      if (error.response.status === 404) {
+        console.error("Resource not found.");
+      } else if (error.response.status === 401) {
+        console.error("Unauthorized. Redirect to login.");
+        navigate("/login");
+      } else {
+        console.error("Unexpected error occurred.");
+      }
     }
   };
 
@@ -310,16 +323,7 @@ export default function TableComplaint({
                 </thead>
                 <tbody>
                   {currentItems.map(function (komplain) {
-                    return (
-                      <ListComplaint
-                        key={komplain.id}
-                        komplain={komplain}
-                        onEditModal={() =>
-                          onEditModal(komplain, updateComplaint)
-                        }
-                        deleteModal={() => deleteModal(komplain)}
-                      />
-                    );
+                    return <ListComplaint key={komplain.id} komplain={komplain} onEditModal={() => onEditModal(komplain, updateComplaint)} deleteModal={() => deleteModal(komplain)} />;
                   })}
                 </tbody>
               </table>
@@ -329,37 +333,17 @@ export default function TableComplaint({
                 </div>
                 <li className="pageList">
                   {pageOptions.map((pageNumber) => (
-                    <span
-                      key={pageNumber}
-                      className="pageNumber"
-                      onClick={() => handlePageChange(pageNumber)}
-                      style={{ marginRight: "1rem", cursor: "pointer" }}
-                    >
+                    <span key={pageNumber} className="pageNumber" onClick={() => handlePageChange(pageNumber)} style={{ marginRight: "1rem", cursor: "pointer" }}>
                       {pageNumber}
                     </span>
                   ))}
                 </li>
                 <div className="button">
-                  <button
-                    className="button-arrow-left"
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                  >
-                    <Icon
-                      icon="formkit:arrowleft"
-                      width="24"
-                      style={{ margin: "6px" }}
-                    />
+                  <button className="button-arrow-left" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+                    <Icon icon="formkit:arrowleft" width="24" style={{ margin: "6px" }} />
                   </button>
-                  <button
-                    className="button-arrow-right"
-                    onClick={() => handlePageChange(currentPage + 1)}
-                  >
-                    <Icon
-                      icon="formkit:arrowright"
-                      width="24"
-                      style={{ margin: "6px" }}
-                    />
+                  <button className="button-arrow-right" onClick={() => handlePageChange(currentPage + 1)}>
+                    <Icon icon="formkit:arrowright" width="24" style={{ margin: "6px" }} />
                   </button>
                 </div>
               </div>
