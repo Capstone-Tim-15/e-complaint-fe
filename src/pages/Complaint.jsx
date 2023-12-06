@@ -68,7 +68,6 @@ export default function ComplaintPage() {
       <TableComplaint onEditModal={handleEditModal} deleteModal={toggleModalDelete} itemsPerPage={10} />
       {modal && <Edit onEditModal={toggleModal} editData={editData} id={selectedId} updateComplaint={updateComplaint} />}
       {modalDelete && <Delete deleteModal={toggleModalDelete} selectedIdForDelete={selectedIdForDelete} onDeleteSuccess={handleDeleteSuccess} />}
-      <FaqButton />
     </>
   );
 }

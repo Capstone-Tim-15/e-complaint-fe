@@ -19,7 +19,7 @@ export default function ListComplaint(props) {
             <div className="me-2 d-flex align-items-center">
               <img src={komplain.imageUrl} width={`100px`} className="mt-2 "></img>
             </div>
-            <div className="d-flex align-items-center">{komplain.comment}</div>
+            <div className="d-flex align-items-center">{komplain.content}</div>
           </div>
         </td>
         <td>{komplain.category}</td>
@@ -30,7 +30,7 @@ export default function ListComplaint(props) {
           </div>
         </td>
         <td>
-          <button onClick={() => onEditModal(komplain.id, updateComplaint, komplain.imageUrl)}>
+          <button onClick={() => onEditModal(komplain.id, updateComplaint)}>
             <Icon icon="uil:edit" width="35" height="35" style={{ marginRight: "1.5rem" }} />
           </button>
           <button onClick={() => deleteModal(komplain.id)}>
