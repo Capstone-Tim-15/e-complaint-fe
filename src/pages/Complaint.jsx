@@ -42,8 +42,10 @@ export default function ComplaintPage() {
 
   // Fungsi modal delete
   const [modalDelete, setModalDelete] = useState(false);
+  const [selectedIdForDelete, setSelectedIdForDelete] = useState(null);
 
-  const toggleModalDelete = () => {
+  const toggleModalDelete = (id) => {
+    setSelectedIdForDelete(id);
     setModalDelete(!modalDelete);
   };
 
@@ -55,11 +57,17 @@ export default function ComplaintPage() {
     }
   }, [modalDelete]);
 
+  const [data, setData] = useState([]);
+  const handleDeleteSuccess = (deletedItemId) => {
+    // Update state data setelah item dihapus
+    setData(prevData => prevData.filter(komplaint => komplaint.id !== deletedItemId));
+  };
+
   return (
     <>
-      <TableComplaint onEditModal={handleEditModal} deleteModal={toggleModalDelete} itemsPerPage={5} />
+      <TableComplaint onEditModal={handleEditModal} deleteModal={toggleModalDelete} itemsPerPage={2} />
       {modal && <Edit onEditModal={toggleModal} editData={editData} id={selectedId} updateComplaint={updateComplaint} />}
-      {modalDelete && <Delete deleteModal={toggleModalDelete} />}
+      {modalDelete && <Delete deleteModal={toggleModalDelete} selectedIdForDelete={selectedIdForDelete}  onDeleteSuccess={handleDeleteSuccess}/>}
       <FaqButton />
     </>
   );
