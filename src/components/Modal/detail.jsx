@@ -7,8 +7,6 @@ import Topbar from "../Layout/Topbar";
 import './css/detail.css';
 import image from "../../assets/profile.jpg"
 import image1 from "../../assets/Mountain.jpeg"
-import imageButton from "../../assets/Vector2.png"
-import { RiSendPlane2Line } from 'react-icons/ri';
 
 export default function DetailComplaint() {
   return (

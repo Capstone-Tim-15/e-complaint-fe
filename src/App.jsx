@@ -15,6 +15,7 @@ import ComplaintPage from "./pages/Complaint";
 import Kategori from "./pages/Kategori";
 import TambahKategori from "./components/Kategori/TambahKategori";
 import FaqPage from "./pages/FaqPage";
+import DetailComplaint from "./components/Modal/detail";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path="/import" element={<Import />}></Route>
         <Route path="/notification" element={<Notification />}></Route>
         <Route path="/faq" element={<FaqPage />}></Route>
+        <Route path="/detail-complaint" element={<DetailComplaint />}></Route>
       </Routes>
     </Router>
   );
