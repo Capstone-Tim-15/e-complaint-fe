@@ -11,7 +11,7 @@ export default function ListComplaint(props) {
         <td>
           <div className="d-flex">
             <div className="align-self-center">
-              <img src={komplain.profil} className="rounded-circle" width={`80px`}></img>
+              <img src={komplain.photoImage} className="rounded-circle" width={`80px`}></img>
             </div>
             <p className="ms-1 fw-bold align-self-center">{komplain.name}</p>
           </div>
@@ -19,16 +19,16 @@ export default function ListComplaint(props) {
         <td id="desk">
           <div className="d-flex">
             <div className="me-2 d-flex align-items-center">
-              <img src={komplain.imageDesc} width={`100px`} className="mt-2 "></img>
+              <img src={komplain.imageUrl} width={`100px`} className="mt-2 "></img>
             </div>
-            <div className="d-flex align-items-center">{komplain.description}</div>
+            <div className="d-flex align-items-center">{komplain.content}</div>
           </div>
         </td>
         <td>{komplain.category}</td>
         <td>{komplain.date}</td>
         <td id="state">
           <div className={`text-center p-1 px-2 me-3 text-white rounded-5 self-center`} style={{ backgroundColor: komplain.state === "Proses" ? "#FFC700" : "#0EAE00" }}>
-            {komplain.state}
+            {komplain.status}
           </div>
         </td>
         <td>

@@ -65,6 +65,7 @@ const Styledtable = styled.div`
     display: flex;
     flex-direction: column;
     align-self: center;
+    margin-right: 2rem;
   }
   .dropdown select {
     margin: 1.5rem;
@@ -196,16 +197,14 @@ const Styledtable = styled.div`
 `;
 // eslint-disable-next-line react/prop-types
 export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage }) {
-  // Array untk tanggal
-  const tanggalOptions = Array.from({ length: 31 }, (_, index) => index + 1);
-  // Array Page Pagination
-  const pageOptions = Array.from({ length: 7 }, (_, index) => index + 1);
-  const [complaint, setComplaint] = useState([]);
+  // // Array untk tanggal
+  // const tanggalOptions = Array.from({ length: 31 }, (_, index) => index + 1);
 
+  const [complaint, setComplaint] = useState([]);
+  // total pages untuk handle stop click to next page jika sudah totalpages
+  const [totalPages, setTotalPages] = useState(1);
   // state untuk pagination page
   const [currentPage, setCurrentPage] = useState(1);
-
-  // menggunakan token
   const { token } = useAuth();
 
   const navigate = useNavigate();
@@ -218,14 +217,16 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
         const response = await axios.get("https://api.govcomplain.my.id/admin/complaint", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log(response.data.results);
+        console.log(response.data);
+        const totalItems = response.data.results.length;
+        setTotalPages(Math.ceil(totalItems / itemsPerPage));
         setComplaint(response.data.results);
       } catch (error) {
         console.error("error", error);
       }
     };
     getComplaint();
-  }, []);
+  }, [token, itemsPerPage]);
 
   const updateComplaint = async () => {
     try {
@@ -249,7 +250,9 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
   // handlePage ketika berubah
   // ------------- START CODE ----------------
   const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
   };
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -284,7 +287,7 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
                         <option>Pendidikan</option>
                       </select>
                     </div>
-                    <div className="dropdown">
+                    {/* <div className="dropdown">
                       <select id="tanggal" name="tanggal">
                         <option value="" disabled selected>
                           Tanggal
@@ -295,7 +298,7 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
                           </option>
                         ))}
                       </select>
-                    </div>
+                    </div> */}
                     <div className="dropdown">
                       <select>
                         <option value="" disabled selected>
@@ -331,18 +334,11 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
                 <div className="thisPage">
                   {currentPage} | {Math.ceil(complaint.length / itemsPerPage)}
                 </div>
-                <li className="pageList">
-                  {pageOptions.map((pageNumber) => (
-                    <span key={pageNumber} className="pageNumber" onClick={() => handlePageChange(pageNumber)} style={{ marginRight: "1rem", cursor: "pointer" }}>
-                      {pageNumber}
-                    </span>
-                  ))}
-                </li>
                 <div className="button">
                   <button className="button-arrow-left" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
                     <Icon icon="formkit:arrowleft" width="24" style={{ margin: "6px" }} />
                   </button>
-                  <button className="button-arrow-right" onClick={() => handlePageChange(currentPage + 1)}>
+                  <button className="button-arrow-right" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
                     <Icon icon="formkit:arrowright" width="24" style={{ margin: "6px" }} />
                   </button>
                 </div>
