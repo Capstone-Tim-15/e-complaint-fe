@@ -218,7 +218,7 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
         const response = await axios.get("https://api.govcomplain.my.id/admin/complaint", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log(response.data.results);
+        console.log(response.data);
         setComplaint(response.data.results);
       } catch (error) {
         console.error("error", error);

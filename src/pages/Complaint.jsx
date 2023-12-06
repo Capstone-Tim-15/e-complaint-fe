@@ -60,14 +60,14 @@ export default function ComplaintPage() {
   const [data, setData] = useState([]);
   const handleDeleteSuccess = (deletedItemId) => {
     // Update state data setelah item dihapus
-    setData(prevData => prevData.filter(komplaint => komplaint.id !== deletedItemId));
+    setData((prevData) => prevData.filter((komplaint) => komplaint.id !== deletedItemId));
   };
 
   return (
     <>
-      <TableComplaint onEditModal={handleEditModal} deleteModal={toggleModalDelete} itemsPerPage={2} />
+      <TableComplaint onEditModal={handleEditModal} deleteModal={toggleModalDelete} itemsPerPage={10} />
       {modal && <Edit onEditModal={toggleModal} editData={editData} id={selectedId} updateComplaint={updateComplaint} />}
-      {modalDelete && <Delete deleteModal={toggleModalDelete} selectedIdForDelete={selectedIdForDelete}  onDeleteSuccess={handleDeleteSuccess}/>}
+      {modalDelete && <Delete deleteModal={toggleModalDelete} selectedIdForDelete={selectedIdForDelete} onDeleteSuccess={handleDeleteSuccess} />}
       <FaqButton />
     </>
   );

@@ -96,7 +96,7 @@ const StyledModal = styled.div`
   }
 `;
 // eslint-disable-next-line react/prop-types
-export default function Edit({ onEditModal, editData, id, updateComplaint }) {
+export default function Edit({ onEditModal, editData, id, updateComplaint, imageUrl }) {
   // const { id } = useParams();
   const [complaint, setComplaint] = useState({
     category: "",
@@ -173,8 +173,11 @@ export default function Edit({ onEditModal, editData, id, updateComplaint }) {
     <StyledModal>
       <div className="overlay">
         <div className="card">
-          <div className="close" onClick={onEditModal}>
+          {/* <div className="close" onClick={onEditModal}>
             <Icon icon="material-symbols:close" width="25" height="25" />
+          </div> */}
+          <div className="close">
+            <image src={imageUrl} alt="ComplaintPage"></image>
           </div>
           <div className="container">
             <form onSubmit={handleSubmit}>
@@ -211,12 +214,6 @@ export default function Edit({ onEditModal, editData, id, updateComplaint }) {
                   <span>Komentar Status</span>
                   <textarea name="description" id="inputdescription" value={complaint.description} onChange={handleChange}></textarea>
                   {formError.description && <div className="error">{formError.description}</div>}
-                </label>
-              </div>
-              <div className="checklist-notif">
-                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                  Notifikasi Pengguna
                 </label>
               </div>
               <div className="actions">
