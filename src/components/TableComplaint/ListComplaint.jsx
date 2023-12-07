@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
-import iconDetail from '../../assets/detail-icon.png'
+import iconDetail from "../../assets/detail-icon.png";
+
 export default function ListComplaint(props) {
   const { komplain, onEditModal, updateComplaint, deleteModal, detailModal } = props;
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ export default function ListComplaint(props) {
           </div>
         </td>
         <td>
+        <div className="tindakan">
           <button onClick={() => navigate(`/detail-complaint/${komplain.id}`)}>
             <img src={iconDetail} width="35" height="35" style={{ marginRight: "1.5rem" }} />
           </button>
@@ -41,6 +43,7 @@ export default function ListComplaint(props) {
           <button onClick={() => deleteModal(komplain.id)}>
             <Icon icon="mdi:trash-can-outline" width="35" height="35" />
           </button>
+          </div>
         </td>
       </tr>
     </>
