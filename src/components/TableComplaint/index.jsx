@@ -34,6 +34,9 @@ const Styledtable = styled.div`
   #state {
     padding: 0.5rem;
   }
+  .tindakan {
+    text-align: right;
+  }
   table {
     margin-top: 1rem;
     border-collapse: collapse;
@@ -47,6 +50,9 @@ const Styledtable = styled.div`
     padding: 1.5rem 1rem 1.5rem 1rem;
     vertical-align: middle;
     border-bottom: 2px solid red;
+  }
+  th {
+    font-size: 18px;
   }
   p {
     padding: 1.5rem 1rem 0 1rem;
@@ -205,6 +211,7 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
   const [totalPages, setTotalPages] = useState(1);
   // state untuk pagination page
   const [currentPage, setCurrentPage] = useState(1);
+  const [categoryDropdown, setCategoryDropdown] = useState([]);
   const { token } = useAuth();
 
   const navigate = useNavigate();
@@ -212,12 +219,25 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
   const totalComplaint = complaint.length;
 
   useEffect(() => {
+    const getCategory = async () => {
+      try {
+        const response = await axios.get("https://6570537e09586eff66412148.mockapi.io/kategori");
+        console.log(response.data);
+        setCategoryDropdown(response.data);
+      } catch (error) {
+        console.error("Error fetching categories", error);
+      }
+    };
+    getCategory();
+  }, []);
+
+  useEffect(() => {
     const getComplaint = async () => {
       try {
         const response = await axios.get("https://api.govcomplain.my.id/admin/complaint", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log(response.data);
+
         const totalItems = response.data.results.length;
         setTotalPages(Math.ceil(totalItems / itemsPerPage));
         setComplaint(response.data.results);
@@ -283,8 +303,11 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
                         <option value="" disabled selected>
                           Kategori
                         </option>
-                        <option>Lingkungan</option>
-                        <option>Pendidikan</option>
+                        {categoryDropdown.map((category) => (
+                          <option key={category.id} value={category.kategori}>
+                            {category.kategori}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     {/* <div className="dropdown">
@@ -321,7 +344,9 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
                     <th scope="col">Kategori</th>
                     <th scope="col">Tanggal</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Tindakan</th>
+                    <th scope="col" style={{ textAlign: "right", marginRight: "2rem" }}>
+                      Tindakan
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
