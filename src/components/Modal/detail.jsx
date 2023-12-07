@@ -7,8 +7,32 @@ import Topbar from "../Layout/Topbar";
 import './css/detail.css';
 import image from "../../assets/profile.jpg"
 import image1 from "../../assets/Mountain.jpeg"
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useAuth } from "../../contexts/authContext";
 
 export default function DetailComplaint() {
+  const { id } = useParams();
+  const [complaint, setComplaint] = useState(null);
+  const { token } = useAuth();
+
+  const fetchDataDetail = async () =>{
+    try{
+      const response = await axios.get(`https://api.govcomplain.my.id/admin/complaint/search?id=${id}`,{
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      console.log(response);
+      setComplaint(response.data.results);
+    } catch(error) {
+      console.error('error fetching data', error);
+    }
+  }
+
+  useEffect(()=>{
+    fetchDataDetail();
+  }, []);
+
   return (
     <div className="row">
       <div className="col-lg-12">
@@ -25,13 +49,13 @@ export default function DetailComplaint() {
             </div>
             <div className="menu-title">
               <div className="lingkungan">
-                <h4>Lingkungan</h4>
+                <h4>{complaint && complaint.category}</h4>
               </div>
-              <div className="date">
+              {/* <div className="date">
                 <h4>23/10/2023</h4>
-              </div>
-              <div className="category-status">
-                <h4>Proses</h4>
+              </div> */}
+              <div className="category-status" style={{ backgroundColor:complaint && complaint.status === "SEND" ? "#0EAE00 " : "#FFC700" }}>
+                <h4>{complaint && complaint.status}</h4>
               </div>
             </div>
           </div>
@@ -39,17 +63,14 @@ export default function DetailComplaint() {
             <div className="profile-detail">
               <h6 className="by">By</h6>
               <img src={image} alt="profile" />
-              <h6>Budi</h6>
+              <h6>{complaint && complaint.name}</h6>
             </div>
             <div className="content-detail">
               <div className="left">
                 <img src={image1} alt="image-detail" />
                 <h6>Deskripsi</h6>
                 <div className="card card-deskripsi">
-                  <p>Saya ingin melaporkan masalah pencahayaan di Jalan
-                    Raja Ali Haji, Batam Centre. Beberapa lampu jalan mati,
-                    dan ini membuat daerah tersebut terasa kurang aman. Bisa
-                    dibantu untuk memperbaiki lampu-lampu ini?</p>
+                  <p>{complaint && complaint.content}</p>
                 </div>
               </div>
               <div className="right">

@@ -37,7 +37,7 @@ function App() {
         <Route path="/import" element={<Import />}></Route>
         <Route path="/notification" element={<Notification />}></Route>
         <Route path="/faq" element={<FaqPage />}></Route>
-        <Route path="/detail-complaint" element={<DetailComplaint />}></Route>
+        <Route path="/detail-complaint/:id" element={<DetailComplaint />}></Route>
       </Routes>
     </Router>
   );

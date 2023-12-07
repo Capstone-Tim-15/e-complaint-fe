@@ -32,7 +32,7 @@ export default function ListComplaint(props) {
           </div>
         </td>
         <td>
-          <button onClick={() => navigate("/detail-complaint")}>
+          <button onClick={() => navigate(`/detail-complaint/${komplain.id}`)}>
             <img src={iconDetail} width="35" height="35" style={{ marginRight: "1.5rem" }} />
           </button>
           <button onClick={() => onEditModal(komplain.id, updateComplaint)}>
