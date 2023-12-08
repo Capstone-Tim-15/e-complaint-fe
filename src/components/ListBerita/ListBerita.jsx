@@ -102,7 +102,7 @@ const ListBerita = () => {
               <th scope="col">Author</th>
               <th scope="col">Judul</th>
               <th scope="col">Konten</th>
-              <th scope="col">Tanggal</th>
+              <th scope="col">Tanggal</th> 
               <th scope="col"> </th>
             </tr>
           </thead>

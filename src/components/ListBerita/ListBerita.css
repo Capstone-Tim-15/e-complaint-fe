@@ -3,21 +3,21 @@
   justify-content: space-around;
   align-items: center;
 }
-/* Warna normal untuk page link */
+
 .pagination-red .pagination .page-link {
   background-color: #fff;
   border-color: #e02216;
   color: #e02216;
 }
 
-/* Warna saat hover pada page link */
+
 .pagination-red .pagination .page-link:hover {
   background-color: #e02216;
   border-color: #e02216;
   color: #fff;
 }
 
-/* Warna untuk page aktif */
+
 .pagination-red .pagination .page-item.active .page-link {
   background-color: #e02216;
   border-color: #e02216;
