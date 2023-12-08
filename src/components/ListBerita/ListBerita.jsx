@@ -21,7 +21,7 @@ const ListBerita = () => {
 
   const confirmDelete = async () => {
     try {
-          const token = localStorage.getItem("token"); // Ambil token dari localStorage
+          const token = localStorage.getItem("token"); 
           await axios.delete(`https://api.govcomplain.my.id/admin/news/${newsId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -37,7 +37,7 @@ const ListBerita = () => {
 
   const getNews = async () => {
     try {
-      const token = localStorage.getItem("token"); // Ambil token dari localStorage
+      const token = localStorage.getItem("token");
       const response = await axios.get("https://api.govcomplain.my.id/admin/news?page=" + currentPage, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -116,7 +116,7 @@ const ListBerita = () => {
                 <td>{item.date}</td>
                 <td className="status">
                   <p className="text-white" id="text2">
-                    Terbit
+                    TEerbut
                   </p>
                 </td>
                 <td className="button me-1">
