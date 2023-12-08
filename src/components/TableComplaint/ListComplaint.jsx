@@ -33,16 +33,16 @@ export default function ListComplaint(props) {
           </div>
         </td>
         <td>
-        <div className="tindakan">
-          <button onClick={() => navigate(`/detail-complaint/${komplain.id}`)}>
-            <img src={iconDetail} width="35" height="35" style={{ marginRight: "1.5rem" }} />
-          </button>
-          <button onClick={() => onEditModal(komplain.id, updateComplaint)}>
-            <Icon icon="uil:edit" width="35" height="35" style={{ marginRight: "1.5rem" }} />
-          </button>
-          <button onClick={() => deleteModal(komplain.id)}>
-            <Icon icon="mdi:trash-can-outline" width="35" height="35" />
-          </button>
+          <div className="tindakan">
+            <button onClick={() => navigate(`/detail-complaint/${komplain.id}`)}>
+              <img src={iconDetail} width="33" height="33" style={{ marginRight: "1.5rem" }} />
+            </button>
+            <button onClick={() => onEditModal(komplain.id, updateComplaint)}>
+              <Icon icon="uil:edit" width="33" height="33" style={{ marginRight: "1.5rem" }} />
+            </button>
+            <button onClick={() => deleteModal(komplain.id)}>
+              <Icon icon="mdi:trash-can-outline" width="34" height="34" />
+            </button>
           </div>
         </td>
       </tr>

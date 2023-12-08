@@ -34,6 +34,9 @@ const Styledtable = styled.div`
   #state {
     padding: 0.5rem;
   }
+  .tindakan {
+    text-align: right;
+  }
   table {
     margin-top: 1rem;
     border-collapse: collapse;
@@ -47,6 +50,9 @@ const Styledtable = styled.div`
     padding: 1.5rem 1rem 1.5rem 1rem;
     vertical-align: middle;
     border-bottom: 2px solid red;
+  }
+  th {
+    font-size: 18px;
   }
   p {
     padding: 1.5rem 1rem 0 1rem;
@@ -196,7 +202,7 @@ const Styledtable = styled.div`
   }
 `;
 // eslint-disable-next-line react/prop-types
-export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage }) {
+export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage, categoryDropdown }) {
   // // Array untk tanggal
   // const tanggalOptions = Array.from({ length: 31 }, (_, index) => index + 1);
 
@@ -230,7 +236,9 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
 
   const updateComplaint = async () => {
     try {
-      const response = await axios.get("https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint");
+      const response = await axios.get(`https://api.govcomplain.my.id/admin/complaint/search?${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setComplaint(response.data);
     } catch (error) {
       console.error("error", error);
@@ -283,8 +291,11 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
                         <option value="" disabled selected>
                           Kategori
                         </option>
-                        <option>Lingkungan</option>
-                        <option>Pendidikan</option>
+                        {categoryDropdown.map((category) => (
+                          <option key={category.id} value={category.kategori}>
+                            {category.kategori}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     {/* <div className="dropdown">
@@ -321,7 +332,9 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage 
                     <th scope="col">Kategori</th>
                     <th scope="col">Tanggal</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Tindakan</th>
+                    <th scope="col" style={{ textAlign: "right" }}>
+                      Tindakan
+                    </th>
                   </tr>
                 </thead>
                 <tbody>

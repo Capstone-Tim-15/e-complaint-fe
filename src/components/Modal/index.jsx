@@ -106,7 +106,7 @@ const StyledModal = styled.div`
   }
 `;
 // eslint-disable-next-line react/prop-types
-export default function Edit({ onEditModal, editData, id, updateComplaint }) {
+export default function Edit({ onEditModal, editData, id, updateComplaint, categoryDropdown }) {
   // const { id } = useParams();
   const [complaint, setComplaint] = useState({
     category: "",
@@ -196,9 +196,11 @@ export default function Edit({ onEditModal, editData, id, updateComplaint }) {
                     <option value="" disabled>
                       Kategori
                     </option>
-                    <option value="Lingkungan">Lingkungan</option>
-                    <option value="Pendidikan">Pendidikan</option>
-                    <option value="Transportasi">Transportasi</option>
+                    {categoryDropdown.map((category) => (
+                      <option key={category.id} value={category.kategori}>
+                        {category.kategori}
+                      </option>
+                    ))}
                   </select>
                   {formError.category && <div className="error">{formError.category}</div>}
                 </label>
