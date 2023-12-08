@@ -115,8 +115,8 @@ const ListBerita = () => {
                 <td>{item.content}</td>
                 <td>{item.date}</td>
                 <td className="status">
-                  <p className="bg-warning text-white" id="text2">
-                    {item.status}
+                  <p className="text-white" id="text2">
+                    Terbit
                   </p>
                 </td>
                 <td className="button me-1">
