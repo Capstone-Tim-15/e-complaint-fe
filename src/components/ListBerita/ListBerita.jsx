@@ -20,8 +20,8 @@ const ListBerita = () => {
 
   const confirmDelete = async () => {
     try {
-          const token = localStorage.getItem("token"); // Ambil token dari localStorage
-          await axios.delete(`http://34.128.69.15:8000/admin/news/${newsId}`, {
+          const token = localStorage.getItem("token");
+          await axios.delete(`https://api.govcomplain.my.id/admin/news/${newsId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -37,7 +37,7 @@ const ListBerita = () => {
   const getNews = async () => {
     try {
       const token = localStorage.getItem("token"); // Ambil token dari localStorage
-      const response = await axios.get("http://34.128.69.15:8000/admin/news?page=" + currentPage, {
+      const response = await axios.get("https://api.govcomplain.my.id/admin/news?page=" + currentPage, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -55,7 +55,7 @@ const ListBerita = () => {
     setNewsId(newsId);
     // if (window.confirm("Are you sure you want to delete this news?")) {
     //   try {
-    //     const token = localStorage.getItem("token"); // Ambil token dari localStorage
+    //     const token = localStorage.getItem("token"); 
     //     await axios.delete(`http://34.128.69.15:8000/admin/news/${newsId}`, {
     //       headers: {
     //         Authorization: `Bearer ${token}`,

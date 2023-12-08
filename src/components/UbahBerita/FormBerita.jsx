@@ -27,7 +27,7 @@ const FormBerita = () => {
       navigate("/berita");
     }
 
-    axios.get('http://34.128.69.15:8000/admin/news/search?id=' + id, {
+    axios.get('https://api.govcomplain.my.id/admin/news/search?id=' + id, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -62,7 +62,7 @@ const FormBerita = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.put(
-        `http://34.128.69.15:8000/admin/news/${formData.id}`,
+        `https://api.govcomplain.my.id/admin/news/${formData.id}`,
         {...formData, ...{date: new Date(formData.date)}},
         {
           headers: {
