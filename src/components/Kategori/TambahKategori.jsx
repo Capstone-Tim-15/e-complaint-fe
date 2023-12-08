@@ -1,11 +1,41 @@
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
+import { useState } from "react";
+import { Col, Row, Modal, Button } from "react-bootstrap";
 import Sidebar from "../Layout/Sidebar";
 import Topbar from "../Layout/Topbar";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const FormBerita = () => {
+const TambahKategori = () => {
   const navigate = useNavigate();
+  const [categoryName, setCategoryName] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [successCategoryName, setSuccessCategoryName] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios.post("https://6570537e09586eff66412148.mockapi.io/kategori", {
+        kategori: categoryName,
+      });
+      
+      setSuccessCategoryName(categoryName);
+
+      // Reset dan menampilkan modal
+      setCategoryName("");
+      setShowModal(true);
+    } catch (error) {
+      console.error("Error adding category:", error);
+    }
+  };
+
+  const CloseModal = () => {
+    setShowModal(false);
+
+    // redirect ke kategori setelah menutup modal
+    navigate("/kategori");
+  };
+
   return (
     <>
       <Row as="row">
@@ -33,7 +63,7 @@ const FormBerita = () => {
             </Row>
             <Col lg="6">
               <div className="p-4">
-                <form className="p-4 form__berita">
+                <form className="p-4 form__berita" onSubmit={handleSubmit}>
                   <div className="mb-3">
                     <label
                       htmlFor="categoryName"
@@ -45,6 +75,8 @@ const FormBerita = () => {
                       type="text"
                       className="form-control"
                       id="categoryName"
+                      value={categoryName}
+                      onChange={(e) => setCategoryName(e.target.value)}
                     />
                   </div>
                   <button type="submit" className="btn btn-danger">
@@ -56,8 +88,23 @@ const FormBerita = () => {
           </Col>
         </Row>
       </Row>
+
+      {/* Sukses Modal */}
+      <Modal show={showModal} onHide={CloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Sukses!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Berhasil Menambahkan Kategori <strong>{successCategoryName}</strong>.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={CloseModal}>
+            Oke
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
 
-export default FormBerita;
+export default TambahKategori;

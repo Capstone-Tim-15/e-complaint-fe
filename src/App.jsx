@@ -9,6 +9,7 @@ import Success from "./components/Login/Success";
 import Import from "./pages/Import";
 import Notification from "./pages/Notification";
 import FormBerita from "./components/TambahBerita/FormBerita";
+import UbahBerita from "./components/UbahBerita/FormBerita";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import ComplaintPage from "./pages/Complaint";
@@ -32,6 +33,7 @@ function App() {
         <Route path="/kategori" element={<Kategori />}></Route>
         <Route path="/tambahkategori" element={<TambahKategori />}></Route>
         <Route path="/tambahberita" element={<FormBerita />}></Route>
+        <Route path="/editberita" element={<UbahBerita />}></Route>
         <Route path="/chat" element={<ChatList />}></Route>
         <Route path="/import" element={<Import />}></Route>
         <Route path="/notification" element={<Notification />}></Route>

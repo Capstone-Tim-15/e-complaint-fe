@@ -18,6 +18,11 @@ const StyledModal = styled.div`
   justify-content: center;
   align-items: center;
 
+  span {
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
   p {
     font-weight: 600;
   }
@@ -38,12 +43,12 @@ const StyledModal = styled.div`
     display: flex;
   }
 
-  textarea {
+  /* textarea {
     height: 100px;
     background-color: rgba(243, 167, 162, 0.1);
     outline: none;
     resize: none;
-  }
+  } */
   .close {
     text-align: right;
     margin: 0.3rem;
@@ -59,6 +64,7 @@ const StyledModal = styled.div`
   .container {
     margin: 0.3rem;
     width: 98%;
+    margin-top: 1rem;
   }
 
   input {
@@ -66,10 +72,14 @@ const StyledModal = styled.div`
     margin-right: 0.5rem;
     background-color: rgba(243, 167, 162, 0.1);
   }
+  .category,
+  .status {
+    margin-bottom: 1rem;
+  }
   .actions {
     display: flex;
     justify-content: space-evenly;
-    margin: 1rem 0;
+    margin: 1rem;
   }
 
   .canceling {
@@ -96,7 +106,7 @@ const StyledModal = styled.div`
   }
 `;
 // eslint-disable-next-line react/prop-types
-export default function Edit({ onEditModal, editData, id, updateComplaint }) {
+export default function Edit({ onEditModal, editData, id, updateComplaint, categoryDropdown }) {
   // const { id } = useParams();
   const [complaint, setComplaint] = useState({
     category: "",
@@ -110,8 +120,8 @@ export default function Edit({ onEditModal, editData, id, updateComplaint }) {
   });
   useEffect(() => {
     if (editData) {
-      const { category, state, description } = editData;
-      setComplaint({ category, state, description });
+      const { category, state } = editData;
+      setComplaint({ category, state });
     }
   }, [editData]);
   const handleChange = (e) => {
@@ -120,11 +130,11 @@ export default function Edit({ onEditModal, editData, id, updateComplaint }) {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { category, state, description } = complaint;
+    const { category, state } = complaint;
     const errors = {
       category: !category,
       state: !state,
-      description: !description,
+      // description: !description,
     };
     if (Object.values(errors).some((error) => error)) {
       setFormError(errors);
@@ -134,7 +144,7 @@ export default function Edit({ onEditModal, editData, id, updateComplaint }) {
       await axios.put(`https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint/${id}`, {
         category,
         state,
-        description,
+        // description,
       });
       onEditModal();
 
@@ -143,12 +153,12 @@ export default function Edit({ onEditModal, editData, id, updateComplaint }) {
       setComplaint({
         category: "",
         state: "",
-        description: "",
+        // description: "",
       });
       setFormError({
         category: false,
         state: false,
-        description: false,
+        // description: false,
       });
     } catch (error) {
       console.log("Gagal Mengedit Data", error);
@@ -186,14 +196,16 @@ export default function Edit({ onEditModal, editData, id, updateComplaint }) {
                     <option value="" disabled>
                       Kategori
                     </option>
-                    <option value="Lingkungan">Lingkungan</option>
-                    <option value="Pendidikan">Pendidikan</option>
-                    <option value="Transportasi">Transportasi</option>
+                    {categoryDropdown.map((category) => (
+                      <option key={category.id} value={category.kategori}>
+                        {category.kategori}
+                      </option>
+                    ))}
                   </select>
                   {formError.category && <div className="error">{formError.category}</div>}
                 </label>
               </div>
-              <div className="state">
+              <div className="status">
                 <label>
                   <span>Status</span>
                   <select name="state" id="inputState" value={complaint.state} onChange={handleChange}>
@@ -206,19 +218,13 @@ export default function Edit({ onEditModal, editData, id, updateComplaint }) {
                   {formError.state && <div className="error">{formError.state}</div>}
                 </label>
               </div>
-              <div className="description">
+              {/* <div className="description">
                 <label>
                   <span>Komentar Status</span>
                   <textarea name="description" id="inputdescription" value={complaint.description} onChange={handleChange}></textarea>
                   {formError.description && <div className="error">{formError.description}</div>}
                 </label>
-              </div>
-              <div className="checklist-notif">
-                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                  Notifikasi Pengguna
-                </label>
-              </div>
+              </div> */}
               <div className="actions">
                 <button className="canceling" onClick={onEditModal}>
                   Batal
