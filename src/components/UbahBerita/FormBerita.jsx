@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import Sidebar from "../Layout/Sidebar";
@@ -12,17 +12,41 @@ const FormBerita = () => {
     date: "",
     title: "",
     content: "",
+    id: '',
+    adminId: '',
   });
 
-  function makeRandomString(length) {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
     }
-    return result;
-  }
+
+    const id = (new URLSearchParams(document.location.search)).get('id');
+    if (!id) {
+      navigate("/berita");
+    }
+
+    axios.get('http://34.128.69.15:8000/admin/news/search?id=' + id, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      const { data } = res;
+      const {results} = data;
+      const { adminId, content, date, title } = results;
+
+      const dateObj = new Date(date);
+
+      setFormData({
+        date: `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}-${dateObj.getDate().toString().padStart(2, '0')}`,
+        title,
+        content,
+        id,
+        adminId,
+      })
+    })
+  }, [])
   
 
   const handleChange = (e) => {
@@ -37,17 +61,13 @@ const FormBerita = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post(
-        "http://34.128.69.15:8000/admin/news",
-        JSON.stringify({
-          adminId: 'PasheE',
-          title: formData.title,
-          content: formData.content,
-        }),
+      const response = await axios.put(
+        `http://34.128.69.15:8000/admin/news/${formData.id}`,
+        {...formData, ...{date: new Date(formData.date)}},
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            // 'Content-Type': 'application/json',
           },
         }
       );
@@ -147,7 +167,7 @@ const FormBerita = () => {
                         variant="danger"
                         className="button__form-berita"
                       >
-                        Save
+                        Simpan
                       </Button>
                     </div>
               </Form>

@@ -41,14 +41,14 @@ export default function Login() {
     e.preventDefault();
 
     await axios
-      .post("https://api.govcomplain.my.id/admin/login", {
+      .post("http://34.128.69.15:8000/admin/login", {
         username: username,
         password: password,
       })
       .then((result) => {
         console.log(result);
         const tokenBarear = result.data.results.token;
-        // localStorage.setItem("token", tokenBarear);
+        localStorage.setItem("token", tokenBarear);
         setToken(tokenBarear);
         console.log(tokenBarear);
         navigate("/dashboard");
