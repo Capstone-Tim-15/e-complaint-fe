@@ -53,6 +53,7 @@ const ListBerita = () => {
   const deleteNews = async (newsId) => {
     setModal(true)
     setNewsId(newsId);
+
   };
 
   function Pagination({ meta }) {
