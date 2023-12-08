@@ -109,7 +109,7 @@ const ListBerita = () => {
       </Row>
       <div className="mt-2">
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <table id="table__berita" className="table table-borderless text-left">
+        <table id="table__berita" className="table table-bordered text-left">
           <thead id="table__berita" className="thead">
             <tr>
               <th scope="col">Author</th>
