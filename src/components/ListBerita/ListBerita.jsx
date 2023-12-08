@@ -101,7 +101,6 @@ const ListBerita = () => {
             <tr>
               <th scope="col">Author</th>
               <th scope="col">Judul</th>
-              <th scope="col">Konten</th>
               <th scope="col">Tanggal</th> 
               <th scope="col"> </th>
             </tr>
@@ -111,7 +110,6 @@ const ListBerita = () => {
               <tr key={item.id} id="table__berita">
                 <td>{item.adminId}</td>
                 <td>{item.title}</td>
-                <td>{item.content}</td>
                 <td>{item.date}</td>
                 <td className="button me-1">
                   <div className="d-flex">
