@@ -7,6 +7,7 @@ import { Card, Col, Row } from "react-bootstrap";
 import { data } from "../components/Dashboard/DummyPieChart";
 import Progress from "../components/Dashboard/Progress";
 import Table from "../components/Dashboard/Table";
+import { useAuth } from "../contexts/authContext";
 
 import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
@@ -14,9 +15,10 @@ import "../styles/Dashboard.css";
 
 function Dashboard() {
   const navigate = useNavigate();
+  const { token } = useAuth();
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
+    if (!token) {
       navigate("/login");
     }
   }, []);
