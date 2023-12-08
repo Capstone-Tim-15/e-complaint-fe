@@ -103,7 +103,6 @@ const ListBerita = () => {
               <th scope="col">Judul</th>
               <th scope="col">Konten</th>
               <th scope="col">Tanggal</th>
-               <th scope="col">Status</th>
               <th scope="col"> </th>
             </tr>
           </thead>
@@ -114,11 +113,6 @@ const ListBerita = () => {
                 <td>{item.title}</td>
                 <td>{item.content}</td>
                 <td>{item.date}</td>
-                <td className="status">
-                  <p className="text-white" id="text2">
-                    TEerbut
-                  </p>
-                </td>
                 <td className="button me-1">
                   <div className="d-flex">
                     <button onClick={() => {navigate(`/editberita?id=${item.id}`)}} className="me-2" id="btn">
