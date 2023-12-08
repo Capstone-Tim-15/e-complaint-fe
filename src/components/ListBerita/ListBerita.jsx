@@ -36,7 +36,7 @@ const ListBerita = () => {
 
   const getNews = async () => {
     try {
-      const token = localStorage.getItem("token"); // Ambil token dari localStorage
+      const token = localStorage.getItem("token");
       const response = await axios.get("https://api.govcomplain.my.id/admin/news?page=" + currentPage, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -53,20 +53,6 @@ const ListBerita = () => {
   const deleteNews = async (newsId) => {
     setModal(true)
     setNewsId(newsId);
-    // if (window.confirm("Are you sure you want to delete this news?")) {
-    //   try {
-    //     const token = localStorage.getItem("token"); 
-    //     await axios.delete(`http://34.128.69.15:8000/admin/news/${newsId}`, {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     });
-    //     getNews();
-    //   } catch (error) {
-    //     console.error("Error deleting this news request ", error);
-    //     setError("Error deleting news. Please check your JWT token.");
-    //   }
-    // }
   };
 
   function Pagination({ meta }) {
@@ -116,7 +102,7 @@ const ListBerita = () => {
               <th scope="col">Judul</th>
               <th scope="col">Konten</th>
               <th scope="col">Tanggal</th>
-              {/* <th scope="col">Status</th> */}
+              <th scope="col">Status</th>
               <th scope="col"> </th>
             </tr>
           </thead>
@@ -127,11 +113,11 @@ const ListBerita = () => {
                 <td>{item.title}</td>
                 <td>{item.content}</td>
                 <td>{item.date}</td>
-                {/* <td className="status">
+               <td className="status">
                   <p className="bg-warning text-white" id="text2">
                     {item.status}
                   </p>
-                </td> */}
+                </td>
                 <td className="button me-1">
                   <div className="d-flex">
                     <button onClick={() => {navigate(`/editberita?id=${item.id}`)}} className="me-2" id="btn">
