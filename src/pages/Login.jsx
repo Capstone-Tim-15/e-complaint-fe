@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/LandingPage/Header/Header";
 import Footer from "../components/LandingPage/Footer/Footer";
 import { Icon } from "@iconify/react";
-import Vector from "../assets/vector.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Ellipse from "../assets/ellipse.png";
 import "../styles/login.css";
 import axios from "axios";
@@ -16,26 +17,10 @@ export default function Login() {
   const { setToken } = useAuth();
 
   const userRef = useRef();
-  const errRef = useRef();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
-
-  useEffect(() => {
-    userRef.current.focus();
-  }, []);
-
-  useEffect(() => {
-    setErrMsg("");
-  }, [username, password]);
-
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      navigate("/dashboard");
-    }
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,20 +42,31 @@ export default function Login() {
       .catch((err) => {
         console.log(err);
         if (!err) {
-          setErrMsg("No Server Response");
-        } else if (err.status === 400) {
-          setErrMsg("Missing Username or Password");
+          toast.error("No Server Response");
+        } else if ((username && password) === "") {
+          toast.error("Missing Username or Password");
         } else if (err.status === 401) {
-          setErrMsg("Unauthorized");
+          toast.error("Unauthorized");
         } else {
-          setErrMsg("Username or Password Incorrect");
+          toast.error("Username or Password Incorrect!");
         }
-        errRef.current.focus();
       });
   };
 
   return (
     <>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       {success ? (
         navigate("/dashboard")
       ) : (
@@ -81,13 +77,6 @@ export default function Login() {
             <div className="content">
               <div className="title__login">Gov - Complaint</div>
               <div className="sub__title mb-4">Admin Panel Login</div>
-              <p
-                ref={errRef}
-                className={errMsg ? "errmsg" : "offscreen"}
-                aria-live="assertive"
-              >
-                {errMsg}
-              </p>
               <form
                 onSubmit={handleSubmit}
                 className="d-flex flex-column align-item-center"
@@ -101,7 +90,6 @@ export default function Login() {
                   autoComplete="off"
                   onChange={(e) => setUsername(e.target.value)}
                   value={username}
-                  required
                 />
                 <InputGroup className="input__group-pass mb-3">
                   <Form.Control
@@ -111,7 +99,6 @@ export default function Login() {
                     placeholder="Kata Sandi"
                     onChange={(e) => setPassword(e.target.value)}
                     value={password}
-                    required
                   />
                   <Button
                     as="button"

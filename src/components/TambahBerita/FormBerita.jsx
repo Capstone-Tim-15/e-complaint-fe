@@ -38,7 +38,7 @@ const FormBerita = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://34.128.69.15:8000/admin/news",
+        "https://api.govcomplain.my.id/admin/news",
         JSON.stringify({
           adminId: 'PasheE',
           title: formData.title,

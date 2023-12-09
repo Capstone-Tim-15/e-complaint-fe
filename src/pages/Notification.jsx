@@ -22,9 +22,12 @@ function Notification() {
 
     const fetchNotificationData = async () => {
       try {
-        const response = await axios.get("https://api.govcomplain.my.id/admin/complaint", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          "https://api.govcomplain.my.id/admin/complaint",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setNotificationData(response.data.results);
       } catch (error) {
         console.error("Error fetching notification data:", error);
