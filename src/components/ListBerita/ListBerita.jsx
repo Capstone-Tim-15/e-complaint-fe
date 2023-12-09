@@ -5,6 +5,8 @@ import { Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./ListBerita.css";
 import Popup from "./Popup.jsx";
+import { format } from "date-fns";
+import id from "date-fns/locale/id";
 
 const ListBerita = () => {
   const navigate = useNavigate();
@@ -21,8 +23,8 @@ const ListBerita = () => {
 
   const confirmDelete = async () => {
     try {
-          const token = localStorage.getItem("token"); 
-          await axios.delete(`https://api.govcomplain.my.id/admin/news/${newsId}`, {
+          const token = localStorage.getItem("token"); // Ambil token dari localStorage
+          await axios.delete(`http://34.128.69.15:8000/admin/news/${newsId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -37,8 +39,8 @@ const ListBerita = () => {
 
   const getNews = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get("https://api.govcomplain.my.id/admin/news?page=" + currentPage, {
+      const token = localStorage.getItem("token"); // Ambil token dari localStorage
+      const response = await axios.get("http://34.128.69.15:8000/admin/news?page=" + currentPage, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -54,6 +56,20 @@ const ListBerita = () => {
   const deleteNews = async (newsId) => {
     setModal(true)
     setNewsId(newsId);
+    // if (window.confirm("Are you sure you want to delete this news?")) {
+    //   try {
+    //     const token = localStorage.getItem("token"); // Ambil token dari localStorage
+    //     await axios.delete(`http://34.128.69.15:8000/admin/news/${newsId}`, {
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     });
+    //     getNews();
+    //   } catch (error) {
+    //     console.error("Error deleting this news request ", error);
+    //     setError("Error deleting news. Please check your JWT token.");
+    //   }
+    // }
   };
 
   function Pagination({ meta }) {
@@ -96,12 +112,14 @@ const ListBerita = () => {
       </Row>
       <div className="mt-2">
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <table id="table__berita" className="table table-bordered text-left">
+        <table id="table__berita" className="table table-borderless text-left">
           <thead id="table__berita" className="thead">
             <tr>
               <th scope="col">Author</th>
               <th scope="col">Judul</th>
-              <th scope="col">Tanggal</th> 
+              <th scope="col">Konten</th>
+              <th scope="col">Tanggal</th>
+              {/* <th scope="col">Status</th> */}
               <th scope="col"> </th>
             </tr>
           </thead>
@@ -110,7 +128,13 @@ const ListBerita = () => {
               <tr key={item.id} id="table__berita">
                 <td>{item.adminId}</td>
                 <td>{item.title}</td>
-                <td>{item.date}</td>
+                <td>{item.content}</td>
+                <td>{format(new Date(item.date), "d MMMM yyyy", { locale: id })}</td>
+                {/* <td className="status">
+                  <p className="bg-warning text-white" id="text2">
+                    {item.status}
+                  </p>
+                </td> */}
                 <td className="button me-1">
                   <div className="d-flex">
                     <button onClick={() => {navigate(`/editberita?id=${item.id}`)}} className="me-2" id="btn">
