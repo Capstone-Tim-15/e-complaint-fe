@@ -161,15 +161,32 @@ const FormBerita = () => {
                     />
                   </Col>
                 </Form.Group>
-                <div className="d-flex flex-row-reverse">
+                <Form.Group
+                  as={Row}
+                  className="mb-4"
+                  controlId="formHorizontalPassword"
+                >
+                  <Form.Label column lg="2">
+                    Isi Berita
+                  </Form.Label>
+                  <Col lg="9" className="ms-3">
+                    <Form.Control
+                      type="file"
+                      name="image"
+                    />
+                  </Col>
+                  </Form.Group>
+                  <Form.Group as={Row} className="mb-4">
+                  <Col sm={{ span: 10, offset: 7, }}>
                       <Button
                         type="submit"
                         variant="danger"
                         className="button__form-berita"
                       >
-                        Simpan
+                        Save
                       </Button>
-                    </div>
+                      </Col>
+                      </Form.Group>
               </Form>
             </Col>
           </Col>
