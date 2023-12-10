@@ -28,7 +28,7 @@ export default function ListComplaint(props) {
         <td>{komplain.category}</td>
         <td>{komplain.date}</td>
         <td id="state">
-          <div className={`text-center p-1 px-2 me-3 text-white rounded-5 self-center`} style={{ backgroundColor: komplain.state === "Proses" ? "#FFC700" : "#0EAE00" }}>
+          <div className={`text-center p-1 px-2 me-3 text-white rounded-5 self-center`} style={{ backgroundColor: komplain.status === "SEND" ? "#E02216" : komplain.status === "Diproses" ? "#FFC700" : "#0EAE00" }}>
             {komplain.status}
           </div>
         </td>
