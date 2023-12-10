@@ -3,6 +3,7 @@ import { Card, Button, Col, Row } from "react-bootstrap";
 import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/authContext";
 import axios from "axios";
 import "../styles/ChatList.css";
 
@@ -11,9 +12,10 @@ const ChatList = () => {
   const [showChatUser, setShowChatUser] = useState(false);
 
   const navigate = useNavigate();
+  const { token } = useAuth();
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
+    if (!token) {
       navigate("/login");
     }
   }, []);
@@ -59,7 +61,15 @@ const ChatList = () => {
                   <Card key={chat.id}>
                     <Card.Body className="list-chat">
                       <div>
-                        <img src={chat.profile} alt="Profile" style={{ width: "55px", height: "55px", borderRadius: "100px" }} />
+                        <img
+                          src={chat.profile}
+                          alt="Profile"
+                          style={{
+                            width: "55px",
+                            height: "55px",
+                            borderRadius: "100px",
+                          }}
+                        />
                       </div>
                       <Card.Title>{chat.sender}</Card.Title>
                     </Card.Body>
