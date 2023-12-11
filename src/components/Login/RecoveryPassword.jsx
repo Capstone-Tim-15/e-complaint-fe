@@ -35,7 +35,6 @@ export default function RecoveryPassword() {
         const tokenBarearRecovery = result.data.results.token;
         localStorage.setItem("tokenRecovery", tokenBarearRecovery);
         // setToken(tokenBarearRecovery);
-        console.log("ini Token buat OTP" + tokenBarearRecovery);
         setShow(true);
       })
 
