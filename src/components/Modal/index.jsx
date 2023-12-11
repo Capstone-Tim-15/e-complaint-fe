@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { useAuth } from "../../contexts/authContext";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -26,8 +27,7 @@ const StyledModal = styled.div`
   p {
     font-weight: 600;
   }
-  select,
-  textarea {
+  input {
     width: 100%;
     padding: 0.2rem 0.5rem;
     border-radius: 9px;
@@ -36,7 +36,7 @@ const StyledModal = styled.div`
     font-weight: 600;
   }
   label,
-  select {
+  input {
     width: 100%;
   }
   .checklist-notif {
@@ -108,20 +108,19 @@ const StyledModal = styled.div`
 // eslint-disable-next-line react/prop-types
 export default function Edit({ onEditModal, editData, id, updateComplaint, categoryDropdown }) {
   // const { id } = useParams();
+  const { token } = useAuth();
   const [complaint, setComplaint] = useState({
     category: "",
-    state: "",
-    description: "",
+    status: "",
   });
   const [formError, setFormError] = useState({
     category: false,
-    state: false,
-    description: false,
+    status: false,
   });
   useEffect(() => {
     if (editData) {
-      const { category, state } = editData;
-      setComplaint({ category, state });
+      const { category, status } = editData;
+      setComplaint({ category, status });
     }
   }, [editData]);
   const handleChange = (e) => {
@@ -130,10 +129,10 @@ export default function Edit({ onEditModal, editData, id, updateComplaint, categ
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { category, state } = complaint;
+    const { category, status } = complaint;
     const errors = {
       category: !category,
-      state: !state,
+      status: !status,
       // description: !description,
     };
     if (Object.values(errors).some((error) => error)) {
@@ -141,43 +140,49 @@ export default function Edit({ onEditModal, editData, id, updateComplaint, categ
       return;
     }
     try {
-      await axios.put(`https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint/${id}`, {
-        category,
-        state,
-        // description,
-      });
+      await axios.put(
+        `https://api.govcomplain.my.id/admin/complaint?complaint_id=${id}`,
+        {
+          category: complaint.category,
+          status: complaint.status,
+          // description,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       onEditModal();
-
       // Merbarui data complaint di parent component
       updateComplaint();
       setComplaint({
         category: "",
-        state: "",
+        status: "",
         // description: "",
       });
       setFormError({
         category: false,
-        state: false,
+        status: false,
         // description: false,
       });
     } catch (error) {
       console.log("Gagal Mengedit Data", error);
     }
   };
-  useEffect(() => {
-    if (id) {
-      const fetchComplaintData = async () => {
-        try {
-          const response = await axios.get(`https://6524e7f8ea560a22a4ea3f65.mockapi.io/complaint/${id}`);
-          const { category, state, description } = response.data;
-          setComplaint({ category, state, description });
-        } catch (error) {
-          console.error("Gagal memuat data complain untuk diedit", error);
-        }
-      };
-      fetchComplaintData();
-    }
-  }, [id]);
+  // useEffect(() => {
+  //   if (id) {
+  //     const fetchComplaintData = async () => {
+  //       try {
+  //         console.log("Fetching data for id:", id);
+  //         const response = await axios.get(`https://api.govcomplain.my.id/admin/complaint/search?${id}`, {
+  //           headers: { Authorization: `Bearer ${token}` },
+  //         });
+  //         const { category, status } = response.data;
+  //         setComplaint({ category, status });
+  //       } catch (error) {
+  //         console.error("Gagal memuat data complain untuk diedit", error);
+  //       }
+  //     };
+  //     fetchComplaintData();
+  //   }
+  // }, [id, token]);
 
   return (
     <StyledModal>
@@ -192,7 +197,7 @@ export default function Edit({ onEditModal, editData, id, updateComplaint, categ
                 <label>
                   <span>Kategori</span>
                   <br />
-                  <select name="category" id="inputCategory" value={complaint.category} onChange={handleChange}>
+                  {/* <select name="category" id="inputCategory" value={complaint.category} onChange={handleChange}>
                     <option value="" disabled>
                       Kategori
                     </option>
@@ -201,21 +206,24 @@ export default function Edit({ onEditModal, editData, id, updateComplaint, categ
                         {category.kategori}
                       </option>
                     ))}
-                  </select>
+                  </select> */}
+                  <input name="category" id="inputCategory" value={complaint.category} onChange={handleChange}></input>
                   {formError.category && <div className="error">{formError.category}</div>}
                 </label>
               </div>
               <div className="status">
                 <label>
                   <span>Status</span>
-                  <select name="state" id="inputState" value={complaint.state} onChange={handleChange}>
+                  <br />
+                  {/* <select name="status" id="inputStatus" value={complaint.status} onChange={handleChange}>
                     <option value="" disabled>
                       Status
                     </option>
                     <option value="Proses">Proses</option>
                     <option value="Selesai">Selesai</option>
-                  </select>
-                  {formError.state && <div className="error">{formError.state}</div>}
+                  </select> */}
+                  <input name="status" id="inputStatus" value={complaint.status} onChange={handleChange} />
+                  {formError.state && <div className="error">{formError.status}</div>}
                 </label>
               </div>
               {/* <div className="description">

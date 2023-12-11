@@ -2,17 +2,28 @@
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import iconDetail from "../../assets/detail-icon.png";
+import defaultProfil from "../../images/defaultProfil.jpeg";
 
 export default function ListComplaint(props) {
   const { komplain, onEditModal, updateComplaint, deleteModal, detailModal } = props;
   const navigate = useNavigate();
+
+  const profilImg = komplain.photoImage || defaultProfil;
+  const handleProfilError = (e) => {
+    e.target.src = defaultProfil;
+  };
+
+  const handleImageError = (e) => {
+    e.target.style.display = "none";
+  };
+
   return (
     <>
       <tr className="header-row" key={komplain.id}>
         <td>
           <div className="d-flex">
             <div className="align-self-center">
-              <img src={komplain.photoImage} className="rounded-circle" width={`80px`}></img>
+              <img src={profilImg} className="rounded-circle" width={`70px`} onError={handleProfilError}></img>
             </div>
             <p className="ms-1 fw-bold align-self-center">{komplain.name}</p>
           </div>
@@ -20,7 +31,7 @@ export default function ListComplaint(props) {
         <td id="desk">
           <div className="d-flex">
             <div className="me-2 d-flex align-items-center">
-              <img src={komplain.imageUrl} width={`100px`} className="mt-2 "></img>
+              <img src={komplain.imageUrl} width={`100px`} className="mt-2 " onError={handleImageError}></img>
             </div>
             <div className="d-flex align-items-center">{komplain.content}</div>
           </div>
@@ -28,7 +39,7 @@ export default function ListComplaint(props) {
         <td>{komplain.category}</td>
         <td>{komplain.date}</td>
         <td id="state">
-          <div className={`text-center p-1 px-2 me-3 text-white rounded-5 self-center`} style={{ backgroundColor: komplain.state === "Proses" ? "#FFC700" : "#0EAE00" }}>
+          <div className={`text-center p-1 px-2 me-3 text-white rounded-5 self-center`} style={{ backgroundColor: komplain.status === "SEND" ? "#E02216" : komplain.status === "Diproses" ? "#FFC700" : "#0EAE00" }}>
             {komplain.status}
           </div>
         </td>

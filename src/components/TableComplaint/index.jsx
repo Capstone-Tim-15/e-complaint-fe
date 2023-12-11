@@ -8,7 +8,7 @@ import axios from "axios";
 import ListComplaint from "./ListComplaint";
 import { Icon } from "@iconify/react";
 import { useAuth } from "../../contexts/authContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Styledtable = styled.div`
   font-family: "Nunito Sans";
@@ -205,6 +205,7 @@ const Styledtable = styled.div`
 export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage, categoryDropdown }) {
   // // Array untk tanggal
   // const tanggalOptions = Array.from({ length: 31 }, (_, index) => index + 1);
+  const { id } = useParams();
 
   const [complaint, setComplaint] = useState([]);
   // total pages untuk handle stop click to next page jika sudah totalpages
@@ -223,7 +224,6 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
         const response = await axios.get("https://api.govcomplain.my.id/admin/complaint", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log(response.data);
         const totalItems = response.data.results.length;
         setTotalPages(Math.ceil(totalItems / itemsPerPage));
         setComplaint(response.data.results);
@@ -236,24 +236,16 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
 
   const updateComplaint = async () => {
     try {
-      const response = await axios.get(`https://api.govcomplain.my.id/admin/complaint/search?${id}`, {
+      const response = await axios.get(`https://api.govcomplain.my.id/admin/complaint`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setComplaint(response.data);
+      console.log(response.data.results);
+      setComplaint(response.data.results);
     } catch (error) {
       console.error("error", error);
-
-      // Handle kode spesifik HTTP
-      if (error.response.status === 404) {
-        console.error("Resource not found.");
-      } else if (error.response.status === 401) {
-        console.error("Unauthorized. Redirect to login.");
-        navigate("/login");
-      } else {
-        console.error("Unexpected error occurred.");
-      }
     }
   };
+
 
   // handlePage ketika berubah
   // ------------- START CODE ----------------

@@ -71,7 +71,7 @@ export default function DaftarKategori() {
           <thead className="thead">
             <tr>
               <th scope="col">Kategori</th>
-              <th scope="col">Keterangan</th>
+              <th scope="col" className="text-end pe-4">Keterangan</th>
             </tr>
           </thead>
           <tbody>
@@ -79,7 +79,7 @@ export default function DaftarKategori() {
               <tr key={category.id}>
                 <td>{category.kategori}</td>
                 <td className="button me-1">
-                  <div className="d-flex">
+                  <div className="d-flex justify-content-end me-5">
                     <button
                       id="btn"
                       onClick={() => {
