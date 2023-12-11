@@ -1,22 +1,23 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { PieChart, SparkLineChart } from "@mui/x-charts";
-import { FaArrowUp } from "react-icons/fa6";
+import { PieChart } from "@mui/x-charts";
 import { Card, Col, Row } from "react-bootstrap";
-
 import { data } from "../components/Dashboard/DummyPieChart";
 import Progress from "../components/Dashboard/Progress";
 import Table from "../components/Dashboard/Table";
+import { useAuth } from "../contexts/authContext";
 
 import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
 import "../styles/Dashboard.css";
+import Summary from "../components/Dashboard/Summary";
 
 function Dashboard() {
   const navigate = useNavigate();
+  const { token } = useAuth();
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
+    if (!token) {
       navigate("/login");
     }
   }, []);
@@ -33,78 +34,7 @@ function Dashboard() {
           </Col>
           <Col lg="10">
             <Row>
-              <Col xs={12} md={4} style={{ padding: "16px" }}>
-                <Card className="w-100 card-db">
-                  <Card.Body className="d-flex justify-content-between align-items-center">
-                    <div className="d-flex flex-column">
-                      <h6 className="text-danger font-weight-bold mb-0">
-                        Total Users
-                      </h6>
-                      <h4 className="text-danger fw-bold mb-0">12.345</h4>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <span className="text-muted small">
-                        <span className="fs-7 fw-normal">
-                          (<FaArrowUp /> 72%)
-                        </span>{" "}
-                        Since Yesterday
-                      </span>
-                    </div>
-                  </Card.Body>
-                  <Card.Body>
-                    <SparkLineChart
-                      data={[1, 4, 2, 5, 7, 2, 4, 6]}
-                      height={60}
-                    />
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col xs={12} md={4} style={{ padding: "16px" }}>
-                <Card className="w-100 card-db">
-                  <Card.Body className="d-flex justify-content-between align-items-center">
-                    <div className="d-flex flex-column">
-                      <h6 className="text-danger font-weight-bold mb-0">
-                        All Complaints
-                      </h6>
-                      <h4 className="text-danger fw-bold mb-0">34.672</h4>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <span className="text-muted small">
-                        <span className="fs-7 fw-normal">
-                          (<FaArrowUp /> 12%)
-                        </span>{" "}
-                        Since Yesterday
-                      </span>
-                    </div>
-                  </Card.Body>
-                  <Card.Body>
-                    <SparkLineChart data={[4, 5, 1, 8, 9]} height={60} />
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col xs={12} md={4} style={{ padding: "16px" }}>
-                <Card className="w-100 card-db">
-                  <Card.Body className="d-flex justify-content-between align-items-center">
-                    <div className="d-flex flex-column">
-                      <h6 className="text-danger font-weight-bold mb-0">
-                        Resolved Complaints
-                      </h6>
-                      <h4 className="text-danger fw-bold mb-0">95.257</h4>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <span className="text-muted small">
-                        <span className="fs-7 fw-normal">
-                          (<FaArrowUp /> 90%)
-                        </span>{" "}
-                        Since Yesterday
-                      </span>
-                    </div>
-                  </Card.Body>
-                  <Card.Body>
-                    <SparkLineChart data={[65, 23, 843, 245, 1]} height={60} />
-                  </Card.Body>
-                </Card>
-              </Col>
+              <Summary />
             </Row>
             <Row className="gx-1">
               <Col xs={12} md={5} style={{ padding: "16px" }}>

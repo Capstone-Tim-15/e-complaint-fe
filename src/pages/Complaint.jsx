@@ -4,12 +4,25 @@ import Edit from "../components/Modal";
 import Delete from "../components/Modal/delete";
 import { useNavigate } from "react-router-dom";
 import FaqButton from "../components/FaqButton";
+import axios from "axios";
 
 export default function ComplaintPage() {
   const [modal, setModal] = useState(false);
   const [editData, setEditData] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [updateComplaint, setUpdateComplaint] = useState(() => () => {});
+  const [categoryDropdown, setCategoryDropdown] = useState([]);
+  useEffect(() => {
+    const getCategory = async () => {
+      try {
+        const response = await axios.get("https://6570537e09586eff66412148.mockapi.io/kategori");
+        setCategoryDropdown(response.data);
+      } catch (error) {
+        console.error("Error fetching categories", error);
+      }
+    };
+    getCategory();
+  }, []);
 
   const navigate = useNavigate();
 
@@ -42,8 +55,10 @@ export default function ComplaintPage() {
 
   // Fungsi modal delete
   const [modalDelete, setModalDelete] = useState(false);
+  const [selectedIdForDelete, setSelectedIdForDelete] = useState(null);
 
-  const toggleModalDelete = () => {
+  const toggleModalDelete = (id) => {
+    setSelectedIdForDelete(id);
     setModalDelete(!modalDelete);
   };
 
@@ -55,12 +70,17 @@ export default function ComplaintPage() {
     }
   }, [modalDelete]);
 
+  const [data, setData] = useState([]);
+  const handleDeleteSuccess = (deletedItemId) => {
+    // Update state data setelah item dihapus
+    setData((prevData) => prevData.filter((komplaint) => komplaint.id !== deletedItemId));
+  };
+
   return (
     <>
-      <TableComplaint onEditModal={handleEditModal} deleteModal={toggleModalDelete} itemsPerPage={5} />
-      {modal && <Edit onEditModal={toggleModal} editData={editData} id={selectedId} updateComplaint={updateComplaint} />}
-      {modalDelete && <Delete deleteModal={toggleModalDelete} />}
-      <FaqButton />
+      <TableComplaint onEditModal={handleEditModal} deleteModal={toggleModalDelete} itemsPerPage={10}  categoryDropdown={categoryDropdown}/>
+      {modal && <Edit onEditModal={toggleModal} editData={editData} id={selectedId} updateComplaint={updateComplaint} categoryDropdown={categoryDropdown} />}
+      {modalDelete && <Delete deleteModal={toggleModalDelete} selectedIdForDelete={selectedIdForDelete} onDeleteSuccess={handleDeleteSuccess} />}
     </>
   );
 }

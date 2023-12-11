@@ -3,8 +3,32 @@ import styled from "styled-components";
 import gambar from "../../assets/delete-Icon.png"
 import { Modal, Button } from "react-bootstrap";
 import './css/delete.css';
+import axios from "axios";
+import { useState } from "react";
+import { useAuth } from "../../contexts/authContext";
 
-export default function Delete({ deleteModal }) {
+export default function Delete({ deleteModal, selectedIdForDelete, onDeleteSuccess }) {
+  let [data, setData] = useState([]);
+  const { token } = useAuth();
+  const itemId = selectedIdForDelete.id;
+  
+  const handleDelete = async () => {
+    // console.log(`delete id: ${selectedIdForDelete.id}`);
+    try {
+      const response = await axios.delete(`https://api.govcomplain.my.id/admin/complaint?complaint_id=${itemId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      
+      if (response.status === 200) {
+        console.log(`delete id: ${itemId} berhasil`);
+      }
+      onDeleteSuccess(itemId);
+    } catch (error){
+      console.error(`Error`, error);
+    }
+    deleteModal();
+  };
+
   return (
     <div className="modalDelete">
       <div className="overlay" id="overlay"></div>
@@ -18,7 +42,7 @@ export default function Delete({ deleteModal }) {
           </div>
           <div className="actions">
             <button className="cancel" onClick={deleteModal}>Tidak</button>
-            <button className="save">Ya</button>
+            <button className="save" onClick={handleDelete}>Ya</button>
           </div>
         </div>
       </div>

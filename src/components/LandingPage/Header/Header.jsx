@@ -6,7 +6,7 @@ import logo from "../../../assets/logo.png";
 
 const nav__links = [
   {
-    path: "/home",
+    path: "/",
     display: "Home",
   },
   {
@@ -14,11 +14,11 @@ const nav__links = [
     display: "Berita",
   },
   {
-    path: "/keluhan",
+    path: "/complaint",
     display: "Keluhan",
   },
   {
-    path: "/kontak",
+    path: "/chat",
     display: "Kontak",
   },
 ];
@@ -37,7 +37,6 @@ export default function Header() {
         headerRef.current.classList.remove("sticky__header");
       }
     });
-    
   };
 
   useEffect(() => {
@@ -51,7 +50,7 @@ export default function Header() {
         <Row>
           <div className="nav__wrapper d-flex align-items-center gap-5">
             <div className="logo">
-              <Link to="/home">
+              <Link to="/">
                 <img src={logo} alt=""></img>
               </Link>
             </div>
