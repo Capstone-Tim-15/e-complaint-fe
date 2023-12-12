@@ -147,7 +147,11 @@ export default function RecoveryPassword() {
             </button>
           </Modal.Body>
           <Modal.Footer className="modal__footer">
-            <Button className="button__confirm" type="submit">
+            <Button
+              className="button__confirm"
+              type="submit"
+              onClick={() => navigate("/newpassword")}
+            >
               Selanjutnya
             </Button>
           </Modal.Footer>
