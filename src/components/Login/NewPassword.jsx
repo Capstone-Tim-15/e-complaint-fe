@@ -13,6 +13,7 @@ import "../../styles/new-password.css";
 
 export default function NewPassword() {
   const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
 
   const navigate = useNavigate();
   const { tokenRecovery } = useAuthRecovery();
@@ -113,7 +114,7 @@ export default function NewPassword() {
                 className="password__input"
                 id="confirmNewPassword"
                 name="confirmNewPassword"
-                type={showPassword ? "text" : "password"}
+                type={showPassword2 ? "text" : "password"}
                 placeholder="Verifikasi Kata Sandi baru"
                 autoComplete="off"
                 onChange={handleInputChange}
@@ -121,7 +122,7 @@ export default function NewPassword() {
               />
               <Button
                 as="button"
-                onClick={() => setShowPassword(!showPassword)}
+                onClick={() => setShowPassword2(!showPassword2)}
               >
                 {showPassword ? (
                   <Icon icon="mdi:eye-off" />
