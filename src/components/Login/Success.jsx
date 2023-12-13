@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useAuthRecovery } from "../../contexts/passwordAuth";
 import Header from "../LandingPage/Header/Header";
 import Footer from "../LandingPage/Footer/Footer";
 import image8 from "../../assets/lp-8.png";
@@ -10,6 +11,14 @@ import "../../styles/success.css";
 
 export default function Success() {
   const navigate = useNavigate();
+
+  const { tokenRecovery } = useAuthRecovery();
+
+  useEffect(() => {
+    if (!tokenRecovery) {
+      navigate("/recovery");
+    }
+  }, []);
   return (
     <>
       <Header />
