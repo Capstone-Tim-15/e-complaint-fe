@@ -1,0 +1,17 @@
+#table__kategori {
+  margin-top: 1rem;
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+#table__kategori > .tr__table-kategori,
+.th__table-kategori,
+.td__table-kategori {
+  padding: 1.5rem 1rem 1.5rem 1rem;
+  vertical-align: middle;
+  border-bottom: 2px solid red;
+}
+.th__table-kategori {
+  font-size: 1.1rem;
+}

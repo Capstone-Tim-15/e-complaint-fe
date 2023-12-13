@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import axios from "axios";
 import gambar from "../../assets/delete-Icon.png";
-import '../Modal/css/delete.css'
+import "../Modal/css/delete.css";
+import "./kategori.css";
 
 export default function DaftarKategori() {
   const [categories, setCategories] = useState([]);
@@ -66,40 +67,39 @@ export default function DaftarKategori() {
           </button>
         </Col>
       </Row>
-      <div className="p-3 table-bordered">
-        <table className="table">
-          <thead className="thead">
-            <tr>
-              <th scope="col">Kategori</th>
-              <th scope="col" className="text-end pe-4">Keterangan</th>
+
+      <table id="table__kategori">
+        <thead className="thead">
+          <tr className="tr__table-kategori">
+            <th className="th__table-kategori" scope="col">
+              Kategori
+            </th>
+            <th scope="col" className="text-end pe-4 th__table-kategori">
+              Aksi
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {categories.map((category) => (
+            <tr className="tr__table-kategori" key={category.id}>
+              <td className="td__table-kategori">{category.kategori}</td>
+              <td className="button me-1 td__table-kategori">
+                <div className="d-flex justify-content-end me-5">
+                  <button
+                    id="btn"
+                    onClick={() => {
+                      setSelectedCategory(category);
+                      setShowModal(true);
+                    }}
+                  >
+                    <Icon icon="mdi:trash-can-outline" width="25" height="25" />
+                  </button>
+                </div>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {categories.map((category) => (
-              <tr key={category.id}>
-                <td>{category.kategori}</td>
-                <td className="button me-1">
-                  <div className="d-flex justify-content-end me-5">
-                    <button
-                      id="btn"
-                      onClick={() => {
-                        setSelectedCategory(category);
-                        setShowModal(true);
-                      }}
-                    >
-                      <Icon
-                        icon="mdi:trash-can-outline"
-                        width="25"
-                        height="25"
-                      />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
 
       {/* modal konfirmasi */}
       {showModal && (
