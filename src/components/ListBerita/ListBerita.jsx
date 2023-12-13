@@ -23,8 +23,8 @@ const ListBerita = () => {
 
   const confirmDelete = async () => {
     try {
-          const token = localStorage.getItem("token"); // Ambil token dari localStorage
-          await axios.delete(`http://34.128.69.15:8000/admin/news/${newsId}`, {
+      const token = localStorage.getItem("token"); // Ambil token dari localStorage
+      await axios.delete(`http://34.128.69.15:8000/admin/news/${newsId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -35,16 +35,19 @@ const ListBerita = () => {
       setError("Error deleting news. Please check your JWT token.");
     }
     setModal(false);
-  }
+  };
 
   const getNews = async () => {
     try {
       const token = localStorage.getItem("token"); // Ambil token dari localStorage
-      const response = await axios.get("http://34.128.69.15:8000/admin/news?page=" + currentPage, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        "http://34.128.69.15:8000/admin/news?page=" + currentPage,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setNews(response.data.results);
       setMeta(response.data.meta);
     } catch (error) {
@@ -54,7 +57,7 @@ const ListBerita = () => {
   };
 
   const deleteNews = async (newsId) => {
-    setModal(true)
+    setModal(true);
     setNewsId(newsId);
     // if (window.confirm("Are you sure you want to delete this news?")) {
     //   try {
@@ -73,29 +76,33 @@ const ListBerita = () => {
   };
 
   function Pagination({ meta }) {
-    const { page, limit, total } = meta
+    const { page, limit, total } = meta;
 
-    const [active, setActive ] = useState(page);
+    const [active, setActive] = useState(page);
 
     const items = [];
-    for (let i = 1; i <= Math.ceil(total/limit); i++) {
+    for (let i = 1; i <= Math.ceil(total / limit); i++) {
       items.push(
-        <li className={`page-item ${(active === i ? "active" : "")}`}>
-          <a className="page-link" href="javascript:void();" onClick={() => {
-            setActive(i);
-            setCurrentPage(i);
-          }}>{i}</a>
+        <li className={`page-item ${active === i ? "active" : ""}`}>
+          <a
+            className="page-link"
+            href="javascript:void();"
+            onClick={() => {
+              setActive(i);
+              setCurrentPage(i);
+            }}
+          >
+            {i}
+          </a>
         </li>
-      )
+      );
     }
 
     return (
       <nav aria-label="Page navigation example" class="pagination-red">
-        <ul className="pagination">
-          { items }
-        </ul>
+        <ul className="pagination">{items}</ul>
       </nav>
-    )
+    );
   }
 
   return (
@@ -112,36 +119,52 @@ const ListBerita = () => {
       </Row>
       <div className="mt-2">
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <table id="table__berita" className="table table-borderless text-left">
-          <thead id="table__berita" className="thead">
-            <tr>
-              <th scope="col">Author</th>
-              <th scope="col">Judul</th>
-              <th scope="col">Konten</th>
-              <th scope="col">Tanggal</th>
-              {/* <th scope="col">Status</th> */}
-              <th scope="col"> </th>
+        <table id="table__berita">
+          <thead className="thead">
+            <tr className="tr__table-berita">
+              <th className="th__table-berita" scope="col">
+                Author
+              </th>
+              <th className="th__table-berita" scope="col">
+                Judul
+              </th>
+              <th className="th__table-berita" scope="col">
+                Konten
+              </th>
+              <th className="th__table-berita" scope="col">
+                Tanggal
+              </th>
+              <th className="th__table-berita" scope="col">
+                {" "}
+              </th>
             </tr>
           </thead>
-          <tbody id="table__berita">
+          <tbody>
             {news.map((item) => (
-              <tr key={item.id} id="table__berita">
-                <td>{item.adminId}</td>
-                <td>{item.title}</td>
-                <td>{item.content}</td>
-                <td>{format(new Date(item.date), "d MMMM yyyy", { locale: id })}</td>
-                {/* <td className="status">
-                  <p className="bg-warning text-white" id="text2">
-                    {item.status}
-                  </p>
-                </td> */}
-                <td className="button me-1">
+              <tr key={item.id} className="tr__table-berita">
+                <td className="td__table-berita">{item.adminId}</td>
+                <td className="td__table-berita">{item.title}</td>
+                <td className="td__table-berita">{item.content}</td>
+                <td className="td__table-berita">
+                  {format(new Date(item.date), "d MMMM yyyy", { locale: id })}
+                </td>
+                <td className="button td__table-berita me-1">
                   <div className="d-flex">
-                    <button onClick={() => {navigate(`/editberita?id=${item.id}`)}} className="me-2" id="btn">
+                    <button
+                      onClick={() => {
+                        navigate(`/editberita?id=${item.id}`);
+                      }}
+                      className="me-2"
+                      id="btn"
+                    >
                       <Icon icon="uil:edit" width="25" height="25" />
                     </button>
                     <button onClick={() => deleteNews(item.id)} id="btn">
-                      <Icon icon="mdi:trash-can-outline" width="25" height="25" />
+                      <Icon
+                        icon="mdi:trash-can-outline"
+                        width="25"
+                        height="25"
+                      />
                     </button>
                   </div>
                 </td>
@@ -152,17 +175,32 @@ const ListBerita = () => {
         <Pagination meta={meta} />
       </div>
 
-      <div className={ `${modal ? 'modal fade show' : 'd-none'}` } tabIndex="-1">
+      <div className={`${modal ? "modal fade show" : "d-none"}`} tabIndex="-1">
         <div className="modal-dialog modal-lg">
-          <div className="modal-content" style={{ borderRadius: '1em' }}>
+          <div className="modal-content" style={{ borderRadius: "1em" }}>
             <div className="modal-body p-4 m-4">
               <div className="px-4 mx-4">
-              <Popup />
+                <Popup />
               </div>
-              <div className="mb-4 mt-4">Apakah anda yakin <br/> ingin menghapus Berita?</div>
+              <div className="mb-4 mt-4">
+                Apakah anda yakin <br /> ingin menghapus Berita?
+              </div>
               <div className="d-flex border-0 pt-0 justify-content-between">
-                <button type="button" onClick={() => setModal(false)} className="btn btn-cancel" data-bs-dismiss="modal">Tidak</button>
-                <button type="button" onClick={confirmDelete} className="btn btn-ok">Ya</button>
+                <button
+                  type="button"
+                  onClick={() => setModal(false)}
+                  className="btn btn-cancel"
+                  data-bs-dismiss="modal"
+                >
+                  Tidak
+                </button>
+                <button
+                  type="button"
+                  onClick={confirmDelete}
+                  className="btn btn-ok"
+                >
+                  Ya
+                </button>
               </div>
             </div>
           </div>

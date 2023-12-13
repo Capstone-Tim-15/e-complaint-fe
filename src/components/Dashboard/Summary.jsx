@@ -19,9 +19,12 @@ function Summary() {
 
     const fetchTotalUsers = async () => {
       try {
-        const response = await axios.get("https://api.govcomplain.my.id/admin", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          "https://api.govcomplain.my.id/admin",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setTotalUsers(response.data.meta.total);
       } catch (error) {
         console.error("Error fetching total users:", error);

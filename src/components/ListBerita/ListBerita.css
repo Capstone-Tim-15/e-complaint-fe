@@ -10,13 +10,11 @@
   color: #e02216;
 }
 
-
 .pagination-red .pagination .page-link:hover {
   background-color: #e02216;
   border-color: #e02216;
   color: #fff;
 }
-
 
 .pagination-red .pagination .page-item.active .page-link {
   background-color: #e02216;
@@ -39,10 +37,6 @@
   border: none;
   border-radius: 12px;
   cursor: pointer;
-}
-.thead tr th {
-  background-color: #ec7b73;
-  color: white;
 }
 
 #btn {
@@ -68,16 +62,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #0EAE00;
+  background-color: #0eae00;
 }
 
 #btn-tambah {
   margin-top: 100px;
   margin-bottom: 0px;
-}
-
-#table__berita {
-  border: #b9b9b9 solid 1px;
 }
 
 .btn-ok {
@@ -91,6 +81,22 @@
   border: 1px solid #e02216 !important;
 }
 
-html, body {
+html,
+body {
   overflow-x: hidden !important;
+}
+
+#table__berita {
+  margin-top: 1rem;
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+#table__berita > .tr__table-berita,
+.th__table-berita,
+.td__table-berita {
+  padding: 1.5rem 1rem 1.5rem 1rem;
+  vertical-align: middle;
+  border-bottom: 2px solid red;
 }

@@ -202,7 +202,12 @@ const Styledtable = styled.div`
   }
 `;
 // eslint-disable-next-line react/prop-types
-export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage, categoryDropdown }) {
+export default function TableComplaint({
+  onEditModal,
+  deleteModal,
+  itemsPerPage,
+  categoryDropdown,
+}) {
   // // Array untk tanggal
   // const tanggalOptions = Array.from({ length: 31 }, (_, index) => index + 1);
   const { id } = useParams();
@@ -216,14 +221,18 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
 
   const navigate = useNavigate();
 
+  const [selectedStatus, setSelectedStatus] = useState("");
   const totalComplaint = complaint.length;
 
   useEffect(() => {
     const getComplaint = async () => {
       try {
-        const response = await axios.get("https://api.govcomplain.my.id/admin/complaint", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          "https://api.govcomplain.my.id/admin/complaint",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         const totalItems = response.data.results.length;
         setTotalPages(Math.ceil(totalItems / itemsPerPage));
         setComplaint(response.data.results);
@@ -236,9 +245,12 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
 
   const updateComplaint = async () => {
     try {
-      const response = await axios.get(`https://api.govcomplain.my.id/admin/complaint`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        `https://api.govcomplain.my.id/admin/complaint`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       console.log(response.data.results);
       setComplaint(response.data.results);
     } catch (error) {
@@ -246,6 +258,21 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
     }
   };
 
+  // handle fitur filtered by status
+  const handleStatusChange = (e) => {
+    setSelectedStatus(e.target.value);
+  };
+
+  // const filteredItems = currentItems.filter((komplain) => {
+  //   if (selectedStatus === "All") {
+  //     return true; // Tampilkan semua data jika status dipilih "All"
+  //   } else {
+  //     return komplain.status === selectedStatus;
+  //   }
+  // });
+  const filteredComplaint = selectedStatus
+    ? complaint.filter((item) => item.status === selectedStatus)
+    : complaint;
 
   // handlePage ketika berubah
   // ------------- START CODE ----------------
@@ -257,7 +284,12 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = complaint.slice(indexOfFirstItem, indexOfLastItem);
+
+  const currentItems = filteredComplaint.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+  // const currentItems = complaint.slice(indexOfFirstItem, indexOfLastItem);
 
   // --------------- LAST CODE handlePage --------------
   return (
@@ -303,12 +335,16 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
                       </select>
                     </div> */}
                     <div className="dropdown">
-                      <select>
+                      <select
+                        onChange={handleStatusChange}
+                        value={selectedStatus}
+                      >
                         <option value="" disabled selected>
                           Status
                         </option>
-                        <option>Proses</option>
-                        <option>Selesai</option>
+                        <option value="SEND">SEND</option>
+                        <option value="Diproses">Diproses</option>
+                        <option value="Selesai">Selesai</option>
                       </select>
                     </div>
                   </div>
@@ -331,7 +367,16 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
                 </thead>
                 <tbody>
                   {currentItems.map(function (komplain) {
-                    return <ListComplaint key={komplain.id} komplain={komplain} onEditModal={() => onEditModal(komplain, updateComplaint)} deleteModal={() => deleteModal(komplain)} />;
+                    return (
+                      <ListComplaint
+                        key={komplain.id}
+                        komplain={komplain}
+                        onEditModal={() =>
+                          onEditModal(komplain, updateComplaint)
+                        }
+                        deleteModal={() => deleteModal(komplain)}
+                      />
+                    );
                   })}
                 </tbody>
               </table>
@@ -340,11 +385,27 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
                   {currentPage} | {Math.ceil(complaint.length / itemsPerPage)}
                 </div>
                 <div className="button">
-                  <button className="button-arrow-left" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-                    <Icon icon="formkit:arrowleft" width="24" style={{ margin: "6px" }} />
+                  <button
+                    className="button-arrow-left"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
+                    <Icon
+                      icon="formkit:arrowleft"
+                      width="24"
+                      style={{ margin: "6px" }}
+                    />
                   </button>
-                  <button className="button-arrow-right" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
-                    <Icon icon="formkit:arrowright" width="24" style={{ margin: "6px" }} />
+                  <button
+                    className="button-arrow-right"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                  >
+                    <Icon
+                      icon="formkit:arrowright"
+                      width="24"
+                      style={{ margin: "6px" }}
+                    />
                   </button>
                 </div>
               </div>
