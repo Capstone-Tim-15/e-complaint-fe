@@ -27,7 +27,8 @@ const StyledModal = styled.div`
   p {
     font-weight: 600;
   }
-  input {
+  input,
+  select {
     width: 100%;
     padding: 0.2rem 0.5rem;
     border-radius: 9px;
@@ -36,6 +37,7 @@ const StyledModal = styled.div`
     font-weight: 600;
   }
   label,
+  select,
   input {
     width: 100%;
   }
@@ -215,14 +217,15 @@ export default function Edit({ onEditModal, editData, id, updateComplaint, categ
                 <label>
                   <span>Status</span>
                   <br />
-                  {/* <select name="status" id="inputStatus" value={complaint.status} onChange={handleChange}>
+                  <select name="status" id="inputStatus" value={complaint.status} onChange={handleChange}>
                     <option value="" disabled>
                       Status
                     </option>
-                    <option value="Proses">Proses</option>
+                    <option value="SEND">SEND</option>
+                    <option value="Diproses">Diproses</option>
                     <option value="Selesai">Selesai</option>
-                  </select> */}
-                  <input name="status" id="inputStatus" value={complaint.status} onChange={handleChange} />
+                  </select>
+                  {/* <input name="status" id="inputStatus" value={complaint.status} onChange={handleChange} /> */}
                   {formError.state && <div className="error">{formError.status}</div>}
                 </label>
               </div>

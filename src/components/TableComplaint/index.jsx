@@ -216,6 +216,7 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
 
   const navigate = useNavigate();
 
+  const [selectedStatus, setSelectedStatus] = useState("");
   const totalComplaint = complaint.length;
 
   useEffect(() => {
@@ -246,6 +247,19 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
     }
   };
 
+  // handle fitur filtered by status
+  const handleStatusChange = (e) => {
+    setSelectedStatus(e.target.value);
+  };
+
+  // const filteredItems = currentItems.filter((komplain) => {
+  //   if (selectedStatus === "All") {
+  //     return true; // Tampilkan semua data jika status dipilih "All"
+  //   } else {
+  //     return komplain.status === selectedStatus;
+  //   }
+  // });
+  const filteredComplaint = selectedStatus ? complaint.filter((item) => item.status === selectedStatus) : complaint;
 
   // handlePage ketika berubah
   // ------------- START CODE ----------------
@@ -257,7 +271,9 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = complaint.slice(indexOfFirstItem, indexOfLastItem);
+
+  const currentItems = filteredComplaint.slice(indexOfFirstItem, indexOfLastItem);
+  // const currentItems = complaint.slice(indexOfFirstItem, indexOfLastItem);
 
   // --------------- LAST CODE handlePage --------------
   return (
@@ -283,7 +299,7 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
                         <option value="" disabled selected>
                           Kategori
                         </option>
-                        {categoryDropdown.map((category) => (
+                        {currentItems.map((category) => (
                           <option key={category.id} value={category.kategori}>
                             {category.kategori}
                           </option>
@@ -303,12 +319,13 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
                       </select>
                     </div> */}
                     <div className="dropdown">
-                      <select>
+                      <select onChange={handleStatusChange} value={selectedStatus}>
                         <option value="" disabled selected>
                           Status
                         </option>
-                        <option>Proses</option>
-                        <option>Selesai</option>
+                        <option value="SEND">SEND</option>
+                        <option value="Diproses">Diproses</option>
+                        <option value="Selesai">Selesai</option>
                       </select>
                     </div>
                   </div>
