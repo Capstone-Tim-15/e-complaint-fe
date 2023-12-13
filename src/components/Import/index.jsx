@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Row, Col, Form, Button } from "react-bootstrap";
+import { Row, Col, Form, Button, Modal } from "react-bootstrap";
 import Papa from "papaparse";
 
 export default function ImportComponent() {
   const [title, setTitle] = useState("");
   const [csvData, setCsvData] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -48,8 +49,16 @@ export default function ImportComponent() {
   };
 
   const handleContinue = () => {
+    // mengiriman data
     console.log("CSV Data:", csvData);
+
+    setShowModal(true);
   };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
 
   return (
     <Row>
@@ -133,6 +142,19 @@ export default function ImportComponent() {
             </tbody>
           </table>
         )}
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Sukses!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Data complaint berhasil dikirim.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Tutup
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Col>
     </Row>
   );
