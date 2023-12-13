@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
 import Topbar from "../components/Layout/Topbar";
 import Sidebar from "../components/Layout/Sidebar";
+import { useAuth } from "../contexts/authContext";
 import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import ImportComponent from "../components/Import";
 
 export default function Import() {
   const navigate = useNavigate();
+  const { token } = useAuth();
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
+    if (!token) {
       navigate("/login");
     }
   }, []);
@@ -23,7 +25,7 @@ export default function Import() {
           <Sidebar />
         </Col>
         <Col lg="10">
-          <ImportComponent/>
+          <ImportComponent />
         </Col>
       </Row>
     </Row>
