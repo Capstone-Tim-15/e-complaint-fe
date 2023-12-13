@@ -26,7 +26,7 @@ export default function Login() {
     e.preventDefault();
 
     await axios
-      .post("http://34.128.69.15:8000/admin/login", {
+      .post("https://api.govcomplain.my.id/admin/login", {
         username: username,
         password: password,
       })
