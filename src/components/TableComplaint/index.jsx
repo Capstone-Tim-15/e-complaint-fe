@@ -299,7 +299,7 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
                         <option value="" disabled selected>
                           Kategori
                         </option>
-                        {currentItems.map((category) => (
+                        {categoryDropdown.map((category) => (
                           <option key={category.id} value={category.kategori}>
                             {category.kategori}
                           </option>

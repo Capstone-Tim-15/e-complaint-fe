@@ -17,6 +17,12 @@ export default function ListComplaint(props) {
     e.target.style.display = "none";
   };
 
+  const createdAtString = komplain.createdAt;
+  const createdAtDate = new Date(createdAtString);
+
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  const formattedDate = new Intl.DateTimeFormat("id-ID", options).format(createdAtDate);
+
   return (
     <>
       <tr className="header-row" key={komplain.id}>
@@ -37,7 +43,7 @@ export default function ListComplaint(props) {
           </div>
         </td>
         <td>{komplain.category}</td>
-        <td>{komplain.date}</td>
+        <td>{formattedDate}</td>
         <td id="state">
           <div className={`text-center p-1 px-2 me-3 text-white rounded-5 self-center`} style={{ backgroundColor: komplain.status === "SEND" ? "#E02216" : komplain.status === "Diproses" ? "#FFC700" : "#0EAE00" }}>
             {komplain.status}
