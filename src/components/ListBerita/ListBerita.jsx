@@ -3,6 +3,7 @@ import axios from "axios";
 import { Icon } from "@iconify/react";
 import { Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/authContext";
 import "./ListBerita.css";
 import Popup from "./Popup.jsx";
 import { format } from "date-fns";
@@ -12,19 +13,22 @@ const ListBerita = () => {
   const navigate = useNavigate();
   const [news, setNews] = useState([]);
   const [meta, setMeta] = useState([]);
+  const { token } = useAuth();
   const [error, setError] = useState(null);
   const [modal, setModal] = useState(false);
   const [newsId, setNewsId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
     getNews();
   }, [currentPage]);
 
   const confirmDelete = async () => {
     try {
-      const token = localStorage.getItem("token"); // Ambil token dari localStorage
-      await axios.delete(`http://34.128.69.15:8000/admin/news/${newsId}`, {
+      await axios.delete(`https://api.govcomplain.my.id/admin/news/${newsId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -39,9 +43,8 @@ const ListBerita = () => {
 
   const getNews = async () => {
     try {
-      const token = localStorage.getItem("token"); // Ambil token dari localStorage
       const response = await axios.get(
-        "http://34.128.69.15:8000/admin/news?page=" + currentPage,
+        "https://api.govcomplain.my.id/admin/news?page=" + currentPage,
         {
           headers: {
             Authorization: `Bearer ${token}`,
