@@ -147,7 +147,7 @@ const FormBerita = () => {
                   controlId="formHorizontalPassword"
                 >
                   <Form.Label column lg="2">
-                    Isi Berita
+                    Gambar
                   </Form.Label>
                   <Col lg="9" className="ms-3">
                     <Form.Control
