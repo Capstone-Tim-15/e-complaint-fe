@@ -62,20 +62,6 @@ const ListBerita = () => {
   const deleteNews = async (newsId) => {
     setModal(true);
     setNewsId(newsId);
-    // if (window.confirm("Are you sure you want to delete this news?")) {
-    //   try {
-    //     const token = localStorage.getItem("token"); // Ambil token dari localStorage
-    //     await axios.delete(`http://34.128.69.15:8000/admin/news/${newsId}`, {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     });
-    //     getNews();
-    //   } catch (error) {
-    //     console.error("Error deleting this news request ", error);
-    //     setError("Error deleting news. Please check your JWT token.");
-    //   }
-    // }
   };
 
   function Pagination({ meta }) {
