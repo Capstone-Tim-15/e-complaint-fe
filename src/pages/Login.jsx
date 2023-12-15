@@ -22,6 +22,14 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
 
+  const { token } = useAuth();
+
+  useEffect(() => {
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 

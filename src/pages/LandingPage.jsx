@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/authContext";
 import Header from "../components/LandingPage/Header/Header";
 import Footer from "../components/LandingPage/Footer/Footer";
 import image1 from "../assets/lp-1.png";
@@ -12,6 +13,15 @@ import Capabilites from "../components/Capabilities/Capabilites";
 import "../styles/landing-page.css";
 
 export default function LandingPage() {
+  const navigate = useNavigate();
+  const { token } = useAuth();
+
+  useEffect(() => {
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, []);
+
   return (
     <>
       <Header />
