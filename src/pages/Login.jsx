@@ -22,10 +22,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const { token } = useAuth();
-
   useEffect(() => {
-    if (token) {
+    if (localStorage.getItem("token")) {
       navigate("/dashboard");
     }
   }, []);
