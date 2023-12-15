@@ -36,7 +36,7 @@ function Dashboard() {
             </Row>
             <Row className="gx-1">
               <Col xs={12} md={5} style={{ padding: "16px" }}>
-                <Card className="w-100 p-5 card-db">
+                <Card className="w-100 p-4 card-db">
                   <Card.Body>
                     <h4 className="text-xl fw-bold my-2 mb-5">
                       Aktivitas Terkini
