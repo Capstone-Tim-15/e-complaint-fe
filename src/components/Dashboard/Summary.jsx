@@ -9,6 +9,7 @@ import { useAuth } from "../../contexts/authContext";
 function Summary() {
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalComplaints, setTotalComplaints] = useState(0);
+  const [resolvedCategory, setResolvedCategory] = useState(0);
   const navigate = useNavigate();
   const { token } = useAuth();
 
@@ -20,12 +21,15 @@ function Summary() {
     const fetchTotalUsers = async () => {
       try {
         const response = await axios.get(
-          "https://api.govcomplain.my.id/admin",
+          "https://api.govcomplain.my.id/admin/dashboard/user",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        setTotalUsers(response.data.meta.total);
+        const usersStatistic = response.data.results.users_statistic;
+        if (usersStatistic.length > 0) {
+          setTotalUsers(usersStatistic[0].Total);
+        }
       } catch (error) {
         console.error("Error fetching total users:", error);
       }
@@ -34,19 +38,40 @@ function Summary() {
     const fetchTotalComplaints = async () => {
       try {
         const response = await axios.get(
-          "https://api.govcomplain.my.id/admin/complaint",
+          "https://api.govcomplain.my.id/admin/dashboard/complaint",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        setTotalComplaints(response.data.meta.total);
+        const complaintStatistic = response.data.results.complaint_statistic;
+        if (complaintStatistic.length > 0) {
+          setTotalComplaints(complaintStatistic[0].Total);
+        }
       } catch (error) {
         console.error("Error fetching total complaints:", error);
       }
     };
 
+    const fetchResolvedCategory = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.govcomplain.my.id/admin/dashboard/solved",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        const resolvedCategoryStat = response.data.results.users_statistic;
+        if (resolvedCategoryStat.length > 0) {
+          setResolvedCategory(resolvedCategoryStat[0].Total);
+        }
+      } catch (error) {
+        console.error("Error fetching resolved category:", error);
+      }
+    };
+
     fetchTotalUsers();
     fetchTotalComplaints();
+    fetchResolvedCategory();
   }, [token, navigate]);
 
   return (
@@ -100,9 +125,9 @@ function Summary() {
           <Card.Body className="d-flex justify-content-between align-items-center">
             <div className="d-flex flex-column">
               <h6 className="text-danger font-weight-bold mb-0">
-                Resolved Complaints
+                Resolved Category
               </h6>
-              <h4 className="text-danger fw-bold mb-0">95.257</h4>
+              <h4 className="text-danger fw-bold mb-0">{resolvedCategory}</h4>
             </div>
             <div className="d-flex align-items-center">
               <span className="text-muted small">

@@ -3,6 +3,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useAuthRecovery } from "../../contexts/passwordAuth";
+import { useAuth } from "../../contexts/authContext";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "../LandingPage/Header/Header";
 import Footer from "../LandingPage/Footer/Footer";
@@ -25,6 +26,14 @@ export default function RecoveryPassword() {
   const [formData, setFormData] = useState({
     otp: "",
   });
+
+  const { token } = useAuth();
+
+  useEffect(() => {
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     setFormData({

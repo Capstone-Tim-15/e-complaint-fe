@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Modal, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import axios from "axios";
@@ -11,9 +11,12 @@ export default function DaftarKategori() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editedCategory, setEditedCategory] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Mengambil data kategori
     const fetchCategory = async () => {
       try {
         const response = await axios.get(
@@ -29,19 +32,23 @@ export default function DaftarKategori() {
   }, []);
 
   const handleTambahKategori = () => {
+    // Navigasi ke halaman tambah kategori
     navigate("/tambahkategori");
   };
 
   const handleDelete = async () => {
     try {
+      // Menghapus kategori dari API
       await axios.delete(
         `https://6570537e09586eff66412148.mockapi.io/kategori/${selectedCategory.id}`
       );
 
+      // Mengupdate state untuk merefresh tampilan
       setCategories((prevCategories) =>
         prevCategories.filter((category) => category.id !== selectedCategory.id)
       );
 
+      // Menutup modal
       setSelectedCategory(null);
       setShowModal(false);
     } catch (error) {
@@ -49,10 +56,42 @@ export default function DaftarKategori() {
     }
   };
 
+  const handleEdit = async () => {
+    try {
+      // Mengupdate kategori ke API
+      await axios.put(
+        `https://6570537e09586eff66412148.mockapi.io/kategori/${selectedCategory.id}`,
+        { kategori: editedCategory }
+      );
+
+      // Mengupdate state untuk merefresh tampilan
+      setCategories((prevCategories) =>
+        prevCategories.map((category) =>
+          category.id === selectedCategory.id
+            ? { ...category, kategori: editedCategory }
+            : category
+        )
+      );
+
+      // Menutup modal
+      setSelectedCategory(null);
+      setShowEditModal(false);
+    } catch (error) {
+      console.error("Error updating category:", error);
+    }
+  };
+
   const deleteModal = () => {
-    // tutup modal (no delete)
+    // Batal penghapusan kategori (menutup modal)
     setSelectedCategory(null);
     setShowModal(false);
+  };
+
+  const closeEditModal = () => {
+    // Batal pengeditan kategori (menutup modal)
+    setEditedCategory("");
+    setSelectedCategory(null);
+    setShowEditModal(false);
   };
 
   return (
@@ -62,6 +101,7 @@ export default function DaftarKategori() {
           <h1 className="text-danger ms-4 mt-4"> Daftar Kategori </h1>
         </Col>
         <Col lg="6" className="d-flex flex-row-reverse" id="btn-tambah">
+          {/* Tombol navigasi ke halaman tambah kategori */}
           <button className="Add" onClick={handleTambahKategori}>
             Tambah Kategori
           </button>
@@ -74,7 +114,7 @@ export default function DaftarKategori() {
             <th className="th__table-kategori" scope="col">
               Kategori
             </th>
-            <th scope="col" className="text-end pe-4 th__table-kategori">
+            <th scope="col" className="text-end pe-5 th__table-kategori">
               Aksi
             </th>
           </tr>
@@ -82,9 +122,26 @@ export default function DaftarKategori() {
         <tbody>
           {categories.map((category) => (
             <tr className="tr__table-kategori" key={category.id}>
+              {/* Menampilkan nama kategori */}
               <td className="td__table-kategori">{category.kategori}</td>
               <td className="button me-1 td__table-kategori">
                 <div className="d-flex justify-content-end me-5">
+                  {/* Tombol edit kategori */}
+                  <button
+                    id="btn"
+                    onClick={() => {
+                      setSelectedCategory(category);
+                      setShowEditModal(true);
+                    }}
+                  >
+                    <Icon
+                      icon="uil:edit"
+                      width="33"
+                      height="33"
+                      style={{ marginRight: "1.5rem" }}
+                    />
+                  </button>
+                  {/* Tombol hapus kategori */}
                   <button
                     id="btn"
                     onClick={() => {
@@ -92,7 +149,7 @@ export default function DaftarKategori() {
                       setShowModal(true);
                     }}
                   >
-                    <Icon icon="mdi:trash-can-outline" width="25" height="25" />
+                    <Icon icon="mdi:trash-can-outline" width="33" height="33" />
                   </button>
                 </div>
               </td>
@@ -101,7 +158,7 @@ export default function DaftarKategori() {
         </tbody>
       </table>
 
-      {/* modal konfirmasi */}
+      {/* Modal Delete */}
       {showModal && (
         <div className="modalDelete">
           <div className="overlay" id="overlay"></div>
@@ -130,6 +187,31 @@ export default function DaftarKategori() {
           </div>
         </div>
       )}
+
+      {/* Modal Edit */}
+      <Modal show={showEditModal} onHide={closeEditModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Kategori</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group controlId="editedCategory">
+            {/* edit nama kategori */}
+            <Form.Control
+              type="text"
+              value={editedCategory}
+              onChange={(e) => setEditedCategory(e.target.value)}
+            />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeEditModal}>
+            Batal
+          </Button>
+          <Button variant="danger" onClick={handleEdit}>
+            Simpan
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
