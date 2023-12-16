@@ -35,7 +35,7 @@ export default function NewPassword() {
   useEffect(() => {
     if (!tokenRecovery) {
       navigate("/recovery");
-    } else if (token) {
+    } else if (localStorage.getItem("token")) {
       navigate("/dashboard");
     }
   }, []);

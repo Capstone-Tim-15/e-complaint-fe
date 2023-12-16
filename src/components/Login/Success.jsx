@@ -24,7 +24,7 @@ export default function Success() {
   useEffect(() => {
     if (!tokenRecovery) {
       navigate("/recovery");
-    } else if (token) {
+    } else if (localStorage.getItem("token")) {
       navigate("/dashboard");
     }
   }, []);
