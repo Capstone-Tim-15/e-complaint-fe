@@ -22,7 +22,7 @@ const ChatList = () => {
 
   useEffect(() => {
     axios
-      .get("/chat/admin/ws/get-clients/:roomId")
+      .get("https://655422dd63cafc694fe62bc5.mockapi.io/listchat/listchat")
       .then((response) => setChatList(response.data.slice(0, 7)))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
