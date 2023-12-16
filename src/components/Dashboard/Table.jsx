@@ -4,7 +4,6 @@ import { Table as TableContainer } from "react-bootstrap";
 import { useAuth } from "../../contexts/authContext";
 import { useNavigate } from "react-router-dom";
 
-
 function Table() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
@@ -24,12 +23,16 @@ function Table() {
           }
         );
 
-        const formattedData = response.data.results.map((item) => ({
-          ...item,
-          createdAt: new Date(item.createdAt).toLocaleDateString("en-GB"),
-        }));
+        // Filter by status "SEND" and sort by the oldest date
+        const sortedData = response.data.results
+          .filter((item) => item.status === "SEND")
+          .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+          .map((item) => ({
+            ...item,
+            createdAt: new Date(item.createdAt).toLocaleDateString("en-GB"),
+          }));
 
-        setData(formattedData.slice(0, 5));
+        setData(sortedData.slice(0, 5));
       } catch (error) {
         console.error("Error fetching notification data:", error);
       }
@@ -37,18 +40,18 @@ function Table() {
     fetchData();
   }, [token, navigate]);
 
-    const getStatusColor = (status) => {
-      switch (status) {
-        case "SEND":
-          return "bg-danger";
-        case "Diproses":
-          return "bg-warning";
-        case "Selesai":
-          return "bg-primary";
-        default:
-          return "";
-      }
-    };
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "SEND":
+        return "bg-danger";
+      case "Diproses":
+        return "bg-warning";
+      case "Selesai":
+        return "bg-primary";
+      default:
+        return "";
+    }
+  };
 
   return (
     <TableContainer bordered hover>
