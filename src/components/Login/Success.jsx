@@ -16,12 +16,6 @@ export default function Success() {
   const { token } = useAuth();
 
   useEffect(() => {
-    if (token) {
-      navigate("/dashboard");
-    }
-  }, []);
-
-  useEffect(() => {
     if (!tokenRecovery) {
       navigate("/recovery");
     } else if (localStorage.getItem("token")) {
