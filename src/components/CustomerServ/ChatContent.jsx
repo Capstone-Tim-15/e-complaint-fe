@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../CustomerServ/ChatContent.css";
-import Avatar from "../CustomerServ/Avatar";
 import ChatItem from "../CustomerServ/ChatItem";
 
 const ChatContent = () => {
