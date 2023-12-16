@@ -43,11 +43,14 @@ const ListBerita = () => {
 
   const getNews = async () => {
     try {
-      const response = await axios.get("https://api.govcomplain.my.id/admin/news?page=" + currentPage, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        "https://api.govcomplain.my.id/admin/news?page=" + currentPage,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setNews(response.data.results);
       setMeta(response.data.meta);
     } catch (error) {
@@ -131,7 +134,9 @@ const ListBerita = () => {
                 <td className="td__table-berita">{item.adminId}</td>
                 <td className="td__table-berita">{item.title}</td>
                 <td className="td__table-berita">{item.content}</td>
-                <td className="td__table-berita">{format(new Date(item.date), "d MMMM yyyy", { locale: id })}</td>
+                <td className="td__table-berita">
+                  {format(new Date(item.date), "d MMMM yyyy", { locale: id })}
+                </td>
                 <td className="button td__table-berita me-1">
                   <div className="d-flex">
                     <button
@@ -144,7 +149,11 @@ const ListBerita = () => {
                       <Icon icon="uil:edit" width="25" height="25" />
                     </button>
                     <button onClick={() => deleteNews(item.id)} id="btn">
-                      <Icon icon="mdi:trash-can-outline" width="25" height="25" />
+                      <Icon
+                        icon="mdi:trash-can-outline"
+                        width="25"
+                        height="25"
+                      />
                     </button>
                   </div>
                 </td>
@@ -166,10 +175,19 @@ const ListBerita = () => {
                 Apakah anda yakin <br /> ingin menghapus Berita?
               </div>
               <div className="d-flex border-0 pt-0 justify-content-between">
-                <button type="button" onClick={() => setModal(false)} className="btn btn-cancel" data-bs-dismiss="modal">
+                <button
+                  type="button"
+                  onClick={() => setModal(false)}
+                  className="btn btn-cancel"
+                  data-bs-dismiss="modal"
+                >
                   Tidak
                 </button>
-                <button type="button" onClick={confirmDelete} className="btn btn-ok">
+                <button
+                  type="button"
+                  onClick={confirmDelete}
+                  className="btn btn-ok"
+                >
                   Ya
                 </button>
               </div>

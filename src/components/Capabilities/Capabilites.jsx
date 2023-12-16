@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import image4 from "../../assets/lp-4.png";
+import axios from "axios";
 import { Container, Row, Col } from "react-bootstrap";
 
 export default function Capabilites() {
+  const [landingData, setLandingData] = useState([]);
+
+  useEffect(() => {
+    const fetchLandingData = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.govcomplain.my.id/landing"
+        );
+        setLandingData(response.data.results);
+        console.log(response.data.results);
+      } catch (error) {
+        console.error("Error fetching landing data:", error);
+      }
+    };
+
+    fetchLandingData();
+  }, []);
+
   return (
     <Container>
       <div className="sub__section-4">
@@ -26,15 +45,27 @@ export default function Capabilites() {
             <span className="subtitle">perubahan yang lebih baik</span>
             <div className="subtitle__section-4 d-flex gap-5 mt-5">
               <div>
-                <div className="cap__title">575</div>
+                <div className="cap__title">
+                  {landingData !== null && (
+                    <p className="p-0 m-0">{landingData.total_user}</p>
+                  )}
+                </div>
                 <div className="cap__subtitle">Total User</div>
               </div>
               <div>
-                <div className="cap__title">1.500</div>
+                <div className="cap__title">
+                  {landingData !== null && (
+                    <p className="p-0 m-0">{landingData.total_complaint}</p>
+                  )}
+                </div>
                 <div className="cap__subtitle">Total Complaint</div>
               </div>
               <div>
-                <div className="cap__title">2.000</div>
+                <div className="cap__title">
+                  {landingData !== null && (
+                    <p className="p-0 m-0">{landingData.total_resolved}</p>
+                  )}
+                </div>
                 <div className="cap__subtitle">Resolved Complaint </div>
               </div>
             </div>
