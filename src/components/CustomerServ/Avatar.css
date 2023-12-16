@@ -1,0 +1,7 @@
+.avatar-img {
+    height: 70px;
+    width: 70px;
+    flex-shrink: 0;
+    border-radius: 100px;
+    background: url(#);
+}

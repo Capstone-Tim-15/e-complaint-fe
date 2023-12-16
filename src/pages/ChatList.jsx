@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/authContext";
 import axios from "axios";
 import "../styles/ChatList.css";
+import FaqButton from "../components/FaqButton";
 
 const ChatList = () => {
   const [chatList, setChatList] = useState([]);
-  const [showChatUser, setShowChatUser] = useState(false);
 
   const navigate = useNavigate();
   const { token } = useAuth();
@@ -22,25 +22,10 @@ const ChatList = () => {
 
   useEffect(() => {
     axios
-      .get("https://655422dd63cafc694fe62bc5.mockapi.io/listchat/listchat")
+      .get("/chat/admin/ws/get-clients/:roomId")
       .then((response) => setChatList(response.data.slice(0, 7)))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
-
-  const toggleChatUser = () => {
-    setShowChatUser(!showChatUser);
-  };
-
-  const styleButton = {
-    position: "fixed",
-    bottom: 10,
-    right: 10,
-    borderRadius: "50%",
-    width: "50px",
-    height: "50px",
-    fontSize: "20px",
-    background: "url(help.png)",
-  };
 
   return (
     <>
@@ -76,7 +61,7 @@ const ChatList = () => {
                   </Card>
                 ))}
               </div>
-              <Button style={styleButton}>?</Button>
+              <FaqButton />
             </div>
           </Col>
         </Row>
