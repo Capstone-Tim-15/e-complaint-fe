@@ -27,14 +27,11 @@ export default function RecoveryPassword() {
     otp: "",
   });
 
-  const { token } = useAuth();
-
   useEffect(() => {
-    if (token) {
+    if (localStorage.getItem("token")) {
       navigate("/dashboard");
     }
   }, []);
-
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
