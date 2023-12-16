@@ -130,30 +130,44 @@
 
 .card-chat {
     width: 474px;
-    height: 656px !important;
+    height: 593px !important;
     padding: 24px 10px 1px 10px !important;
-    margin-bottom: 5rem !important;
+    /* margin-bottom: 5rem !important; */
     background-color: #F9D3D0 !important;
-    border-radius: 8px !important;
+    border-radius: 8px 8px 0px 0px !important;
     border: none !important;
     margin-top: 1rem;
+    overflow: auto;
 }
+
+/* .right {
+    display: flex;
+    flex-direction: column;
+    height: 200vh;
+} */
 
 .section-input {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 275px;
+    /* margin-top: 275px; */
+    margin-bottom: 10px;
+    border-radius: 0px 0px 8px 8px;
+    background-color: #F9D3D0;
+    width: 100%;
+    display: flex;
+    padding: 7px;
 }
 
 .input-chat {
-    width: 363px;
+    width: 300px;
     height: 43px;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 20px;
+    /* display: flex; */
+    /* justify-content: space-between; */
+    border-radius: 20px 0px 0px 20px;
     padding: 10px;
-    border: 1px solid lightgray;
+    border: 1px solid white;
     outline: none;
+    margin-left: 4rem;
 }
 
 .profile-chat {
@@ -193,6 +207,7 @@
 
 .section-chat {
     padding: 5px 13px 10px 30px;
+    /* margin-bottom: auto; */
 }
 
 .chat-balon-user {
@@ -203,16 +218,27 @@
 
 .button-chat{
     border: none;
-    /* border-radius: 0 20px 20px 0; */
-    background: none;
-    position: absolute;
+    border-radius: 0 20px 20px 0;
+    background-color: #fff;
+    /* position: absolute; */
     /* display: flex; */
-    margin-top: -2.8rem;
-    margin-left: 19.7rem;
+    /* margin-top: -2.8rem; */
+    /* margin-left: 19.7rem; */
 }
 
 .icon-button {
     /* width: 26px;
     height: 23px; */
     font-size: 3em;
+}
+
+.comment-null {
+    margin-left: auto;
+    margin-right: auto;
+    /* text-align: center; */
+    margin-top: 18rem;
+}
+
+.menu-chat-user {
+    display: flex;
 }

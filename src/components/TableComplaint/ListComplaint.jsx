@@ -8,7 +8,9 @@ export default function ListComplaint(props) {
   const { komplain, onEditModal, updateComplaint, deleteModal, detailModal } = props;
   const navigate = useNavigate();
 
-  const profilImg = komplain.photoImage || defaultProfil;
+  const descriptionImage = `https://res.cloudinary.com/dua3iphs9/image/upload/v1700572036/${komplain.imageUrl}`;
+  const profile = `https://res.cloudinary.com/dua3iphs9/image/upload/v1700572036/${komplain.photoImage}`;
+  const profilImg = profile || defaultProfil;
   const handleProfilError = (e) => {
     e.target.src = defaultProfil;
   };
@@ -37,7 +39,7 @@ export default function ListComplaint(props) {
         <td id="desk">
           <div className="d-flex">
             <div className="me-2 d-flex align-items-center">
-              <img src={komplain.imageUrl} width={`100px`} className="mt-2 " onError={handleImageError}></img>
+              <img src={descriptionImage} width={`100px`} className="mt-2 " onError={handleImageError}></img>
             </div>
             <div className="d-flex align-items-center">{komplain.content}</div>
           </div>

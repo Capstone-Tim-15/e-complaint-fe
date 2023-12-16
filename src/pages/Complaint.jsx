@@ -18,10 +18,10 @@ export default function ComplaintPage() {
   useEffect(() => {
     const getCategory = async () => {
       try {
-        const response = await axios.get(
-          "https://6570537e09586eff66412148.mockapi.io/kategori"
-        );
-        setCategoryDropdown(response.data);
+        const response = await axios.get(`https://api.govcomplain.my.id/admin/category`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setCategoryDropdown(response.data.results);
       } catch (error) {
         console.error("Error fetching categories", error);
       }
@@ -76,35 +76,14 @@ export default function ComplaintPage() {
   const [data, setData] = useState([]);
   const handleDeleteSuccess = (deletedItemId) => {
     // Update state data setelah item dihapus
-    setData((prevData) =>
-      prevData.filter((komplaint) => komplaint.id !== deletedItemId)
-    );
+    setData((prevData) => prevData.filter((komplaint) => komplaint.id !== deletedItemId));
   };
 
   return (
     <>
-      <TableComplaint
-        onEditModal={handleEditModal}
-        deleteModal={toggleModalDelete}
-        itemsPerPage={10}
-        categoryDropdown={categoryDropdown}
-      />
-      {modal && (
-        <Edit
-          onEditModal={toggleModal}
-          editData={editData}
-          id={selectedId}
-          updateComplaint={updateComplaint}
-          categoryDropdown={categoryDropdown}
-        />
-      )}
-      {modalDelete && (
-        <Delete
-          deleteModal={toggleModalDelete}
-          selectedIdForDelete={selectedIdForDelete}
-          onDeleteSuccess={handleDeleteSuccess}
-        />
-      )}
+      <TableComplaint onEditModal={handleEditModal} deleteModal={toggleModalDelete} itemsPerPage={10} categoryDropdown={categoryDropdown} />
+      {modal && <Edit onEditModal={toggleModal} editData={editData} id={selectedId} updateComplaint={updateComplaint} categoryDropdown={categoryDropdown} />}
+      {modalDelete && <Delete deleteModal={toggleModalDelete} selectedIdForDelete={selectedIdForDelete} onDeleteSuccess={handleDeleteSuccess} />}
     </>
   );
 }

@@ -1,7 +1,58 @@
-import { data } from "./DummyTableData"
-import {Table as TableContainer} from 'react-bootstrap';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Table as TableContainer } from "react-bootstrap";
+import { useAuth } from "../../contexts/authContext";
+import { useNavigate } from "react-router-dom";
 
 function Table() {
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
+  const { token } = useAuth();
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.govcomplain.my.id/admin/complaint",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        // Filter by status "SEND" and sort by the oldest date
+        const sortedData = response.data.results
+          .filter((item) => item.status === "SEND")
+          .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+          .map((item) => ({
+            ...item,
+            createdAt: new Date(item.createdAt).toLocaleDateString("en-GB"),
+          }));
+
+        setData(sortedData.slice(0, 5));
+      } catch (error) {
+        console.error("Error fetching notification data:", error);
+      }
+    };
+    fetchData();
+  }, [token, navigate]);
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "SEND":
+        return "bg-danger";
+      case "Diproses":
+        return "bg-warning";
+      case "Selesai":
+        return "bg-primary";
+      default:
+        return "";
+    }
+  };
+
   return (
     <TableContainer bordered hover>
       <thead className="bg-secondary">
@@ -44,11 +95,13 @@ function Table() {
             <tr key={item.id}>
               <td className="px-2 py-1 text-sm">{item.id}</td>
               <td className="px-2 py-1 text-sm">{item.name}</td>
-              <td className="px-2 py-1 text-sm">{item.complaint}</td>
-              <td className="px-2 py-1 text-sm">{item.date}</td>
+              <td className="px-2 py-1 text-sm">{item.content}</td>
+              <td className="px-2 py-1 text-sm">{item.createdAt}</td>
               <td className="px-2 py-1 text-sm">
                 <span
-                  className={`d-inline-block px-3 py-3 rounded-circle ${item.status}`}
+                  className={`d-inline-block px-3 py-3 rounded-circle ${getStatusColor(
+                    item.status
+                  )}`}
                 ></span>
               </td>
             </tr>
@@ -58,4 +111,4 @@ function Table() {
   );
 }
 
-export default Table
+export default Table;
