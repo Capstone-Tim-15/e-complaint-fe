@@ -151,6 +151,14 @@ export default function Edit({ onEditModal, editData, id, updateComplaint, categ
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      // Assuming `category` is the new category value and `id` is the complaint id
+      await axios.put(
+        `https://api.govcomplain.my.id/admin/category/${id}`,
+        {
+          category: complaint.category,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       onEditModal();
       // Merbarui data complaint di parent component
       updateComplaint();
@@ -199,17 +207,17 @@ export default function Edit({ onEditModal, editData, id, updateComplaint, categ
                 <label>
                   <span>Kategori</span>
                   <br />
-                  {/* <select name="category" id="inputCategory" value={complaint.category} onChange={handleChange}>
+                  <select name="category" id="inputCategory" value={complaint.category} onChange={handleChange}>
                     <option value="" disabled>
                       Kategori
                     </option>
                     {categoryDropdown.map((category) => (
-                      <option key={category.id} value={category.kategori}>
-                        {category.kategori}
+                      <option key={category.id} value={category.CategoryName}>
+                        {category.CategoryName}
                       </option>
                     ))}
-                  </select> */}
-                  <input name="category" id="inputCategory" value={complaint.category} onChange={handleChange}></input>
+                  </select>
+                  {/* <input name="category" id="inputCategory" value={complaint.category} onChange={handleChange}></input> */}
                   {formError.category && <div className="error">{formError.category}</div>}
                 </label>
               </div>

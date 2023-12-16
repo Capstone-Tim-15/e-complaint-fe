@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useAuth } from "../../contexts/authContext";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import Sidebar from "../Layout/Sidebar";
 import Topbar from "../Layout/Topbar";
@@ -7,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import "./FormBerita.css";
 
 const FormBerita = () => {
+  const { token } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     date: "",
@@ -15,15 +17,15 @@ const FormBerita = () => {
   });
 
   function makeRandomString(length) {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = "";
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const charactersLength = characters.length;
     for (let i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
   }
-  
 
   const handleChange = (e) => {
     setFormData({
@@ -36,18 +38,17 @@ const FormBerita = () => {
     e.preventDefault();
 
     try {
-      const token = localStorage.getItem("token");
       const response = await axios.post(
         "https://api.govcomplain.my.id/admin/news",
         JSON.stringify({
-          adminId: 'PasheE',
+          adminId: "PasheE",
           title: formData.title,
           content: formData.content,
         }),
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
@@ -147,26 +148,23 @@ const FormBerita = () => {
                   controlId="formHorizontalPassword"
                 >
                   <Form.Label column lg="2">
-                    Isi Berita
+                    Gambar
                   </Form.Label>
                   <Col lg="9" className="ms-3">
-                    <Form.Control
-                      type="file"
-                      name="image"
-                    />
+                    <Form.Control type="file" name="image" />
                   </Col>
-                  </Form.Group>
-                  <Form.Group as={Row} className="mb-4">
-                  <Col sm={{ span: 10, offset: 7, }}>
-                      <Button
-                        type="submit"
-                        variant="danger"
-                        className="button__form-berita"
-                      >
-                        Save
-                      </Button>
-                      </Col>
-                      </Form.Group>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-4">
+                  <Col sm={{ span: 10, offset: 7 }}>
+                    <Button
+                      type="submit"
+                      variant="danger"
+                      className="button__form-berita"
+                    >
+                      Save
+                    </Button>
+                  </Col>
+                </Form.Group>
               </Form>
             </Col>
           </Col>

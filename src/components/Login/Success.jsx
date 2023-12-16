@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useAuthRecovery } from "../../contexts/passwordAuth";
+import { useAuth } from "../../contexts/authContext";
 import Header from "../LandingPage/Header/Header";
 import Footer from "../LandingPage/Footer/Footer";
 import image8 from "../../assets/lp-8.png";
-import Vector from "../../assets/vector.png";
 import Ellipse from "../../assets/ellipse.png";
 import "../../styles/success.css";
 
@@ -13,10 +13,19 @@ export default function Success() {
   const navigate = useNavigate();
 
   const { tokenRecovery } = useAuthRecovery();
+  const { token } = useAuth();
+
+  useEffect(() => {
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, []);
 
   useEffect(() => {
     if (!tokenRecovery) {
       navigate("/recovery");
+    } else if (token) {
+      navigate("/dashboard");
     }
   }, []);
   return (

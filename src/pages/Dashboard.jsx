@@ -1,16 +1,14 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { PieChart } from "@mui/x-charts";
 import { Card, Col, Row } from "react-bootstrap";
-import { data } from "../components/Dashboard/DummyPieChart";
 import Progress from "../components/Dashboard/Progress";
 import Table from "../components/Dashboard/Table";
 import { useAuth } from "../contexts/authContext";
-
 import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
 import "../styles/Dashboard.css";
 import Summary from "../components/Dashboard/Summary";
+import ChartPie from "../components/Dashboard/PieChart"
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -38,7 +36,7 @@ function Dashboard() {
             </Row>
             <Row className="gx-1">
               <Col xs={12} md={5} style={{ padding: "16px" }}>
-                <Card className="w-100 p-3 card-db">
+                <Card className="w-100 p-4 card-db">
                   <Card.Body>
                     <h4 className="text-xl fw-bold my-2 mb-5">
                       Aktivitas Terkini
@@ -50,11 +48,7 @@ function Dashboard() {
               <Col xs={12} md={7} style={{ padding: "16px" }}>
                 <Col className="mb-3">
                   <Card className="p-3 card-db">
-                    <PieChart
-                      height={200}
-                      series={[data]}
-                      colors={["red", "orange", "blue"]}
-                    />
+                    <ChartPie />
                   </Card>
                 </Col>
                 <Col>

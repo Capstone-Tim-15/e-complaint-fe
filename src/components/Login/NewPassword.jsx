@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useAuthRecovery } from "../../contexts/passwordAuth";
+import { useAuth } from "../../contexts/authContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
@@ -17,6 +18,7 @@ export default function NewPassword() {
 
   const navigate = useNavigate();
   const { tokenRecovery } = useAuthRecovery();
+  const { token } = useAuth();
 
   const [formData, setFormData] = useState({
     newPassword: "",
@@ -33,6 +35,8 @@ export default function NewPassword() {
   useEffect(() => {
     if (!tokenRecovery) {
       navigate("/recovery");
+    } else if (token) {
+      navigate("/dashboard");
     }
   }, []);
 

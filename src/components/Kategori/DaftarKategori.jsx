@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Modal, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import { useAuth } from "../../contexts/authContext";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import gambar from "../../assets/delete-Icon.png";
 import "../Modal/css/delete.css";
 import "./kategori.css";
@@ -11,57 +14,118 @@ export default function DaftarKategori() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editedCategory, setEditedCategory] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { token } = useAuth();
 
-  useEffect(() => {
-    const fetchCategory = async () => {
-      try {
-        const response = await axios.get(
-          "https://6570537e09586eff66412148.mockapi.io/kategori"
-        );
-        setCategories(response.data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
+  const [editID, setEditID] = useState();
 
-    fetchCategory();
-  }, []);
+  const [data, setData] = useState([]);
+  const [refresh, setRefresh] = useState(0);
 
-  const handleTambahKategori = () => {
-    navigate("/tambahkategori");
+  const [formData, setFormData] = useState({
+    name: "",
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const handleDelete = async () => {
+  const { name } = formData;
+
+  useEffect(() => {
+    getCategory();
+  }, [refresh]);
+
+  const getCategory = async () => {
     try {
-      await axios.delete(
-        `https://6570537e09586eff66412148.mockapi.io/kategori/${selectedCategory.id}`
+      const response = await axios.get(
+        "https://api.govcomplain.my.id/admin/category",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
-
-      setCategories((prevCategories) =>
-        prevCategories.filter((category) => category.id !== selectedCategory.id)
-      );
-
-      setSelectedCategory(null);
-      setShowModal(false);
+      setCategories(response.data.results);
     } catch (error) {
-      console.error("Error deleting category:", error);
+      console.error("Error fetching news: ", error);
+      setError("Error fetching news. Please check your JWT token.");
     }
   };
 
+  const handleTambahKategori = () => {
+    // Navigasi ke halaman tambah kategori
+    navigate("/tambahkategori");
+  };
+
+  const handleUpdate = () => {
+    if (name) {
+      axios
+        .put(
+          `https://api.govcomplain.my.id/admin/category/${editID}`,
+          formData,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )
+        .then((res) => {
+          setFormData({ name: "" });
+          setRefresh(refresh + 1);
+          setShowEditModal(false);
+          toast.success("Berhasil Mengupdate Data");
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  const handleEdit = (editIDNotState) => {
+    axios
+      .get(`https://api.govcomplain.my.id/admin/category/${editIDNotState}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        setFormData(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const deleteModal = () => {
-    // tutup modal (no delete)
+    // Batal penghapusan kategori (menutup modal)
     setSelectedCategory(null);
     setShowModal(false);
   };
 
+  const closeEditModal = () => {
+    // Batal pengeditan kategori (menutup modal)
+    setEditedCategory("");
+    setSelectedCategory(null);
+    setShowEditModal(false);
+  };
+
   return (
     <>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Row>
         <Col lg="6">
           <h1 className="text-danger ms-4 mt-4"> Daftar Kategori </h1>
         </Col>
         <Col lg="6" className="d-flex flex-row-reverse" id="btn-tambah">
+          {/* Tombol navigasi ke halaman tambah kategori */}
           <button className="Add" onClick={handleTambahKategori}>
             Tambah Kategori
           </button>
@@ -74,7 +138,7 @@ export default function DaftarKategori() {
             <th className="th__table-kategori" scope="col">
               Kategori
             </th>
-            <th scope="col" className="text-end pe-4 th__table-kategori">
+            <th scope="col" className="text-end pe-5 th__table-kategori">
               Aksi
             </th>
           </tr>
@@ -82,17 +146,20 @@ export default function DaftarKategori() {
         <tbody>
           {categories.map((category) => (
             <tr className="tr__table-kategori" key={category.id}>
-              <td className="td__table-kategori">{category.kategori}</td>
+              {/* Menampilkan nama kategori */}
+              <td className="td__table-kategori">{category.CategoryName}</td>
               <td className="button me-1 td__table-kategori">
                 <div className="d-flex justify-content-end me-5">
+                  {/* Tombol edit kategori */}
                   <button
                     id="btn"
                     onClick={() => {
-                      setSelectedCategory(category);
-                      setShowModal(true);
+                      handleEdit(category.id);
+                      setEditID(category.id);
+                      setShowEditModal(category);
                     }}
                   >
-                    <Icon icon="mdi:trash-can-outline" width="25" height="25" />
+                    <Icon icon="uil:edit" width="33" height="33" />
                   </button>
                 </div>
               </td>
@@ -101,35 +168,40 @@ export default function DaftarKategori() {
         </tbody>
       </table>
 
-      {/* modal konfirmasi */}
-      {showModal && (
-        <div className="modalDelete">
-          <div className="overlay" id="overlay"></div>
-          <div className="card cardDelete">
-            <div className="contain">
-              <div className="icon-delete">
-                <img src={gambar} alt="icon-delete" />
-              </div>
-              <div className="title">
-                <h4>
-                  Apakah anda yakin{" "}
-                  <span className="title-2">
-                    ingin menghapus kategori {selectedCategory?.kategori}?
-                  </span>
-                </h4>
-              </div>
-              <div className="actions">
-                <button className="cancel" onClick={deleteModal}>
-                  Tidak
-                </button>
-                <button className="save" onClick={handleDelete}>
-                  Ya
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Modal Edit */}
+      <Modal show={showEditModal} onHide={closeEditModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Kategoriq</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group>
+            {/* edit nama kategori */}
+            <Form.Control
+              controlId="name"
+              type="text"
+              id="name"
+              name="name"
+              value={name}
+              autoComplete="off"
+              onChange={handleInputChange}
+            />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeEditModal}>
+            Batal
+          </Button>
+          <Button
+            variant="danger"
+            type="submit"
+            onClick={() => {
+              handleUpdate();
+            }}
+          >
+            Simpan
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
