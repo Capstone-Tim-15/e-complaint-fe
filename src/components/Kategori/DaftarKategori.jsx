@@ -171,7 +171,7 @@ export default function DaftarKategori() {
       {/* Modal Edit */}
       <Modal show={showEditModal} onHide={closeEditModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Kategoriq</Modal.Title>
+          <Modal.Title>Edit Kategori</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group>
