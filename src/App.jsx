@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import LandingPage from "./pages/LandingPage";
+import ManageBerita from "./pages/ManageBerita";
+import Dashboard from "./pages/Dashboard";
+import ChatList from "./pages/ChatList";
+import Login from "./pages/Login";
+import RecoveryPassword from "./components/Login/RecoveryPassword";
+import NewPassword from "./components/Login/NewPassword";
+import Success from "./components/Login/Success";
+import Import from "./pages/Import";
+import Notification from "./pages/Notification";
+import FormBerita from "./components/TambahBerita/FormBerita";
+import UbahBerita from "./components/UbahBerita/FormBerita";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import ComplaintPage from "./pages/Complaint";
+import Kategori from "./pages/Kategori";
+import TambahKategori from "./components/Kategori/TambahKategori";
+import FaqPage from "./pages/FaqPage";
+import DetailComplaint from "./components/Modal/detail";
+import ChatContent from "./components/CustomerServ/ChatContent";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/recovery" element={<RecoveryPassword />}></Route>
+        <Route path="/newpassword" element={<NewPassword />}></Route>
+        <Route path="/success" element={<Success />}></Route>
+        <Route path="/dashboard" element={<Dashboard />}></Route>
+        <Route path="/complaint" element={<ComplaintPage />}></Route>
+        <Route path="/berita" element={<ManageBerita />}></Route>
+        <Route path="/kategori" element={<Kategori />}></Route>
+        <Route path="/tambahkategori" element={<TambahKategori />}></Route>
+        <Route path="/tambahberita" element={<FormBerita />}></Route>
+        <Route path="/editberita" element={<UbahBerita />}></Route>
+        <Route path="/chat" element={<ChatList />}></Route>
+        <Route path="/import" element={<Import />}></Route>
+        <Route path="/notification" element={<Notification />}></Route>
+        <Route path="/faq" element={<FaqPage />}></Route>
+        <Route path="/detail-complaint/:id" element={<DetailComplaint />}></Route>
+        <Route path="/chat/:id" element={<ChatContent />}></Route>
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

@@ -1,0 +1,244 @@
+/* Header styling */
+.header-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* gap: 7rem; */
+    margin-top: 3rem;
+    border-bottom: 4px solid #f1f1f1;
+}
+
+.menu-title {
+    display: flex;
+    gap: 19px;
+}
+
+.title-detail>h2 {
+    color: #E02216;
+    font-family: "Nunito Sans";
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.lingkungan {
+    background-color: #F9D3D0;
+    padding: 8px 11px 1px 11px;
+    border-radius: 20px;
+    width: 187px;
+    height: 35px;
+    text-align: center;
+    border: 1px solid #E02216;
+    color: #fff;
+}
+
+.lingkungan>h4 {
+    font-size: 16px;
+    font-family: "Nunito Sans";
+}
+
+.date {
+    background-color: #F9D3D0;
+    padding: 8px 11px 1px 11px;
+    border-radius: 20px;
+    width: 187px;
+    height: 35px;
+    text-align: center;
+    border: 1px solid #E02216;
+    color: #fff;
+}
+
+.date>h4 {
+    font-size: 16px;
+    font-family: "Nunito Sans";
+}
+
+.category-status {
+    background-color: #FFC700;
+    padding: 8px 11px 1px 11px;
+    border-radius: 20px;
+    width: 187px;
+    height: 35px;
+    text-align: center;
+    /* border: 1px solid #E02216; */
+    color: #fff;
+}
+
+.category-status >h4 {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Nunito Sans";
+}
+
+/* styling menu detail */
+.menu-detail {
+    margin-top: 2rem;
+}
+.profile-detail {
+    display: flex;
+    gap: 10px;
+    font-size: 24px;
+}
+
+.profile-detail > h6 {
+    font-family: "Nunito Sans";
+    font-size: 24px;
+    margin-top: 5px;
+}
+
+.by {
+    font-weight: bold;
+    font-size: 24px;
+    margin-top: 5px;
+    font-family: "Nunito Sans";
+}
+
+.profile-detail > img {
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+}
+
+/* bagian content */
+.content-detail {
+    display: flex;
+    gap: 2rem;
+}
+
+.left > img {
+    width: 539px;
+    height: 237px;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.left > h6 {
+    font-weight: bold;
+    font-size: 24px;
+    font-family: "Nunito Sans";
+    margin-top: 1rem;
+}
+
+.card-deskripsi {
+    width: 539px;
+    height: 365px !important;
+    padding: 24px 10px 1px 10px !important;
+    margin-bottom: 5rem !important;
+    background-color: #F9D3D0 !important;
+    border-radius: 8px !important;
+    border: none !important;
+}
+
+.card-chat {
+    width: 474px;
+    height: 593px !important;
+    padding: 24px 10px 1px 10px !important;
+    /* margin-bottom: 5rem !important; */
+    background-color: #F9D3D0 !important;
+    border-radius: 8px 8px 0px 0px !important;
+    border: none !important;
+    margin-top: 1rem;
+    overflow: auto;
+}
+
+/* .right {
+    display: flex;
+    flex-direction: column;
+    height: 200vh;
+} */
+
+.section-input {
+    margin-left: auto;
+    margin-right: auto;
+    /* margin-top: 275px; */
+    margin-bottom: 10px;
+    border-radius: 0px 0px 8px 8px;
+    background-color: #F9D3D0;
+    width: 100%;
+    display: flex;
+    padding: 7px;
+}
+
+.input-chat {
+    width: 300px;
+    height: 43px;
+    /* display: flex; */
+    /* justify-content: space-between; */
+    border-radius: 20px 0px 0px 20px;
+    padding: 10px;
+    border: 1px solid white;
+    outline: none;
+    margin-left: 4rem;
+}
+
+.profile-chat {
+    width: 25px;
+    height: 25px;
+    border-radius: 100px;
+}
+
+.header-title {
+    display: flex;
+    gap: 14px;
+}
+
+.username {
+    font-size: 14px;
+}
+
+.time {
+    font-size: 10px;
+    color: grey;
+}
+
+.text-chat {
+    font-size: 12px;
+}
+
+.chat-balon-admin {
+    padding: 10px 10px 10px 10px;
+    margin-right: 0.5rem;
+    border-radius: 8px !important;
+}
+
+.menu-chat {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.section-chat {
+    padding: 5px 13px 10px 30px;
+    /* margin-bottom: auto; */
+}
+
+.chat-balon-user {
+    padding: 10px 10px 10px 10px;
+    margin-left: 0.5rem;
+    border-radius: 8px !important;
+}
+
+.button-chat{
+    border: none;
+    border-radius: 0 20px 20px 0;
+    background-color: #fff;
+    /* position: absolute; */
+    /* display: flex; */
+    /* margin-top: -2.8rem; */
+    /* margin-left: 19.7rem; */
+}
+
+.icon-button {
+    /* width: 26px;
+    height: 23px; */
+    font-size: 3em;
+}
+
+.comment-null {
+    margin-left: auto;
+    margin-right: auto;
+    /* text-align: center; */
+    margin-top: 18rem;
+}
+
+.menu-chat-user {
+    display: flex;
+}

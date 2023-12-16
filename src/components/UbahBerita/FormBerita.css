@@ -1,0 +1,34 @@
+.form__berita {
+  background-color: rgb(255, 195, 190);
+  padding: 25px 25px 25px 25px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.title__form-berita span {
+  font-weight: 800;
+  color: var(--secondary-color);
+}
+
+.form__berita Label {
+  font-weight: 700;
+  color: var(--secondary-color);
+}
+
+.text {
+  margin-top: 50px;
+}
+
+.button__form-berita {
+  width: 40%;
+}
+
+.tambah__berita {
+  font-weight: 700;
+}
+
+.daftar__berita {
+  border: none;
+  background: none;
+  color: var(--secondary-color);
+}
