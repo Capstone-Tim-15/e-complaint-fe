@@ -2,7 +2,10 @@ import { useState, useEffect } from "react";
 import { Row, Col, Modal, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import { useAuth } from "../../contexts/authContext";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import gambar from "../../assets/delete-Icon.png";
 import "../Modal/css/delete.css";
 import "./kategori.css";
@@ -13,72 +16,81 @@ export default function DaftarKategori() {
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editedCategory, setEditedCategory] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { token } = useAuth();
+
+  const [editID, setEditID] = useState();
+
+  const [data, setData] = useState([]);
+  const [refresh, setRefresh] = useState(0);
+
+  const [formData, setFormData] = useState({
+    name: "",
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const { name } = formData;
 
   useEffect(() => {
-    // Mengambil data kategori
-    const fetchCategory = async () => {
-      try {
-        const response = await axios.get(
-          "https://6570537e09586eff66412148.mockapi.io/kategori"
-        );
-        setCategories(response.data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
+    getCategory();
+  }, [refresh]);
 
-    fetchCategory();
-  }, []);
+  const getCategory = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.govcomplain.my.id/admin/category",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setCategories(response.data.results);
+    } catch (error) {
+      console.error("Error fetching news: ", error);
+      setError("Error fetching news. Please check your JWT token.");
+    }
+  };
 
   const handleTambahKategori = () => {
     // Navigasi ke halaman tambah kategori
     navigate("/tambahkategori");
   };
 
-  const handleDelete = async () => {
-    try {
-      // Menghapus kategori dari API
-      await axios.delete(
-        `https://6570537e09586eff66412148.mockapi.io/kategori/${selectedCategory.id}`
-      );
-
-      // Mengupdate state untuk merefresh tampilan
-      setCategories((prevCategories) =>
-        prevCategories.filter((category) => category.id !== selectedCategory.id)
-      );
-
-      // Menutup modal
-      setSelectedCategory(null);
-      setShowModal(false);
-    } catch (error) {
-      console.error("Error deleting category:", error);
+  const handleUpdate = () => {
+    if (name) {
+      axios
+        .put(
+          `https://api.govcomplain.my.id/admin/category/${editID}`,
+          formData,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )
+        .then((res) => {
+          setFormData({ name: "" });
+          setRefresh(refresh + 1);
+          setShowEditModal(false);
+          toast.success("Berhasil Mengupdate Data");
+        })
+        .catch((err) => console.log(err));
     }
   };
 
-  const handleEdit = async () => {
-    try {
-      // Mengupdate kategori ke API
-      await axios.put(
-        `https://6570537e09586eff66412148.mockapi.io/kategori/${selectedCategory.id}`,
-        { kategori: editedCategory }
-      );
-
-      // Mengupdate state untuk merefresh tampilan
-      setCategories((prevCategories) =>
-        prevCategories.map((category) =>
-          category.id === selectedCategory.id
-            ? { ...category, kategori: editedCategory }
-            : category
-        )
-      );
-
-      // Menutup modal
-      setSelectedCategory(null);
-      setShowEditModal(false);
-    } catch (error) {
-      console.error("Error updating category:", error);
-    }
+  const handleEdit = (editIDNotState) => {
+    axios
+      .get(`https://api.govcomplain.my.id/admin/category/${editIDNotState}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        setFormData(res.data);
+      })
+      .catch((err) => console.log(err));
   };
 
   const deleteModal = () => {
@@ -96,6 +108,18 @@ export default function DaftarKategori() {
 
   return (
     <>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Row>
         <Col lg="6">
           <h1 className="text-danger ms-4 mt-4"> Daftar Kategori </h1>
@@ -123,33 +147,19 @@ export default function DaftarKategori() {
           {categories.map((category) => (
             <tr className="tr__table-kategori" key={category.id}>
               {/* Menampilkan nama kategori */}
-              <td className="td__table-kategori">{category.kategori}</td>
+              <td className="td__table-kategori">{category.CategoryName}</td>
               <td className="button me-1 td__table-kategori">
                 <div className="d-flex justify-content-end me-5">
                   {/* Tombol edit kategori */}
                   <button
                     id="btn"
                     onClick={() => {
-                      setSelectedCategory(category);
-                      setShowEditModal(true);
+                      handleEdit(category.id);
+                      setEditID(category.id);
+                      setShowEditModal(category);
                     }}
                   >
-                    <Icon
-                      icon="uil:edit"
-                      width="33"
-                      height="33"
-                      style={{ marginRight: "1.5rem" }}
-                    />
-                  </button>
-                  {/* Tombol hapus kategori */}
-                  <button
-                    id="btn"
-                    onClick={() => {
-                      setSelectedCategory(category);
-                      setShowModal(true);
-                    }}
-                  >
-                    <Icon icon="mdi:trash-can-outline" width="33" height="33" />
+                    <Icon icon="uil:edit" width="33" height="33" />
                   </button>
                 </div>
               </td>
@@ -158,48 +168,22 @@ export default function DaftarKategori() {
         </tbody>
       </table>
 
-      {/* Modal Delete */}
-      {showModal && (
-        <div className="modalDelete">
-          <div className="overlay" id="overlay"></div>
-          <div className="card cardDelete">
-            <div className="contain">
-              <div className="icon-delete">
-                <img src={gambar} alt="icon-delete" />
-              </div>
-              <div className="title">
-                <h4>
-                  Apakah anda yakin{" "}
-                  <span className="title-2">
-                    ingin menghapus kategori {selectedCategory?.kategori}?
-                  </span>
-                </h4>
-              </div>
-              <div className="actions">
-                <button className="cancel" onClick={deleteModal}>
-                  Tidak
-                </button>
-                <button className="save" onClick={handleDelete}>
-                  Ya
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Modal Edit */}
       <Modal show={showEditModal} onHide={closeEditModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Kategori</Modal.Title>
+          <Modal.Title>Edit Kategoriq</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form.Group controlId="editedCategory">
+          <Form.Group>
             {/* edit nama kategori */}
             <Form.Control
+              controlId="name"
               type="text"
-              value={editedCategory}
-              onChange={(e) => setEditedCategory(e.target.value)}
+              id="name"
+              name="name"
+              value={name}
+              autoComplete="off"
+              onChange={handleInputChange}
             />
           </Form.Group>
         </Modal.Body>
@@ -207,7 +191,13 @@ export default function DaftarKategori() {
           <Button variant="secondary" onClick={closeEditModal}>
             Batal
           </Button>
-          <Button variant="danger" onClick={handleEdit}>
+          <Button
+            variant="danger"
+            type="submit"
+            onClick={() => {
+              handleUpdate();
+            }}
+          >
             Simpan
           </Button>
         </Modal.Footer>

@@ -3,6 +3,7 @@ import { Col, Row, Modal, Button } from "react-bootstrap";
 import Sidebar from "../Layout/Sidebar";
 import Topbar from "../Layout/Topbar";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/authContext";
 import axios from "axios";
 
 const TambahKategori = () => {
@@ -10,16 +11,32 @@ const TambahKategori = () => {
   const [categoryName, setCategoryName] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [successCategoryName, setSuccessCategoryName] = useState("");
+  const { token } = useAuth();
+
+  const [formData, setFormData] = useState({
+    name: "",
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post("https://6570537e09586eff66412148.mockapi.io/kategori", {
-        kategori: categoryName,
-      });
-      
-      setSuccessCategoryName(categoryName);
+      await axios.post(
+        "https://api.govcomplain.my.id/admin/category",
+        formData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      setSuccessCategoryName(formData.Name);
 
       // Reset dan menampilkan modal
       setCategoryName("");
@@ -74,9 +91,10 @@ const TambahKategori = () => {
                     <input
                       type="text"
                       className="form-control"
-                      id="categoryName"
-                      value={categoryName}
-                      onChange={(e) => setCategoryName(e.target.value)}
+                      id="Name"
+                      name="Name"
+                      onChange={handleInputChange}
+                      value={formData.Name}
                     />
                   </div>
                   <button type="submit" className="btn btn-danger">
