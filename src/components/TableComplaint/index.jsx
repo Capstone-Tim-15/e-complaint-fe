@@ -222,33 +222,34 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
   const [selectedCategory, setSelectedCategory] = useState("");
 
   // const totalComplaint = complaint.length;
-
   useEffect(() => {
-    const getComplaint = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(`https://api.govcomplain.my.id/admin/complaint`, {
-          headers: { Authorization: `Bearer ${token}` },
-          params: {
-            page: currentPage,
-            limit: itemsPerPage,
-            category: selectedCategory,
-          },
-        });
-        const { total } = response.data.meta;
-
-        // Set state totalItems
-        setTotalItems(total);
-        setTotalPages(Math.ceil(total / itemsPerPage));
-        setComplaint(response.data.results);
-      } catch (error) {
-        console.error("error", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     getComplaint();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, itemsPerPage, currentPage, selectedCategory]);
+
+  const getComplaint = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`https://api.govcomplain.my.id/admin/complaint`, {
+        headers: { Authorization: `Bearer ${token}` },
+        params: {
+          page: currentPage,
+          limit: itemsPerPage,
+        },
+      });
+      const { total } = response.data.meta;
+
+      // Set state totalItems
+      setTotalItems(total);
+      setTotalPages(Math.ceil(total / itemsPerPage));
+      setComplaint(response.data.results);
+      setMeta(response.data.meta);
+    } catch (error) {
+      console.error("error", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const updateComplaint = async () => {
     try {
@@ -272,19 +273,28 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
     setCurrentPage(1);
   };
 
-  const filteredComplaint = selectedStatus ? complaint.filter((item) => item.status === selectedStatus) : complaint;
+  // const filteredComplaint = selectedStatus ? complaint.filter((item) => item.status === selectedStatus) : complaint;
+  const filteredComplaint = complaint.filter(
+    (item) => (selectedStatus && selectedCategory ? item.status === selectedStatus && item.category === selectedCategory : selectedStatus ? item.status === selectedStatus : selectedCategory ? item.category === selectedCategory : true) // If no filters are selected, include all items
+  );
 
   // handlePage ketika berubah
   // ------------- START CODE ----------------
-  const handlePageChange = (pageNumber) => {
-    if (pageNumber >= 1 && pageNumber <= totalPages) {
-      setCurrentPage(pageNumber);
-    }
+  // const handlePageChange = (pageNumber) => {
+  //   if (pageNumber >= 1 && pageNumber <= totalPages) {
+  //     setCurrentPage(pageNumber);
+  //   }
+  // };
+  const previousPageChange = () => {
+    setCurrentPage(currentPage - 1);
+  };
+  const nextPageChange = () => {
+    setCurrentPage(currentPage + 1);
   };
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = (filteredComplaint || []).slice(indexOfFirstItem, indexOfLastItem);
+  // const indexOfLastItem = currentPage * itemsPerPage;
+  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  // const currentItems = (filteredComplaint || []).slice(indexOfFirstItem, indexOfLastItem);
 
   // const currentItems = complaint.slice(indexOfFirstItem, indexOfLastItem);
 
@@ -380,7 +390,7 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
                       </tr>
                     </thead>
                     <tbody>
-                      {currentItems.map(function (komplain) {
+                      {filteredComplaint.map(function (komplain) {
                         return <ListComplaint key={komplain.id} komplain={komplain} onEditModal={() => onEditModal(komplain, updateComplaint)} deleteModal={() => deleteModal(komplain)} />;
                       })}
                     </tbody>
@@ -391,10 +401,10 @@ export default function TableComplaint({ onEditModal, deleteModal, itemsPerPage,
                       {currentPage} | {Math.ceil(totalItems / itemsPerPage)}
                     </div>
                     <div className="button">
-                      <button className="button-arrow-left" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+                      <button className="button-arrow-left" onClick={previousPageChange} disabled={currentPage === 1}>
                         <Icon icon="formkit:arrowleft" width="24" style={{ margin: "6px" }} />
                       </button>
-                      <button className="button-arrow-right" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+                      <button className="button-arrow-right" onClick={nextPageChange} disabled={currentPage === totalPages}>
                         <Icon icon="formkit:arrowright" width="24" style={{ margin: "6px" }} />
                       </button>
                     </div>
