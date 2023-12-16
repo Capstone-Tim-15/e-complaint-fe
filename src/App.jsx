@@ -17,6 +17,7 @@ import Kategori from "./pages/Kategori";
 import TambahKategori from "./components/Kategori/TambahKategori";
 import FaqPage from "./pages/FaqPage";
 import DetailComplaint from "./components/Modal/detail";
+import ChatContent from "./components/CustomerServ/ChatContent";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/notification" element={<Notification />}></Route>
         <Route path="/faq" element={<FaqPage />}></Route>
         <Route path="/detail-complaint/:id" element={<DetailComplaint />}></Route>
+        <Route path="/chat/:id" element={<ChatContent />}></Route>
       </Routes>
     </Router>
   );
