@@ -17,6 +17,8 @@ export default function LandingPage() {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate("/dashboard");
+    } else if (localStorage.getItem("token")) {
+      navigate("/");
     }
   }, []);
 
