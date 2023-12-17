@@ -20,6 +20,9 @@ export default function DetailComplaint() {
   const { token } = useAuth();
   const imageProfile = complaint?.photoImage || defaultProfil;
   const [newMessage, setNewMessage] = useState("")
+  const descriptionImage = `https://res.cloudinary.com/dua3iphs9/image/upload/v1700572036/${complaint && complaint.imageUrl}`;
+  console.log(descriptionImage,'l')
+  const imageDes = descriptionImage || imageDefault;
 
   const fetchDataDetail = async () => {
     try {
@@ -91,7 +94,7 @@ export default function DetailComplaint() {
             </div>
             <div className="content-detail">
               <div className="left">
-                <img src={imageDefault} alt="image-detail" />
+                <img src={imageDes} alt="image-detail"/>
                 <h6>Deskripsi</h6>
                 <div className="card card-deskripsi">
                   <p>{complaint && complaint.content}</p>
