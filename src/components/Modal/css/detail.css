@@ -105,10 +105,12 @@
 }
 
 .left > img {
-    width: 539px;
+    width: 100%;
+    /* height: auto; */
     height: 237px;
     border-radius: 8px;
     margin-top: 1rem;
+    object-fit: cover;
 }
 
 .left > h6 {

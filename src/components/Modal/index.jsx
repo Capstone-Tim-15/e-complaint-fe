@@ -115,6 +115,7 @@ export default function Edit({ onEditModal, editData, id, updateComplaint, categ
     category: "",
     status: "",
   });
+
   const [formError, setFormError] = useState({
     category: false,
     status: false,
@@ -125,10 +126,12 @@ export default function Edit({ onEditModal, editData, id, updateComplaint, categ
       setComplaint({ category, status });
     }
   }, [editData]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setComplaint({ ...complaint, [name]: value });
+    setComplaint((prevComplaint) => ({ ...prevComplaint, [name]: value }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { category, status } = complaint;
@@ -141,24 +144,25 @@ export default function Edit({ onEditModal, editData, id, updateComplaint, categ
       setFormError(errors);
       return;
     }
+
     try {
       await axios.put(
         `https://api.govcomplain.my.id/admin/complaint?complaint_id=${id}`,
         {
-          category: complaint.category,
-          status: complaint.status,
+          category: { name: category.CategoryName },
+          status,
           // description,
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      // Assuming `category` is the new category value and `id` is the complaint id
-      await axios.put(
-        `https://api.govcomplain.my.id/admin/category/${id}`,
-        {
-          category: complaint.category,
-        },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      // await axios.put(
+      //   `https://api.govcomplain.my.id/admin/category/${category.id}`,
+      //   {
+      //     name: category.name,
+      //   },
+      //   { headers: { Authorization: `Bearer ${token}` } }
+      // );
+
       onEditModal();
       // Merbarui data complaint di parent component
       updateComplaint();
@@ -176,24 +180,7 @@ export default function Edit({ onEditModal, editData, id, updateComplaint, categ
       console.log("Gagal Mengedit Data", error);
     }
   };
-  // useEffect(() => {
-  //   if (id) {
-  //     const fetchComplaintData = async () => {
-  //       try {
-  //         console.log("Fetching data for id:", id);
-  //         const response = await axios.get(`https://api.govcomplain.my.id/admin/complaint/search?${id}`, {
-  //           headers: { Authorization: `Bearer ${token}` },
-  //         });
-  //         const { category, status } = response.data;
-  //         setComplaint({ category, status });
-  //       } catch (error) {
-  //         console.error("Gagal memuat data complain untuk diedit", error);
-  //       }
-  //     };
-  //     fetchComplaintData();
-  //   }
-  // }, [id, token]);
-
+  
   return (
     <StyledModal>
       <div className="overlay">
@@ -217,7 +204,6 @@ export default function Edit({ onEditModal, editData, id, updateComplaint, categ
                       </option>
                     ))}
                   </select>
-                  {/* <input name="category" id="inputCategory" value={complaint.category} onChange={handleChange}></input> */}
                   {formError.category && <div className="error">{formError.category}</div>}
                 </label>
               </div>
@@ -233,17 +219,9 @@ export default function Edit({ onEditModal, editData, id, updateComplaint, categ
                     <option value="Diproses">Diproses</option>
                     <option value="Selesai">Selesai</option>
                   </select>
-                  {/* <input name="status" id="inputStatus" value={complaint.status} onChange={handleChange} /> */}
                   {formError.state && <div className="error">{formError.status}</div>}
                 </label>
               </div>
-              {/* <div className="description">
-                <label>
-                  <span>Komentar Status</span>
-                  <textarea name="description" id="inputdescription" value={complaint.description} onChange={handleChange}></textarea>
-                  {formError.description && <div className="error">{formError.description}</div>}
-                </label>
-              </div> */}
               <div className="actions">
                 <button className="canceling" onClick={onEditModal}>
                   Batal
