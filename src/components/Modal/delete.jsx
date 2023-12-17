@@ -28,7 +28,6 @@ export default function Delete({
 
       if (response.status === 200) {
         console.log(`delete id: ${itemId} berhasil`);
-        window.location.reload();
       }
       onDeleteSuccess(itemId);
     } catch (error) {

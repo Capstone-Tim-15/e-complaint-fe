@@ -15,10 +15,10 @@ export default function LandingPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      navigate("/dashboard");
-    } else if (localStorage.getItem("token")) {
+    if (!localStorage.getItem("token")) {
       navigate("/");
+    } else if (localStorage.getItem("token")) {
+      navigate("/dashboard");
     }
   }, []);
 
