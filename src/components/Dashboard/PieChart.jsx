@@ -22,7 +22,7 @@ function ChartPie() {
           }
         );
 
-        const dummyData = [
+        const dataApi = [
           {
             id: 0,
             value: response.data.results.filter(
@@ -46,7 +46,7 @@ function ChartPie() {
           },
         ];
 
-        setComplaintData(dummyData);
+        setComplaintData(dataApi);
       } catch (error) {
         console.error("Error fetching complaint data:", error);
       }
