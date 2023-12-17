@@ -1,29 +1,37 @@
 import { Icon } from "@iconify/react";
 import styled from "styled-components";
-import gambar from "../../assets/delete-Icon.png"
+import gambar from "../../assets/delete-Icon.png";
 import { Modal, Button } from "react-bootstrap";
-import './css/delete.css';
+import "./css/delete.css";
 import axios from "axios";
 import { useState } from "react";
 import { useAuth } from "../../contexts/authContext";
 
-export default function Delete({ deleteModal, selectedIdForDelete, onDeleteSuccess }) {
+export default function Delete({
+  deleteModal,
+  selectedIdForDelete,
+  onDeleteSuccess,
+}) {
   let [data, setData] = useState([]);
   const { token } = useAuth();
   const itemId = selectedIdForDelete.id;
-  
+
   const handleDelete = async () => {
     // console.log(`delete id: ${selectedIdForDelete.id}`);
     try {
-      const response = await axios.delete(`https://api.govcomplain.my.id/admin/complaint?complaint_id=${itemId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-      
+      const response = await axios.delete(
+        `https://api.govcomplain.my.id/admin/complaint?complaint_id=${itemId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
       if (response.status === 200) {
         console.log(`delete id: ${itemId} berhasil`);
+        window.location.reload();
       }
       onDeleteSuccess(itemId);
-    } catch (error){
+    } catch (error) {
       console.error(`Error`, error);
     }
     deleteModal();
@@ -38,11 +46,18 @@ export default function Delete({ deleteModal, selectedIdForDelete, onDeleteSucce
             <img src={gambar} alt="icon-delete" />
           </div>
           <div className="title">
-            <h4>Apakah anda yakin <span className="title-2">ingin menghapus keluhan?</span></h4>
+            <h4>
+              Apakah anda yakin{" "}
+              <span className="title-2">ingin menghapus keluhan?</span>
+            </h4>
           </div>
           <div className="actions">
-            <button className="cancel" onClick={deleteModal}>Tidak</button>
-            <button className="save" onClick={handleDelete}>Ya</button>
+            <button className="cancel" onClick={deleteModal}>
+              Tidak
+            </button>
+            <button className="save" onClick={handleDelete}>
+              Ya
+            </button>
           </div>
         </div>
       </div>
