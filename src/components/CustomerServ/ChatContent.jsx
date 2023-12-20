@@ -102,6 +102,7 @@ useEffect(() => {
                     </div>
                     <div className="content__footer">
                       <input
+                          className="input_chat"
                           type="text"
                           placeholder="Kirim pesan"
                           onChange={onStateChange}
