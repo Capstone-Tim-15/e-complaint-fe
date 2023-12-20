@@ -11,26 +11,32 @@ const FormBerita = () => {
   const { token } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    date: "",
+    adminId: "PasheE",
     title: "",
     content: "",
+    categoryId: "3QRQv1",
+    attachment: null,
   });
 
-  function makeRandomString(length) {
-    let result = "";
-    const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  }
-
-  const handleChange = (e) => {
+  const handleChangeTittle = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      title: e.target.value,
+    });
+  };
+
+  const handleChangeContent = (e) => {
+    setFormData({
+      ...formData,
+
+      content: e.target.value,
+    });
+  };
+
+  const handleImageChange = (e) => {
+    setFormData({
+      ...formData,
+      attachment: e.target.files[0],
     });
   };
 
@@ -38,17 +44,22 @@ const FormBerita = () => {
     e.preventDefault();
 
     try {
+      const { adminId, title, content, categoryId, attachment } = formData;
+
+      const formDataObj = new FormData();
+      formDataObj.append("adminId", adminId);
+      formDataObj.append("title", title);
+      formDataObj.append("content", content);
+      formDataObj.append("categoryId", categoryId);
+      formDataObj.append("attachment", attachment);
+
       const response = await axios.post(
         "https://api.govcomplain.my.id/admin/news",
-        JSON.stringify({
-          adminId: "PasheE",
-          title: formData.title,
-          content: formData.content,
-        }),
+        formDataObj,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -94,19 +105,7 @@ const FormBerita = () => {
                   as={Row}
                   className="mb-4"
                   controlId="formHorizontalEmail"
-                >
-                  <Form.Label lg="2" column as={"Label"}>
-                    Tanggal
-                  </Form.Label>
-                  <Col lg="9" className="ms-3">
-                    <Form.Control
-                      type="date"
-                      name="date"
-                      onChange={handleChange}
-                      value={formData.date}
-                    />
-                  </Col>
-                </Form.Group>
+                ></Form.Group>
                 <Form.Group
                   as={Row}
                   className="mb-4"
@@ -119,7 +118,7 @@ const FormBerita = () => {
                     <Form.Control
                       type="text"
                       name="title"
-                      onChange={handleChange}
+                      onChange={handleChangeTittle}
                       value={formData.title}
                     />
                   </Col>
@@ -137,7 +136,7 @@ const FormBerita = () => {
                       as="textarea"
                       rows={10}
                       name="content"
-                      onChange={handleChange}
+                      onChange={handleChangeContent}
                       value={formData.content}
                     />
                   </Col>
@@ -151,7 +150,11 @@ const FormBerita = () => {
                     Gambar
                   </Form.Label>
                   <Col lg="9" className="ms-3">
-                    <Form.Control type="file" name="image" />
+                    <Form.Control
+                      type="file"
+                      name="attachment"
+                      onChange={handleImageChange}
+                    />
                   </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-4">
