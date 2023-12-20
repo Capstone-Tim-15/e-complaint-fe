@@ -1,6 +1,5 @@
 .chat__header {
   color: var(--PRIMARI, #E02216);
-  font-family: Nunito;
   font-size: 36px;
   font-style: normal;
   font-weight: 700;
@@ -23,8 +22,8 @@
     flex-shrink: 0;
     overflow: auto;
     scrollbar-color: #E43E33;
-    width: 100%; /* Menggunakan lebar 100% agar dapat menyesuaikan dengan parent .col-lg-10 */
-    max-width: 1067px; /* Maksimum lebar yang diinginkan */
+    width: 100%; 
+    max-width: 1067px; 
     height: 680px;
   }
 
@@ -67,6 +66,8 @@
   .chat__item__content {
     display: inline-flex;
     padding: 10px;
+    width: 581px;
+    height: 147px;
     flex-direction: column;
     align-items: flex-start;
     border-radius: 20px;
@@ -81,16 +82,17 @@
   font-weight: 400;
   line-height: normal;
   text-overflow: ellipsis;
+  margin-top: 45px;
 }
   
-  .chat__item.other { /* avatar enduser */
+  .chat__item.other { 
     flex-direction: row-reverse;
     transform-origin: left;
     margin-right: 20px;
     margin-left: 0px;
     gap: 10px;
   }
-  .chat__item.me { /* avatar admin */
+  .chat__item.me { 
     margin-right: 20px;
     margin-left: 0px;
     gap: 10px;
@@ -103,22 +105,31 @@
     border-radius: 20px;
     background: #fff6f6;
   }
-
-  .content__footer {
-    flex-shrink: 0;
-    overflow: auto;
-    width: 100%;
-    max-width: 1067px;
-  }
   
-  input {
+  .content__footer {
     display: flex;
+    width: 1082px;
+    height: 70px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
     border-radius: 0 0 8px 8px;
     box-sizing: border-box;
     align-items: center;
+    background: #FFF;
+    box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.25);
+
+  }
+
+  input {
+    display: flex;
+    width: 1082px;
+    height: 70px;
+    padding: 10px 10px 10px 40px;
+    align-items: center;
+    gap: 850px;
+    flex-shrink: 0;
+    border-radius: 20px;
     background: #FFF;
     box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.25);
   }

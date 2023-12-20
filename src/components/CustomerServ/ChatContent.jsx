@@ -10,14 +10,14 @@ const ChatContent = () => {
   const [chat, setChat] = useState([
 
     {
-      key: 2,
+      key: 1,
       type: "other",
-      msg: "ini endUser. <br> Halo, saya mau mengajukan keluhan mengenai pelayanan RSUD Embung Fatimah. Apakah saya bisa menuliskan keluhan disini atau harus ke website RS yang bersangkutan?",
+      msg: "Halo, saya mau mengajukan keluhan mengenai pelayanan RSUD Embung Fatimah. Apakah saya bisa menuliskan keluhan disini atau harus ke website RS yang bersangkutan?",
     },
     {
-      key: 3,
+      key: 2,
       type: "",
-      msg: "ini admin. <br> Halo, Terima kasih telah menggunakan layanan Gov-Complaint! Terkait permasalahan yang anda tanyakan, sehubung dengan RSUD Embung Fatimah merupakan RS milik Pemerintah, anda dapat menuliskan kritik dan saran melalui aplikasi Gov-Complaint dengan memilih kategori 'Pelayanan'.",
+      msg: "Halo, Terima kasih telah menggunakan layanan Gov-Complaint! Terkait permasalahan yang anda tanyakan, sehubung dengan RSUD Embung Fatimah merupakan RS milik Pemerintah, anda dapat menuliskan kritik dan saran melalui aplikasi Gov-Complaint dengan memilih kategori 'Pelayanan'.",
     },
     
   ]);
@@ -106,9 +106,10 @@ useEffect(() => {
                           placeholder="Kirim pesan"
                           onChange={onStateChange}
                           value={msg}
+                          style={{ backgroundColor: 'transparent' }}
                       />
                       <button type="submit" className="button-chat">
-                        <Icon icon="material-symbols-light:send" color="rgba(0, 0, 0, 0.25098039215686274)" className="chat-button" />
+                        
                       </button>    
                     </div>
                   </div>

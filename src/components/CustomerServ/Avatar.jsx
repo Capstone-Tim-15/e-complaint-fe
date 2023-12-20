@@ -6,7 +6,7 @@ const Avatar = (props) => {
   return (
     <div className="avatar">
       <div className="avatar-img">
-        <Avatar image="defaultProfil.jpeg" />
+        <img src={props.image} alt="#" />
       </div>
     
     </div>
