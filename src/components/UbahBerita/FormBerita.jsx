@@ -12,8 +12,8 @@ const FormBerita = () => {
     date: "",
     title: "",
     content: "",
-    id: '',
-    adminId: '',
+    id: "",
+    adminId: "",
   });
 
   useEffect(() => {
@@ -22,32 +22,38 @@ const FormBerita = () => {
       navigate("/login");
     }
 
-    const id = (new URLSearchParams(document.location.search)).get('id');
+    const id = new URLSearchParams(document.location.search).get("id");
     if (!id) {
       navigate("/berita");
     }
 
-    axios.get('https://api.govcomplain.my.id/admin/news/search?id=' + id, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      const { data } = res;
-      const {results} = data;
-      const { adminId, content, date, title } = results;
-
-      const dateObj = new Date(date);
-
-      setFormData({
-        date: `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}-${dateObj.getDate().toString().padStart(2, '0')}`,
-        title,
-        content,
-        id,
-        adminId,
+    axios
+      .get("https://api.govcomplain.my.id/admin/news/search?id=" + id, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
-    })
-  }, [])
-  
+      .then((res) => {
+        const { data } = res;
+        const { results } = data;
+        const { adminId, content, date, title } = results;
+
+        const dateObj = new Date(date);
+
+        setFormData({
+          date: `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1)
+            .toString()
+            .padStart(2, "0")}-${dateObj
+            .getDate()
+            .toString()
+            .padStart(2, "0")}`,
+          title,
+          content,
+          id,
+          adminId,
+        });
+      });
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -63,7 +69,7 @@ const FormBerita = () => {
       const token = localStorage.getItem("token");
       const response = await axios.put(
         `https://api.govcomplain.my.id/admin/news/${formData.id}`,
-        {...formData, ...{date: new Date(formData.date)}},
+        { ...formData, ...{ date: new Date(formData.date) } },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -170,23 +176,20 @@ const FormBerita = () => {
                     Gambar
                   </Form.Label>
                   <Col lg="9" className="ms-3">
-                    <Form.Control
-                      type="file"
-                      name="image"
-                    />
+                    <Form.Control type="file" name="image" />
                   </Col>
-                  </Form.Group>
-                  <Form.Group as={Row} className="mb-4">
-                  <Col sm={{ span: 10, offset: 7, }}>
-                      <Button
-                        type="submit"
-                        variant="danger"
-                        className="button__form-berita"
-                      >
-                        Save
-                      </Button>
-                      </Col>
-                      </Form.Group>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-4">
+                  <Col sm={{ span: 10, offset: 7 }}>
+                    <Button
+                      type="submit"
+                      variant="danger"
+                      className="button__form-berita"
+                    >
+                      Save
+                    </Button>
+                  </Col>
+                </Form.Group>
               </Form>
             </Col>
           </Col>

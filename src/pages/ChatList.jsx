@@ -38,30 +38,37 @@ const ChatList = () => {
             <Sidebar />
           </Col>
           <Col lg="10">
-            <div>
-              <h1 className="chat">Chat</h1>
-
-              <div className="chat-list-container">
-                {chatList?.map((chat) => (
-                  <Card key={chat.id}>
-                    <Card.Body className="list-chat">
-                      <div>
-                        <img
-                          src={chat.profile}
-                          alt="Profile"
-                          style={{
-                            width: "55px",
-                            height: "55px",
-                            borderRadius: "100px",
-                          }}
-                        />
-                      </div>
-                      <Card.Title>{chat.sender}</Card.Title>
-                    </Card.Body>
-                  </Card>
-                ))}
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-10">
+                    <div className="col-lg-6">
+                      <h1 className="text1 ms-4 mb-3">Chat</h1>
+                    </div>
+                    <div className="mt-2">
+                    <div className="chat-list-container">
+                      {chatList?.map((chat) => (
+                        <Card key={chat.id} border={false}>
+                          <Card.Body className="list-chat">
+                            <div>
+                              <img
+                                src={chat.profile}
+                                alt="Profile"
+                                style={{
+                                  width: "55px",
+                                  height: "55px",
+                                  borderRadius: "100px",
+                                }}
+                              />
+                            </div>
+                            <Card.Title>{chat.sender}</Card.Title>
+                          </Card.Body>
+                        </Card>
+                      ))}
+                    </div>
+                    <FaqButton />
+                    </div>
+                </div>
               </div>
-              <FaqButton />
             </div>
           </Col>
         </Row>
